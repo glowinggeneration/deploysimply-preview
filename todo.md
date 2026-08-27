@@ -1,5 +1,22 @@
 # Responsive UI/UX Audit
 
+## Mobile Dock Navigation
+
+- [x] Inspect the existing mobile bottom navigation markup and route bindings.
+- [x] Replace the mobile navigation presentation with a magnifying Dock-style control.
+- [x] Preserve route destinations, active state, keyboard focus, and minimum touch targets.
+- [x] Verify the Dock on the landing page and dashboard at mobile width.
+- [x] Run checks and save a checkpoint.
+
+
+## Hero Background Rollback
+
+- [ ] Remove the GradientWaves canvas markup and initialization.
+- [ ] Restore the previous static pink gradient and drift animation layer.
+- [ ] Verify hero rendering at mobile and desktop sizes.
+- [ ] Run checks and save a rollback checkpoint.
+
+
 ## Hero Motion Update
 
 - [x] Inspect the hero markup, current background layers, and existing animation rules.

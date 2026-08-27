@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Add Per-Character Text Effects
+
+- [x] Locate all seven supplied phrases in the public page markup.
+- [x] Add a reusable per-character fade effect without changing any phrase text.
+- [x] Preserve emphasis spans, layout, cursor behavior, and reduced-motion accessibility.
+- [x] Verify the affected pages and save a checkpoint.
+
+
 ## Align FAQ Card To Reference
 
 - [x] Audit the current FAQ card content visibility and navigation rail.

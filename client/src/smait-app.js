@@ -380,14 +380,14 @@ function screenPersonas(){
   const personaCards = TH_ITEMS.map((p, i) => `<article class="public-persona-card comet-card"><div class="public-persona-art"><img src="${p.image}" alt="${p.name}" /></div><div><p class="public-kicker">0${i+1}</p><h2>${p.name}</h2><p>${p.tagline}</p><a href="#/waitlist">Choose this voice ${icon('arrow',15)}</a></div></article>`).join('');
   const voiceBackdrops = VOICE_ITEMS.map((voice, i) => `<div class="public-voice-backdrop${i===0?' is-active':''}" data-voice-backdrop="${i}" style="background-image:url('${voice.image}')" aria-hidden="true"></div>`).join('');
   const voiceAvatars = VOICE_ITEMS.map((voice, i) => `<button type="button" class="public-voice-avatar${i===0?' is-active':''}" data-voice-index="${i}" aria-label="Show ${voice.name}" aria-selected="${i===0?'true':'false'}"><span class="public-voice-dot" aria-hidden="true"></span><span class="public-voice-avatar-image"><img loading="lazy" src="${voice.image}" alt="${voice.name}" /></span></button>`).join('');
-  return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1>Three ways to sound <em>like you.</em></h1><p class="public-lead">A persona represents a demographic group. A voice is the individual character within it.</p></section><section class="public-persona-grid">${personaCards}</section><section class="public-voices-stage" id="public-voices-stage"><div class="public-voices-backdrops">${voiceBackdrops}</div><div class="public-voices-scrim" aria-hidden="true"></div><div class="public-voices-stage-content"><div class="public-voices-stage-top"><div><p class="public-voices-eyebrow">Different voices</p><h2>voices behind every <span class="public-voice-highlight">conversation</span>.</h2></div><p class="public-voice-description" id="public-voice-description">${VOICE_ITEMS[0].description}</p></div><div class="public-voices-stage-bottom"><div class="public-voice-picker" role="tablist" aria-label="Choose a voice">${voiceAvatars}</div><div class="public-voice-meta-rail"><span class="public-voice-name" id="public-voice-name">${VOICE_ITEMS[0].name}</span><span class="public-voice-role" id="public-voice-role">${VOICE_ITEMS[0].role}</span><span class="public-voice-tenure">${VOICE_ITEMS[0].tenure}</span><a class="public-voice-whatsapp" href="#/contact">WhatsApp</a></div></div></div></section>`);
+  return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1 class="smait-text-effect">Three ways to sound <em>like you.</em></h1><p class="public-lead">A persona represents a demographic group. A voice is the individual character within it.</p></section><section class="public-persona-grid">${personaCards}</section><section class="public-voices-stage" id="public-voices-stage"><div class="public-voices-backdrops">${voiceBackdrops}</div><div class="public-voices-scrim" aria-hidden="true"></div><div class="public-voices-stage-content"><div class="public-voices-stage-top"><div><p class="public-voices-eyebrow">Different voices</p><h2 class="smait-text-effect">voices behind every <span class="public-voice-highlight">conversation</span>.</h2></div><p class="public-voice-description" id="public-voice-description">${VOICE_ITEMS[0].description}</p></div><div class="public-voices-stage-bottom"><div class="public-voice-picker" role="tablist" aria-label="Choose a voice">${voiceAvatars}</div><div class="public-voice-meta-rail"><span class="public-voice-name" id="public-voice-name">${VOICE_ITEMS[0].name}</span><span class="public-voice-role" id="public-voice-role">${VOICE_ITEMS[0].role}</span><span class="public-voice-tenure">${VOICE_ITEMS[0].tenure}</span><a class="public-voice-whatsapp" href="#/contact">WhatsApp</a></div></div></div></section>`);
 }
 function screenPricing(){
   const tiers = [['Starter','For finding your first signal.','3 personas','Reply previews','Approval queue'],['Team','For teams moving every day.','3 personas + custom voice','Shared reply review','Priority support'],['Studio','For brands scaling the conversation.','Custom persona system','Multi-brand workspaces','Managed rollout']];
-  return publicPage('pricing', `<section class="public-hero public-hero--compact"><p class="public-kicker">Simple by design</p><h1>Choose your level of <em>direction.</em></h1><p class="public-lead">Start with the voices you need now. Add depth as your team finds its rhythm.</p></section><section class="public-pricing-grid">${tiers.map((tier, i) => `<article class="public-price-card comet-card${i===1?' is-featured':''}">${i===1?'<span class="public-price-badge">Most flexible</span>':''}<p class="public-kicker">${tier[0]}</p><h2>${tier[1]}</h2><ul>${tier.slice(2).map(item=>`<li>${icon('check',14)}${item}</li>`).join('')}</ul><a class="public-button${i===1?' public-button--dark':''}" href="#/waitlist">Join the waitlist ${icon('arrow',15)}</a></article>`).join('')}</section>`);
+  return publicPage('pricing', `<section class="public-hero public-hero--compact"><p class="public-kicker">Simple by design</p><h1 class="smait-text-effect">Choose your level of <em>direction.</em></h1><p class="public-lead">Start with the voices you need now. Add depth as your team finds its rhythm.</p></section><section class="public-pricing-grid">${tiers.map((tier, i) => `<article class="public-price-card comet-card${i===1?' is-featured':''}">${i===1?'<span class="public-price-badge">Most flexible</span>':''}<p class="public-kicker">${tier[0]}</p><h2>${tier[1]}</h2><ul>${tier.slice(2).map(item=>`<li>${icon('check',14)}${item}</li>`).join('')}</ul><a class="public-button${i===1?' public-button--dark':''}" href="#/waitlist">Join the waitlist ${icon('arrow',15)}</a></article>`).join('')}</section>`);
 }
 function screenContact(){
-  return publicPage('contact', `<section class="public-hero public-hero--split public-contact"><div><p class="public-kicker">Start a conversation</p><h1>Let’s make your next reply <em>sound like you.</em></h1><p class="public-lead">Tell us where your team is headed and we’ll show you how SMAIT can help you get there.</p></div><form class="public-contact-form comet-card" id="public-contact-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A little context helps."></textarea></label><button class="public-button" type="submit">Send note ${icon('arrow',15)}</button><p class="public-form-success" id="public-contact-success" hidden>Thanks — your note is ready for the SMAIT team.</p></form></section>`);
+  return publicPage('contact', `<section class="public-hero public-hero--split public-contact"><div><p class="public-kicker">Start a conversation</p><h1 class="smait-text-effect">Let’s make your next reply <em>sound like you.</em></h1><p class="public-lead">Tell us where your team is headed and we’ll show you how SMAIT can help you get there.</p></div><form class="public-contact-form comet-card" id="public-contact-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A little context helps."></textarea></label><button class="public-button" type="submit">Send note ${icon('arrow',15)}</button><p class="public-form-success" id="public-contact-success" hidden>Thanks — your note is ready for the SMAIT team.</p></form></section>`);
 }
 function screenWaitlist(){
   return publicPage('waitlist', `<section class="public-hero public-hero--compact public-waitlist-head"><p class="public-kicker">Early access</p><h1>Get closer to the next <em>reply.</em></h1><p class="public-lead">Leave your details and we’ll keep you close to the next release.</p></section><section class="public-waitlist"><form id="public-waitlist-form" class="public-waitlist-form comet-card"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>Brand or team<input name="brand" placeholder="Who are you building for?" /></label><button class="public-button" type="submit">Join waitlist ${icon('arrow',15)}</button><p class="public-form-success" id="public-waitlist-success" hidden>You’re on the list. We’ll be in touch soon.</p></form><aside class="public-waitlist-note comet-card"><span>“</span><p>The best reply is the one that sounds like it was meant for this exact moment.</p><small>SMAIT principle 01</small></aside></section>`);
@@ -561,7 +561,7 @@ function smaitBentoMetrics(){
   return `
   <section class="smait-bento-wrap">
     <div class="smait-bento-intro">
-      <h2 class="th-dia">Built for <span class="smait-bento-accent">scale</span>, not just replies</h2>
+      <h2 class="th-dia smait-text-effect">Built for <span class="smait-bento-accent">scale</span>, not just replies</h2>
       <p>The infrastructure behind every SMAIT persona, always watching, always on.</p>
     </div>
     <div class="smait-bento-grid">
@@ -731,7 +731,7 @@ function smaitFalconSection(){
   <section class="falcon-wrap">
     <img id="falcon-witty-bg" class="falcon-witty-bg" src="${TH_ITEMS[0].image}" alt="" aria-hidden="true" />
     <div class="falcon-intro">
-      <h2 class="th-dia">Personas at <span class="falcon-intro-accent">Work</span></h2>
+      <h2 class="th-dia smait-text-effect">Personas at <span class="falcon-intro-accent">Work</span></h2>
       <p>A look inside what SMAIT personas report: conversations, sentiment, reach and outcomes.</p>
     </div>
     <section class="falcon-scene" aria-label="SMAIT operations overview">
@@ -827,7 +827,7 @@ function smaitTestimonials(){
     <img id="smait-testi-persona-bg" class="smait-testi-persona-bg" src="${TH_ITEMS[1].image}" alt="" aria-hidden="true" />
     <div class="smait-testi-inner">
       <div class="smait-testi-copy">
-        <h2 class="th-dia">Trusted by teams who move <span class="smait-testi-accent">fast on social</span></h2>
+        <h2 class="th-dia smait-text-effect">Trusted by teams who move <span class="smait-testi-accent">fast on social</span></h2>
         <p>Real feedback from teams who let their personas handle the replies.</p>
       </div>
       <div class="smait-testi-viewport" id="smait-testi-viewport">
@@ -1806,6 +1806,28 @@ function bindPublicPage(){
 }
 
 // ---------- helpers ----------
+function initTextEffects(root = document){
+  const targets = Array.from(root.querySelectorAll('.smait-text-effect:not([data-text-effect-ready])'));
+  targets.forEach((element) => {
+    element.dataset.textEffectReady = 'true';
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while(walker.nextNode()) textNodes.push(walker.currentNode);
+    textNodes.forEach((node) => {
+      if(!node.nodeValue || !node.nodeValue.trim()) return;
+      const fragment = document.createDocumentFragment();
+      Array.from(node.nodeValue).forEach((character, index) => {
+        const span = document.createElement('span');
+        span.className = 'smait-text-char';
+        span.style.setProperty('--char-index', index);
+        span.textContent = character;
+        fragment.appendChild(span);
+      });
+      node.replaceWith(fragment);
+    });
+    requestAnimationFrame(() => element.classList.add('is-text-revealed'));
+  });
+}
 function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function escapeAttr(s){ return escapeHtml(s); }
 
@@ -1839,6 +1861,7 @@ function render(){
     initTHCursor(document.querySelector('.public-page'));
     initTHTheme();
   }
+  initTextEffects(document);
 }
 
 render();

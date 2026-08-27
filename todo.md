@@ -1,5 +1,12 @@
 # Responsive UI/UX Audit
 
+## Remove CometCard From Testimonials
+
+- [x] Remove the CometCard class from the testimonial cards only.
+- [x] Keep CometCard behavior active for Personas at Work and FAQ.
+- [x] Verify the landing page and save a checkpoint.
+
+
 ## CometCard Treatments
 
 - [ ] Inspect the social proof, Personas at Work, and FAQ card markup and styles.

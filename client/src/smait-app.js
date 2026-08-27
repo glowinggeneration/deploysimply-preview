@@ -759,7 +759,7 @@ const SMAIT_TESTIMONIALS = [
 function smaitTestimonials(){
   const initials = (name) => name.split(' ').map(n => n[0]).join('');
   const card = (t) => `
-    <div class="smait-testi-card comet-card" data-cursor="Read">
+    <div class="smait-testi-card" data-cursor="Read">
       <div class="smait-testi-card-top">
         <div class="smait-testi-avatar">${initials(t.name)}</div>
         <div class="smait-testi-who">

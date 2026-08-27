@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Auto-Rotate Different Voices
+
+- [x] Add timed voice rotation to the full-bleed navigator.
+- [x] Keep manual avatar selection and restart the rotation after a manual choice.
+- [x] Pause rotation for reduced-motion users and when the tab is hidden.
+- [x] Verify the rotating navigator on desktop and mobile, then save a checkpoint.
+
+
 ## Redesign Different Voices Navigation
 
 - [x] Replace the block-style voice cards with a full-bleed active portrait navigator.

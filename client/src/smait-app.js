@@ -1616,12 +1616,18 @@ function screenNotFound(){
 function bindVoiceNavigator(){
   const stage = document.getElementById('public-voices-stage');
   if(!stage) return;
+  if(window.__smaitVoiceCleanup) window.__smaitVoiceCleanup();
   const description = document.getElementById('public-voice-description');
   const name = document.getElementById('public-voice-name');
   const role = document.getElementById('public-voice-role');
   const avatars = Array.from(stage.querySelectorAll('[data-voice-index]'));
   const backdrops = Array.from(stage.querySelectorAll('[data-voice-backdrop]'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let activeIndex = 0;
+  let rotationTimer = null;
+  let paused = false;
   const setActive = (index) => {
+    activeIndex = index;
     const voice = VOICE_ITEMS[index];
     avatars.forEach((avatar, i) => {
       const active = i === index;
@@ -1634,8 +1640,30 @@ function bindVoiceNavigator(){
     name.textContent = voice.name;
     role.textContent = voice.role;
   };
-  avatars.forEach((avatar) => avatar.addEventListener('click', () => setActive(Number(avatar.dataset.voiceIndex))));
+  const stopRotation = () => {
+    if(rotationTimer) { clearInterval(rotationTimer); rotationTimer = null; }
+  };
+  const startRotation = () => {
+    stopRotation();
+    if(reduceMotion || document.hidden || paused) return;
+    rotationTimer = setInterval(() => setActive((activeIndex + 1) % VOICE_ITEMS.length), 5000);
+  };
+  const onVisibilityChange = () => document.hidden ? stopRotation() : startRotation();
+  const pause = () => { paused = true; stopRotation(); };
+  const resume = () => { paused = false; startRotation(); };
+  avatars.forEach((avatar) => avatar.addEventListener('click', () => { setActive(Number(avatar.dataset.voiceIndex)); startRotation(); }));
+  stage.addEventListener('mouseenter', pause);
+  stage.addEventListener('mouseleave', resume);
+  stage.addEventListener('focusin', pause);
+  stage.addEventListener('focusout', (event) => { if(!stage.contains(event.relatedTarget)) resume(); });
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  window.__smaitVoiceCleanup = () => {
+    stopRotation();
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    window.__smaitVoiceCleanup = null;
+  };
   setActive(0);
+  startRotation();
 }
 function bindPersonasPage(){
   bindPublicPage();
@@ -1686,6 +1714,7 @@ const ROUTES = {
 const root = document.getElementById('root');
 function render(){
   const entry = ROUTES[route] || ROUTES['/404'];
+  if(window.__smaitVoiceCleanup) window.__smaitVoiceCleanup();
   document.body.classList.remove('smait-custom-cursor');
   root.innerHTML = entry.render();
   window.scrollTo(0,0);

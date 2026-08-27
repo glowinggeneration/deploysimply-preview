@@ -1935,3 +1935,8 @@ body { transition: background-color .3s ease, color .3s ease; }
   .public-nav--overlay { padding: 18px 18px; }
   .public-nav--overlay nav { top: 66px; right: 18px; min-width: 176px; }
 }
+
+/* Clickability guard: keep the landing toggle and opened panel above hero artwork and cursor layers. */
+.public-nav--overlay .public-nav-menu { position: relative; z-index: 3; pointer-events: auto; }
+.public-nav--overlay nav { z-index: 2; pointer-events: none; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .18s ease, transform .18s ease, visibility .18s ease; }
+.public-nav--overlay nav.is-open { pointer-events: auto; visibility: visible; opacity: 1; transform: translateY(0); }

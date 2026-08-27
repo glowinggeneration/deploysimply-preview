@@ -317,10 +317,10 @@ function publicNav(active){
     ['features','Features'], ['personas','Personas'], ['pricing','Pricing'], ['contact','Contact'],
   ];
   const wordmark = active === 'home' ? '' : '<a href="#/" class="public-wordmark">SMAIT<span>.</span></a>';
-  return `<header class="public-nav${active==='home'?' public-nav--overlay':''}">
+  return `<header class="public-nav${active==='home'?' public-nav--overlay':''}" data-public-nav="${active==='home'?'landing':'interior'}">
     ${wordmark}
-    <nav aria-label="Primary navigation">${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
-    <button class="public-nav-menu" type="button" aria-label="Open navigation" aria-expanded="false">${icon('menu',20)}</button>
+    <nav data-public-nav-panel aria-label="Primary navigation">${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
+    <button class="public-nav-menu" data-public-nav-toggle type="button" aria-label="Open navigation" aria-expanded="false">${icon('menu',20)}</button>
   </header>`;
 }
 function publicFooter(){
@@ -1771,10 +1771,13 @@ function bindFeaturesPage(){
   bindFeatureAccordion();
 }
 function bindPublicPage(){
-  const menu = document.querySelector('.public-nav-menu');
-  const navEl = document.querySelector('.public-nav nav');
+  const navRoot = document.querySelector('[data-public-nav]');
+  const menu = navRoot?.querySelector('[data-public-nav-toggle]');
+  const navEl = navRoot?.querySelector('[data-public-nav-panel]');
   if(menu && navEl){
-    menu.addEventListener('click', () => {
+    menu.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       const open = navEl.classList.toggle('is-open');
       menu.setAttribute('aria-expanded', String(open));
       menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
@@ -1784,6 +1787,13 @@ function bindPublicPage(){
       menu.setAttribute('aria-expanded', 'false');
       menu.setAttribute('aria-label', 'Open navigation');
     }));
+    document.addEventListener('keydown', (event) => {
+      if(event.key === 'Escape'){
+        navEl.classList.remove('is-open');
+        menu.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-label', 'Open navigation');
+      }
+    });
   }
   const waitlist = document.getElementById('public-waitlist-form');
   if(waitlist) waitlist.addEventListener('submit', (event) => {

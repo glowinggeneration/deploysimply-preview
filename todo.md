@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Fix Collapsed Menu Clickability
+
+- [x] Trace the landing menu click binding and stacking behavior.
+- [x] Fix the open/close interaction and right-side panel state.
+- [x] Preserve accessible labels, keyboard behavior, and existing links.
+- [x] Verify desktop/mobile clicks and save a checkpoint.
+
+
 ## Collapse Landing Navigation
 
 - [x] Collapse the landing-page navigation into a right-aligned menu control.

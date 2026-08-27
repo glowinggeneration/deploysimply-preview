@@ -356,8 +356,6 @@ function screenLanding(){
       <div class="th-ghost" aria-hidden="true"><span id="th-ghost-text">${thPerCharFade(TH_ITEMS[0].name.toUpperCase())}</span></div>
     </div>
 
-    <div class="th-brand">SMAIT</div>
-
     <div class="th-headline">
       <h1>${thPerWordBlur([{text:'every'},{text:'persona'}])}<br>${thPerWordBlur([{text:'is'},{text:'unique',em:true}], {baseDelay:0.33})}</h1>
       <p>Different voices.<br><strong>One purpose.</strong></p>

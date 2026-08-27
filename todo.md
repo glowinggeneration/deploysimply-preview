@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Make SMAIT Visible In Landing Top Navigation
+
+- [x] Inspect the landing top navigation wordmark and contrast.
+- [x] Make SMAIT clearly visible at the top on desktop and mobile.
+- [x] Preserve navigation behavior and the rest of the hero composition.
+- [x] Verify the landing page and save a checkpoint.
+
+
 ## Extend CometCard Treatment Across Public Pages
 
 - [x] Audit non-landing card classes and current CometCard initialization.

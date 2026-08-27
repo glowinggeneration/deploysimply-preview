@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Remove Extra Voice Controls
+
+- [x] Remove the +5 overflow token from the voice picker.
+- [x] Remove the plus add-voice button from the voice picker.
+- [x] Preserve all twelve avatar selections, automatic rotation, and mobile layout.
+- [x] Verify the navigator and save a checkpoint.
+
+
 ## Redesign Voice Avatar Controls
 
 - [x] Replace the current spaced avatar rail with overlapping circular portraits.

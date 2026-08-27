@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Remove Waitlist Persona Picker and Hero CTA
+
+- [x] Remove the “Choose a persona” picker and its three persona options from the waitlist page.
+- [x] Remove the top-right hero Join waitlist button from public pages.
+- [x] Keep the main waitlist form CTA and mobile menu navigation intact.
+- [x] Verify the affected pages and save a checkpoint.
+
+
 ## Marketing Site Migration
 
 - [x] Audit current routes, navigation, and dashboard/product screens.

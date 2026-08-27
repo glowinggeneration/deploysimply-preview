@@ -305,7 +305,6 @@ function publicNav(active){
   return `<header class="public-nav${active==='home'?' public-nav--overlay':''}">
     <a href="#/" class="public-wordmark">SMAIT<span>.</span></a>
     <nav aria-label="Primary navigation">${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
-    <a class="public-nav-cta" href="#/waitlist">Join waitlist ${icon('arrow',15)}</a>
     <button class="public-nav-menu" type="button" aria-label="Open navigation" aria-expanded="false">${icon('menu',20)}</button>
   </header>`;
 }
@@ -330,7 +329,7 @@ function screenContact(){
   return publicPage('contact', `<section class="public-hero public-hero--split public-contact"><div><p class="public-kicker">Start a conversation</p><h1>Let’s make your next reply <em>sound like you.</em></h1><p class="public-lead">Tell us where your team is headed and we’ll show you how SMAIT can help you get there.</p></div><form class="public-contact-form" id="public-contact-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A little context helps."></textarea></label><button class="public-button" type="submit">Send note ${icon('arrow',15)}</button><p class="public-form-success" id="public-contact-success" hidden>Thanks — your note is ready for the SMAIT team.</p></form></section>`);
 }
 function screenWaitlist(){
-  return publicPage('waitlist', `<section class="public-hero public-hero--compact public-waitlist-head"><p class="public-kicker">Early access</p><h1>Pick the voice you want to <em>meet first.</em></h1><p class="public-lead">Choose a persona, leave your details, and we’ll keep you close to the next release.</p></section><section class="public-waitlist"><form id="public-waitlist-form" class="public-waitlist-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>Brand or team<input name="brand" placeholder="Who are you building for?" /></label><fieldset><legend>Choose a persona</legend><div class="public-persona-picker">${TH_ITEMS.map((p,i)=>`<button type="button" class="public-persona-option${i===0?' is-selected':''}" data-persona-key="${p.key}"><img src="${p.image}" alt="" /><span>${p.name}</span></button>`).join('')}</div></fieldset><button class="public-button" type="submit">Join waitlist ${icon('arrow',15)}</button><p class="public-form-success" id="public-waitlist-success" hidden>You’re on the list. We’ll be in touch soon.</p></form><aside class="public-waitlist-note"><span>“</span><p>The best reply is the one that sounds like it was meant for this exact moment.</p><small>SMAIT principle 01</small></aside></section>`);
+  return publicPage('waitlist', `<section class="public-hero public-hero--compact public-waitlist-head"><p class="public-kicker">Early access</p><h1>Get closer to the next <em>reply.</em></h1><p class="public-lead">Leave your details and we’ll keep you close to the next release.</p></section><section class="public-waitlist"><form id="public-waitlist-form" class="public-waitlist-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>Brand or team<input name="brand" placeholder="Who are you building for?" /></label><button class="public-button" type="submit">Join waitlist ${icon('arrow',15)}</button><p class="public-form-success" id="public-waitlist-success" hidden>You’re on the list. We’ll be in touch soon.</p></form><aside class="public-waitlist-note"><span>“</span><p>The best reply is the one that sounds like it was meant for this exact moment.</p><small>SMAIT principle 01</small></aside></section>`);
 }
 function screenLanding(){
   return `
@@ -1615,17 +1614,11 @@ function bindPublicPage(){
       menu.setAttribute('aria-expanded', 'false');
     }));
   }
-  document.querySelectorAll('.public-persona-option').forEach(option => option.addEventListener('click', () => {
-    document.querySelectorAll('.public-persona-option').forEach(item => item.classList.remove('is-selected'));
-    option.classList.add('is-selected');
-    store.set('selectedPersona', option.dataset.personaKey);
-  }));
   const waitlist = document.getElementById('public-waitlist-form');
   if(waitlist) waitlist.addEventListener('submit', (event) => {
     event.preventDefault();
     document.getElementById('public-waitlist-success').hidden = false;
     waitlist.reset();
-    document.querySelector('.public-persona-option')?.classList.add('is-selected');
   });
   const contact = document.getElementById('public-contact-form');
   if(contact) contact.addEventListener('submit', (event) => {

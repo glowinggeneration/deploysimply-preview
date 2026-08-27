@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Add Different Voices Section
+
+- [x] Define voices as individuals within the persona groups.
+- [x] Add the eight supplied voice profiles after the persona section.
+- [x] Use supplied portraits and descriptions with a responsive editorial layout.
+- [x] Verify the persona page on desktop and mobile, then save a checkpoint.
+
+
 ## Remove Waitlist Persona Picker and Hero CTA
 
 - [x] Remove the “Choose a persona” picker and its three persona options from the waitlist page.

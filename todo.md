@@ -1,5 +1,12 @@
 # Responsive UI/UX Audit
 
+## Move Landing Navigation Right
+
+- [x] Move the landing-page navigation links to the right side.
+- [x] Preserve all links, cursor labels, and mobile menu behavior.
+- [x] Verify desktop and mobile header layout, then save a checkpoint.
+
+
 ## Remove Extra Voice Controls
 
 - [x] Remove the +5 overflow token from the voice picker.

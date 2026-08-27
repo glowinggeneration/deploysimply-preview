@@ -1,5 +1,14 @@
 # Responsive UI/UX Audit
 
+## CometCard Treatments
+
+- [ ] Inspect the social proof, Personas at Work, and FAQ card markup and styles.
+- [ ] Add a shared CometCard-style 3D tilt interaction for the target cards.
+- [ ] Preserve content, touch behavior, reduced-motion support, and mobile layout.
+- [ ] Verify the target sections at desktop and mobile sizes.
+- [ ] Run checks and save a checkpoint.
+
+
 ## Mobile Dock Navigation
 
 - [x] Inspect the existing mobile bottom navigation markup and route bindings.

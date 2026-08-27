@@ -216,6 +216,44 @@ img { max-width: 100%; }
 .spin svg, .spin { animation:spin 1s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
+/* CometCard interaction layer: tactile depth for social proof, Personas at Work, and FAQ cards. */
+.comet-card {
+  --comet-tilt-x:0deg;
+  --comet-tilt-y:0deg;
+  --comet-glow-x:50%;
+  --comet-glow-y:50%;
+  position:relative;
+  transform:perspective(1100px) rotateX(var(--comet-tilt-x)) rotateY(var(--comet-tilt-y));
+  transform-style:preserve-3d;
+  will-change:transform;
+  transition:transform .22s cubic-bezier(.23,1,.32,1), box-shadow .22s ease;
+}
+.comet-card::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:8;
+  border-radius:inherit;
+  pointer-events:none;
+  background:radial-gradient(220px circle at var(--comet-glow-x) var(--comet-glow-y), rgba(255,255,255,.28), transparent 62%);
+  opacity:0;
+  transition:opacity .22s ease;
+  mix-blend-mode:screen;
+}
+.comet-card:hover {
+  box-shadow:0 22px 46px rgba(36,8,28,.14);
+}
+.comet-card:hover::after,
+.comet-card:focus-within::after { opacity:1; }
+@media (max-width:639px) {
+  .comet-card { transition:transform .18s cubic-bezier(.23,1,.32,1), box-shadow .18s ease; }
+  .comet-card:active { transform:perspective(1100px) rotateX(1deg) rotateY(0deg) scale(.992); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .comet-card { transform:none; transition:none; }
+  .comet-card::after { transition:none; }
+}
+
 /* Dashboard */
 .dashboard-page { padding:8px 0 18px; }
 .dashboard-header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; margin:10px 0 24px; }

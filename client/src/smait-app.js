@@ -95,6 +95,36 @@ const NAV_ITEMS = [
   { to:'/onboarding', label:'Profile', icon:'user' },
 ];
 
+function initCometCards(){
+  const cards = document.querySelectorAll('.comet-card');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion) return;
+
+  cards.forEach(card => {
+    const onMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xc = rect.width / 2;
+      const yc = rect.height / 2;
+      const dx = x - xc;
+      const dy = y - yc;
+      const tiltX = (dy / yc) * -6;
+      const tiltY = (dx / xc) * 6;
+      card.style.setProperty('--comet-tilt-x', `${tiltX.toFixed(2)}deg`);
+      card.style.setProperty('--comet-tilt-y', `${tiltY.toFixed(2)}deg`);
+      card.style.setProperty('--comet-glow-x', `${(x / rect.width * 100).toFixed(1)}%`);
+      card.style.setProperty('--comet-glow-y', `${(y / rect.height * 100).toFixed(1)}%`);
+    };
+    const onLeave = () => {
+      card.style.setProperty('--comet-tilt-x', '0deg');
+      card.style.setProperty('--comet-tilt-y', '0deg');
+    };
+    card.addEventListener('pointermove', onMove, { passive: true });
+    card.addEventListener('pointerleave', onLeave, { passive: true });
+  });
+}
+
 function initDockNavigation(){
   const dock = document.querySelector('.dock-nav');
   if(!dock) return;
@@ -580,7 +610,7 @@ function smaitCtaFaqFooter(){
           <button type="button" class="smait-cta-btn" id="smait-cta-btn" data-cursor="Waitlist">Join Waitlist</button>
         </div>
 
-        <div class="smait-faq" id="smait-faq">
+        <div class="smait-faq comet-card" id="smait-faq">
           <div class="smait-faq-viewport" id="smait-faq-viewport">
             <div class="smait-faq-slide" id="smait-faq-slide"></div>
           </div>
@@ -656,7 +686,7 @@ function smaitFalconSection(){
     <section class="falcon-scene" aria-label="SMAIT operations overview">
       <section class="cards" aria-label="Product benefits">
 
-        <article class="card">
+        <article class="card comet-card">
           <div class="panel" aria-label="Visibility timeline chart">
             <div class="timeline"><span>06 AM</span><i></i><span>12 PM</span><i></i><span>06 PM</span></div>
             <div class="bars" aria-hidden="true">
@@ -674,7 +704,7 @@ function smaitFalconSection(){
           </div>
         </article>
 
-        <article class="card">
+        <article class="card comet-card">
           <div class="panel">
             <div class="assistant-head"><span class="badge"><i class="spark"></i></span><span>SMAIT</span></div>
             <p class="question">What are people saying about our coffee?</p>
@@ -692,7 +722,7 @@ function smaitFalconSection(){
           </div>
         </article>
 
-        <article class="card">
+        <article class="card comet-card">
           <div class="panel">
             <div class="metric">
               <div class="metric-label">Positive sentiment</div>
@@ -729,7 +759,7 @@ const SMAIT_TESTIMONIALS = [
 function smaitTestimonials(){
   const initials = (name) => name.split(' ').map(n => n[0]).join('');
   const card = (t) => `
-    <div class="smait-testi-card" data-cursor="Read">
+    <div class="smait-testi-card comet-card" data-cursor="Read">
       <div class="smait-testi-card-top">
         <div class="smait-testi-avatar">${initials(t.name)}</div>
         <div class="smait-testi-who">
@@ -1875,6 +1905,7 @@ function render(){
   window.scrollTo(0,0);
   if(entry.bind) entry.bind();
   initDockNavigation();
+  initCometCards();
 }
 
 render();

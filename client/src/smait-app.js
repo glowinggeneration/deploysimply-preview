@@ -276,6 +276,7 @@ function screenLanding(){
   return `
   <div id="smait-landing-page">
   <div class="th-hero" id="th-hero" style="background-color:${TH_ITEMS[0].bg}">
+    <canvas class="th-gradient-waves" id="th-gradient-waves" aria-hidden="true"></canvas>
     <div class="th-grain" style="background-image:url('${TH_GRAIN_URI}')" aria-hidden="true"></div>
     <div class="th-hero-veil" aria-hidden="true"></div>
 
@@ -777,6 +778,117 @@ function scrambleText(el, newText, opts){
   }, speed);
 }
 
+function initGradientWaves(hero){
+  const canvas = document.getElementById('th-gradient-waves');
+  if(!canvas || !hero) return;
+  const ctx = canvas.getContext('2d', { alpha: false });
+  if(!ctx) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pointer = { x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 };
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let raf = 0;
+  let start = performance.now();
+
+  function resize(){
+    const rect = hero.getBoundingClientRect();
+    width = Math.max(1, Math.round(rect.width));
+    height = Math.max(1, Math.round(rect.height));
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw(0);
+  }
+
+  function draw(elapsed){
+    if(!width || !height) return;
+    const t = elapsed * 0.0004;
+    const px = pointer.x - 0.5;
+    const py = pointer.y - 0.5;
+    const horizon = height * (0.28 + py * 0.035);
+    const bg = ctx.createLinearGradient(0, 0, width, height);
+    bg.addColorStop(0, '#ff5ca8');
+    bg.addColorStop(.44, '#f72567');
+    bg.addColorStop(1, '#c90859');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, width, height);
+
+    const glow = ctx.createRadialGradient(width * (0.5 + px * .18), height * .22, 0, width * .5, height * .4, Math.max(width, height) * .78);
+    glow.addColorStop(0, 'rgba(255,196,226,.38)');
+    glow.addColorStop(.4, 'rgba(255,100,176,.12)');
+    glow.addColorStop(1, 'rgba(124,0,64,.18)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, width, height);
+
+    const layers = [
+      { y: horizon + height * .09, amp: height * .085, freq: 1.35, speed: 1.0, color: 'rgba(255,214,235,.34)' },
+      { y: horizon + height * .19, amp: height * .105, freq: 1.05, speed: .72, color: 'rgba(255,132,190,.30)' },
+      { y: horizon + height * .34, amp: height * .15, freq: .82, speed: .52, color: 'rgba(192,0,84,.27)' },
+      { y: horizon + height * .51, amp: height * .18, freq: .68, speed: .37, color: 'rgba(255,100,171,.22)' },
+    ];
+    layers.forEach((layer, layerIndex) => {
+      const phase = t * layer.speed + layerIndex * 1.7 + px * (layerIndex + 1) * .8;
+      ctx.beginPath();
+      ctx.moveTo(0, height);
+      ctx.lineTo(0, layer.y);
+      for(let x = 0; x <= width + 12; x += 12){
+        const ratio = x / width;
+        const swell = Math.sin(ratio * Math.PI * layer.freq + phase) * layer.amp;
+        const detail = Math.sin(ratio * Math.PI * 4.2 - phase * 1.3) * layer.amp * .18;
+        const tilt = (ratio - .5) * height * .07 * (layerIndex % 2 ? -1 : 1);
+        ctx.lineTo(x, layer.y + swell + detail + tilt);
+      }
+      ctx.lineTo(width, height);
+      ctx.closePath();
+      ctx.fillStyle = layer.color;
+      ctx.fill();
+    });
+
+    ctx.globalCompositeOperation = 'screen';
+    ctx.lineWidth = Math.max(1, width * .0012);
+    for(let line = 0; line < 5; line++){
+      const base = horizon + height * (.14 + line * .12);
+      ctx.beginPath();
+      for(let x = 0; x <= width + 10; x += 10){
+        const ratio = x / width;
+        const y = base + Math.sin(ratio * Math.PI * (1.1 + line * .12) + t * (.7 - line * .06) + line) * height * (.018 + line * .006) + (ratio - .5) * height * .025;
+        if(x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = line % 2 ? 'rgba(255,235,246,.16)' : 'rgba(255,82,158,.24)';
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    const grainCount = Math.min(520, Math.round(width * height / 5600));
+    ctx.fillStyle = 'rgba(255,255,255,.045)';
+    for(let i = 0; i < grainCount; i++){
+      const gx = (i * 47.17 + elapsed * .012) % width;
+      const gy = (i * 83.41 + elapsed * .006) % height;
+      ctx.fillRect(gx, gy, 1, 1);
+    }
+  }
+
+  function animate(now){
+    if(!canvas.isConnected){ cancelAnimationFrame(raf); return; }
+    pointer.x += (pointer.targetX - pointer.x) * .055;
+    pointer.y += (pointer.targetY - pointer.y) * .055;
+    draw(reduceMotion ? 0 : now - start);
+    if(!reduceMotion) raf = requestAnimationFrame(animate);
+  }
+  function onPointerMove(event){
+    const rect = hero.getBoundingClientRect();
+    pointer.targetX = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    pointer.targetY = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+  }
+  hero.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('resize', resize);
+  resize();
+  if(!reduceMotion) raf = requestAnimationFrame(animate);
+}
 function bindLanding(){
   const hero = document.getElementById('th-hero');
   const carousel = document.getElementById('th-carousel');
@@ -882,6 +994,7 @@ function bindLanding(){
   startAutoplay();
 
   applyRoles();
+  initGradientWaves(hero);
   initTHCursor(hero);
   initTHDialog(hero);
   initTHTheme();

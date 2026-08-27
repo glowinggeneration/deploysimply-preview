@@ -312,8 +312,9 @@ function publicNav(active){
   const links = [
     ['features','Features'], ['personas','Personas'], ['pricing','Pricing'], ['contact','Contact'],
   ];
+  const wordmark = active === 'home' ? '' : '<a href="#/" class="public-wordmark">SMAIT<span>.</span></a>';
   return `<header class="public-nav${active==='home'?' public-nav--overlay':''}">
-    <a href="#/" class="public-wordmark">SMAIT<span>.</span></a>
+    ${wordmark}
     <nav aria-label="Primary navigation">${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
     <button class="public-nav-menu" type="button" aria-label="Open navigation" aria-expanded="false">${icon('menu',20)}</button>
   </header>`;

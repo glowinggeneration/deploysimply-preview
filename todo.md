@@ -1,5 +1,12 @@
 # Responsive UI/UX Audit
 
+## Hide Landing Home Navigation Wordmark
+
+- [x] Hide the SMAIT home-navigation button on the landing page only.
+- [x] Preserve the wordmark on interior public pages.
+- [x] Verify desktop and mobile navigation states, then save a checkpoint.
+
+
 ## Remove Home Hero Waitlist CTA
 
 - [x] Remove the large JOIN WAITLIST CTA from the home-page hero only.

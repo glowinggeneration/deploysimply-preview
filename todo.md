@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Apply UI Component Collection To Public Pages
+
+- [x] Map the supplied component patterns to Features, Personas, Pricing, Contact, and Waitlist pages.
+- [x] Add page-appropriate interactions without changing existing visible text or copy.
+- [x] Preserve the landing page, routes, and public navigation behavior.
+- [x] Verify copy, responsive layouts, and interactions on non-landing pages, then save a checkpoint.
+
+
 ## Auto-Rotate Different Voices
 
 - [x] Add timed voice rotation to the full-bleed navigator.

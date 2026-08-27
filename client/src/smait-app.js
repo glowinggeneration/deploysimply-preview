@@ -325,7 +325,7 @@ function publicPage(active, content){
   return `<div class="public-page">${publicNav(active)}<main>${content}</main>${publicFooter()}</div>`;
 }
 function screenFeatures(){
-  return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-grid"><article><span>01</span><h3>Distinct voices</h3><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></article><article><span>02</span><h3>Human direction</h3><p>Give every reply a clear objective before a persona turns it into language.</p></article><article><span>03</span><h3>Review before live</h3><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></article></div></section>`);
+  return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-accordion"><article class="public-feature-accordion-item is-open"><button type="button" aria-expanded="true"><span class="public-feature-accordion-heading"><span class="public-feature-number">01</span><span>Distinct voices</span></span><span class="public-feature-accordion-mark" aria-hidden="true">−</span></button><div class="public-feature-accordion-panel"><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></div></article><article class="public-feature-accordion-item"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">02</span><span>Human direction</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Give every reply a clear objective before a persona turns it into language.</p></div></article><article class="public-feature-accordion-item"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">03</span><span>Review before live</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></div></article></div></section>`);
 }
 function screenPersonas(){
   const personaCards = TH_ITEMS.map((p, i) => `<article class="public-persona-card"><div class="public-persona-art"><img src="${p.image}" alt="${p.name}" /></div><div><p class="public-kicker">0${i+1}</p><h2>${p.name}</h2><p>${p.tagline}</p><a href="#/waitlist">Choose this voice ${icon('arrow',15)}</a></div></article>`).join('');
@@ -1669,6 +1669,30 @@ function bindPersonasPage(){
   bindPublicPage();
   bindVoiceNavigator();
 }
+function bindFeatureAccordion(){
+  const items = Array.from(document.querySelectorAll('.public-feature-accordion-item'));
+  items.forEach((item) => {
+    const button = item.querySelector('button');
+    const mark = item.querySelector('.public-feature-accordion-mark');
+    button.addEventListener('click', () => {
+      const open = item.classList.contains('is-open');
+      items.forEach((other) => {
+        other.classList.remove('is-open');
+        other.querySelector('button').setAttribute('aria-expanded', 'false');
+        other.querySelector('.public-feature-accordion-mark').textContent = '+';
+      });
+      if(!open){
+        item.classList.add('is-open');
+        button.setAttribute('aria-expanded', 'true');
+        mark.textContent = '−';
+      }
+    });
+  });
+}
+function bindFeaturesPage(){
+  bindPublicPage();
+  bindFeatureAccordion();
+}
 function bindPublicPage(){
   const menu = document.querySelector('.public-nav-menu');
   const navEl = document.querySelector('.public-nav nav');
@@ -1703,7 +1727,7 @@ function escapeAttr(s){ return escapeHtml(s); }
 // ---------- router ----------
 const ROUTES = {
   '/': { render: screenLanding, bind: bindLanding },
-  '/features': { render: screenFeatures, bind: bindPublicPage },
+  '/features': { render: screenFeatures, bind: bindFeaturesPage },
   '/personas': { render: screenPersonas, bind: bindPersonasPage },
   '/pricing': { render: screenPricing, bind: bindPublicPage },
   '/contact': { render: screenContact, bind: bindPublicPage },

@@ -87,14 +87,6 @@ function icon(name, size){
 }
 
 // ---------- shell (sidebar + bottom nav) ----------
-const NAV_ITEMS = [
-  { to:'/dashboard', label:'Dashboard', icon:'dash' },
-  { to:'/compose', label:'New response', navLabel:'Create', icon:'plus' },
-  { to:'/preview', label:'Responses', icon:'msg' },
-  { to:'/credits', label:'Credits', icon:'card' },
-  { to:'/onboarding', label:'Profile', icon:'user' },
-];
-
 function initCometCards(){
   const cards = document.querySelectorAll('.comet-card');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -146,23 +138,6 @@ function initDockNavigation(){
   dock.addEventListener('pointerleave', reset, { passive: true });
   reset();
 }
-function shell(innerHtml, opts){
-  opts = opts || {};
-  const wide = opts.wide ? ' wide' : '';
-  const showNav = opts.showNav !== false;
-  const sidebar = showNav ? `
-    <aside class="desktop-sidebar">
-      <div class="smait-logo"><span>SMAIT</span></div>
-      <nav>${NAV_ITEMS.map(i=>`<a href="#${i.to}" class="${route===i.to?'active':''}">${icon(i.icon,19)}<span>${i.label}</span></a>`).join('')}</nav>
-      <div class="sidebar-foot">Human direction.<br>Persona scale.</div>
-    </aside>` : '';
-  const bottomNav = showNav ? `
-    <nav class="bottom-nav dock-nav" aria-label="Primary navigation">
-      ${NAV_ITEMS.map(i=>`<a href="#${i.to}" class="dock-item ${route===i.to?'active':''}" data-dock-item aria-current="${route===i.to?'page':'false'}"><span class="dock-icon">${icon(i.icon,20)}</span><span class="dock-label">${i.navLabel||i.label}</span></a>`).join('')}
-    </nav>` : '';
-  return `<div class="app-frame">${sidebar}<main class="app-content${wide}">${innerHtml}</main>${bottomNav}</div>`;
-}
-
 // ---------- screens ----------
 function useTypewriter(text, speed, startDelay, onTick){
   // returns a controller; onTick(displayed, done) is called on every change
@@ -323,10 +298,45 @@ function thFingerprintIcon(){
   return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/><path d="M5 19.5C7.5 22 10.5 21.5 12 20"/><path d="M4 15.5C2 12 3 8 5 6"/><path d="M8 20C4.5 15 5 8 8 6c3-2 6.5-1 8 1"/><path d="M12 20c-2-3-2.5-6-2.5-8 0-2.5 1.5-4 4-4S17 9.5 17 12"/><path d="M20 14c0 2-1 3.5-2 4.5"/><path d="M17.5 17.5c1.5-1.5 2.5-3.5 2.5-6a8 8 0 0 0-1-4"/></svg>`;
 }
 
+function publicNav(active){
+  const links = [
+    ['features','Features'], ['personas','Personas'], ['pricing','Pricing'], ['contact','Contact'],
+  ];
+  return `<header class="public-nav${active==='home'?' public-nav--overlay':''}">
+    <a href="#/" class="public-wordmark">SMAIT<span>.</span></a>
+    <nav aria-label="Primary navigation">${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
+    <a class="public-nav-cta" href="#/waitlist">Join waitlist ${icon('arrow',15)}</a>
+    <button class="public-nav-menu" type="button" aria-label="Open navigation" aria-expanded="false">${icon('menu',20)}</button>
+  </header>`;
+}
+function publicFooter(){
+  return `<footer class="public-footer"><div><a href="#/" class="public-wordmark">SMAIT<span>.</span></a><p>Distinct voices for the conversations that matter.</p></div><div><strong>Explore</strong><a href="#/features">Features</a><a href="#/personas">Personas</a><a href="#/pricing">Pricing</a></div><div><strong>Company</strong><a href="#/contact">Contact</a><a href="#/waitlist">Join waitlist</a></div><small>© 2026 SMAIT. Personas, powered by pink.</small></footer>`;
+}
+function publicPage(active, content){
+  return `<div class="public-page">${publicNav(active)}<main>${content}</main>${publicFooter()}</div>`;
+}
+function screenFeatures(){
+  return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-grid"><article><span>01</span><h3>Distinct voices</h3><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></article><article><span>02</span><h3>Human direction</h3><p>Give every reply a clear objective before a persona turns it into language.</p></article><article><span>03</span><h3>Review before live</h3><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></article></div></section>`);
+}
+function screenPersonas(){
+  const personaCards = TH_ITEMS.map((p, i) => `<article class="public-persona-card"><div class="public-persona-art"><img src="${p.image}" alt="${p.name}" /></div><div><p class="public-kicker">0${i+1}</p><h2>${p.name}</h2><p>${p.tagline}</p><a href="#/waitlist">Choose this voice ${icon('arrow',15)}</a></div></article>`).join('');
+  return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1>Three ways to sound <em>like you.</em></h1><p class="public-lead">Choose the voice that fits the moment. Keep the direction yours.</p></section><section class="public-persona-grid">${personaCards}</section>`);
+}
+function screenPricing(){
+  const tiers = [['Starter','For finding your first signal.','3 personas','Reply previews','Approval queue'],['Team','For teams moving every day.','3 personas + custom voice','Shared reply review','Priority support'],['Studio','For brands scaling the conversation.','Custom persona system','Multi-brand workspaces','Managed rollout']];
+  return publicPage('pricing', `<section class="public-hero public-hero--compact"><p class="public-kicker">Simple by design</p><h1>Choose your level of <em>direction.</em></h1><p class="public-lead">Start with the voices you need now. Add depth as your team finds its rhythm.</p></section><section class="public-pricing-grid">${tiers.map((tier, i) => `<article class="public-price-card${i===1?' is-featured':''}">${i===1?'<span class="public-price-badge">Most flexible</span>':''}<p class="public-kicker">${tier[0]}</p><h2>${tier[1]}</h2><ul>${tier.slice(2).map(item=>`<li>${icon('check',14)}${item}</li>`).join('')}</ul><a class="public-button${i===1?' public-button--dark':''}" href="#/waitlist">Join the waitlist ${icon('arrow',15)}</a></article>`).join('')}</section>`);
+}
+function screenContact(){
+  return publicPage('contact', `<section class="public-hero public-hero--split public-contact"><div><p class="public-kicker">Start a conversation</p><h1>Let’s make your next reply <em>sound like you.</em></h1><p class="public-lead">Tell us where your team is headed and we’ll show you how SMAIT can help you get there.</p></div><form class="public-contact-form" id="public-contact-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A little context helps."></textarea></label><button class="public-button" type="submit">Send note ${icon('arrow',15)}</button><p class="public-form-success" id="public-contact-success" hidden>Thanks — your note is ready for the SMAIT team.</p></form></section>`);
+}
+function screenWaitlist(){
+  return publicPage('waitlist', `<section class="public-hero public-hero--compact public-waitlist-head"><p class="public-kicker">Early access</p><h1>Pick the voice you want to <em>meet first.</em></h1><p class="public-lead">Choose a persona, leave your details, and we’ll keep you close to the next release.</p></section><section class="public-waitlist"><form id="public-waitlist-form" class="public-waitlist-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>Brand or team<input name="brand" placeholder="Who are you building for?" /></label><fieldset><legend>Choose a persona</legend><div class="public-persona-picker">${TH_ITEMS.map((p,i)=>`<button type="button" class="public-persona-option${i===0?' is-selected':''}" data-persona-key="${p.key}"><img src="${p.image}" alt="" /><span>${p.name}</span></button>`).join('')}</div></fieldset><button class="public-button" type="submit">Join waitlist ${icon('arrow',15)}</button><p class="public-form-success" id="public-waitlist-success" hidden>You’re on the list. We’ll be in touch soon.</p></form><aside class="public-waitlist-note"><span>“</span><p>The best reply is the one that sounds like it was meant for this exact moment.</p><small>SMAIT principle 01</small></aside></section>`);
+}
 function screenLanding(){
   return `
   <div id="smait-landing-page">
   <div class="th-hero" id="th-hero" style="background-color:${TH_ITEMS[0].bg}">
+    ${publicNav('home')}
     <div class="th-grain" style="background-image:url('${TH_GRAIN_URI}')" aria-hidden="true"></div>
     <div class="th-hero-veil" aria-hidden="true"></div>
 
@@ -606,7 +616,7 @@ function smaitCtaFaqFooter(){
               <li><a href="#/" data-cursor="Visit">Features</a></li>
               <li><a href="#/" data-cursor="Visit">Personas</a></li>
               <li><a href="#smait-testi" data-cursor="Visit">Testimonials</a></li>
-              <li><a href="#/credits" data-cursor="Visit">Pricing</a></li>
+              <li><a href="#/pricing" data-cursor="Visit">Pricing</a></li>
             </ul>
           </div>
           <div class="smait-footer-col">
@@ -1528,7 +1538,7 @@ function initTHDialog(hero){
     store.set('demoMeetDate', (meetCheck.checked && selectedDate) ? selectedDate.toDateString() : '');
     store.set('demoMeetTimeSlot', (meetCheck.checked && selectedTime) ? selectedTime : '');
     close();
-    nav('/compose');
+    nav('/waitlist');
   });
 }
 
@@ -1589,257 +1599,40 @@ function initTHCursor(hero){
   });
 }
 
-function screenCompose(){
-  const url = store.get('tweet','');
-  const objective = store.get('objective','replies');
-  const cards = OBJECTIVES.map(o => `
-    <button type="button" class="objective-card ${o.id===objective?'selected':''}" data-obj="${o.id}">
-      <span class="objective-icon">${icon(o.icon,20)}</span>
-      <span class="objective-copy"><strong>${o.title}</strong><small>${o.description}</small></span>
-      <span class="radio-dot ${o.id===objective?'selected':''}" aria-hidden="true"></span>
-    </button>`).join('');
-  return shell(`
-    <div class="screen-card compose-screen">
-      <div class="screen-top"><button class="icon-button" id="back-btn">${icon('back',20)}</button><span>New campaign</span><span></span></div>
-      <div class="screen-heading"><h1>Let's craft your response.</h1><p>One link. One objective. Three different ways to engage.</p></div>
-      <label class="field-label">Tweet link</label>
-      <div class="tweet-input-wrap">${icon('link',18)}<input id="compose-url" value="${escapeAttr(url)}" placeholder="https://x.com/..." /></div>
-      <label class="field-label objective-label">What's your objective?</label>
-      <div class="objective-stack" id="objective-stack">${cards}</div>
-      <button class="primary-button" id="compose-submit">Generate responses <span>→</span></button>
-    </div>`, { showNav:false });
+function screenNotFound(){
+  return publicPage('', `<section class="public-hero public-hero--compact public-not-found"><p class="public-kicker">404 / No signal here</p><h1>This page took a <em>different route.</em></h1><p class="public-lead">The link may have moved, but the conversation is still happening.</p><a class="public-button" href="#/">Return home ${icon('arrow',15)}</a></section>`);
 }
-function bindCompose(){
-  document.getElementById('back-btn').addEventListener('click', () => history.back());
-  const stack = document.getElementById('objective-stack');
-  let objective = store.get('objective','replies');
-  stack.addEventListener('click', (e) => {
-    const card = e.target.closest('.objective-card');
-    if(!card) return;
-    objective = card.dataset.obj;
-    stack.querySelectorAll('.objective-card').forEach(c => {
-      const sel = c.dataset.obj === objective;
-      c.classList.toggle('selected', sel);
-      c.querySelector('.radio-dot').classList.toggle('selected', sel);
+function bindPublicPage(){
+  const menu = document.querySelector('.public-nav-menu');
+  const navEl = document.querySelector('.public-nav nav');
+  if(menu && navEl){
+    menu.addEventListener('click', () => {
+      const open = navEl.classList.toggle('is-open');
+      menu.setAttribute('aria-expanded', String(open));
     });
-  });
-  document.getElementById('compose-submit').addEventListener('click', () => {
-    store.set('tweet', document.getElementById('compose-url').value);
-    store.set('objective', objective);
-    nav('/preview');
-  });
-}
-
-function personaCardHtml(p, selected, compact){
-  return `
-  <button type="button" class="persona-card ${selected?'selected':''}" data-persona="${p.id}">
-    <div class="persona-avatar-wrap"><img src="${p.image}" alt="" class="persona-avatar" /></div>
-    <div class="persona-copy">
-      <div class="persona-title-row"><strong>${p.name}</strong><span class="persona-badge">${p.badge}</span></div>
-      <small>${p.descriptor}</small>
-      ${compact ? '' : `<p>${p.sample}</p>`}
-    </div>
-    <span class="select-circle ${selected?'selected':''}">${selected?icon('check',14):''}</span>
-  </button>`;
-}
-
-function screenPreview(){
-  const selected = store.get('persona','expert');
-  return shell(`
-    <div class="screen-card preview-screen">
-      <div class="screen-top"><button class="icon-button" id="back-btn">${icon('back',20)}</button><span>Response previews</span><button class="icon-button">${icon('ext',18)}</button></div>
-      <div class="tweet-card"><div class="tweet-avatar">S</div><div><strong>Sample post</strong><small>@sample · now</small><p>The best communications feel useful before they feel promotional.</p></div></div>
-      <div class="section-row"><div><h2>Choose a persona</h2><p>Same objective. Different human style.</p></div><button class="shuffle-button" id="shuffle-btn">${icon('shuffle',16)} Shuffle</button></div>
-      <div class="persona-stack" id="persona-stack">${PERSONAS.map(p=>personaCardHtml(p, p.id===selected)).join('')}</div>
-      <button class="primary-button" id="preview-launch">Launch response <span>↗</span></button>
-    </div>`, { showNav:false });
-}
-function bindPreview(){
-  document.getElementById('back-btn').addEventListener('click', () => history.back());
-  let selected = store.get('persona','expert');
-  const stack = document.getElementById('persona-stack');
-  function refresh(){
-    stack.querySelectorAll('.persona-card').forEach(c => {
-      const sel = c.dataset.persona === selected;
-      c.classList.toggle('selected', sel);
-      const circle = c.querySelector('.select-circle');
-      circle.classList.toggle('selected', sel);
-      circle.innerHTML = sel ? icon('check',14) : '';
-    });
+    navEl.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navEl.classList.remove('is-open');
+      menu.setAttribute('aria-expanded', 'false');
+    }));
   }
-  stack.addEventListener('click', (e) => {
-    const card = e.target.closest('.persona-card');
-    if(!card) return;
-    selected = card.dataset.persona;
-    refresh();
+  document.querySelectorAll('.public-persona-option').forEach(option => option.addEventListener('click', () => {
+    document.querySelectorAll('.public-persona-option').forEach(item => item.classList.remove('is-selected'));
+    option.classList.add('is-selected');
+    store.set('selectedPersona', option.dataset.personaKey);
+  }));
+  const waitlist = document.getElementById('public-waitlist-form');
+  if(waitlist) waitlist.addEventListener('submit', (event) => {
+    event.preventDefault();
+    document.getElementById('public-waitlist-success').hidden = false;
+    waitlist.reset();
+    document.querySelector('.public-persona-option')?.classList.add('is-selected');
   });
-  document.getElementById('shuffle-btn').addEventListener('click', () => {
-    const idx = PERSONAS.findIndex(p=>p.id===selected);
-    selected = PERSONAS[(idx+1)%PERSONAS.length].id;
-    refresh();
+  const contact = document.getElementById('public-contact-form');
+  if(contact) contact.addEventListener('submit', (event) => {
+    event.preventDefault();
+    document.getElementById('public-contact-success').hidden = false;
+    contact.reset();
   });
-  document.getElementById('preview-launch').addEventListener('click', () => {
-    store.set('persona', selected);
-    nav(store.get('auth') ? '/launch' : '/login');
-  });
-}
-
-function screenLogin(){
-  return `
-  <div class="gate-page">
-    <div class="gate-card">
-      <button class="gate-back" id="gate-back">${icon('back',20)}</button>
-      <div class="smait-logo"><span>SMAIT</span></div>
-      <div class="gate-persona"><img src="${IMG.expert}" alt="" /></div>
-      <h1>Launch your response.</h1>
-      <p>Sign in once. Keep your profile, voice and response history together.</p>
-      <div class="social-auth-stack">
-        <button id="auth-apple">${icon('apple',20)} Continue with Apple</button>
-        <button id="auth-google">${icon('google',20)} Continue with Google</button>
-        <button id="auth-email">${icon('mail',19)} Continue with Email</button>
-      </div>
-      <small>By continuing, you agree to the product terms and privacy policy.</small>
-    </div>
-  </div>`;
-}
-function bindLogin(){
-  document.getElementById('gate-back').addEventListener('click', () => history.back());
-  const auth = () => {
-    store.set('auth','1');
-    nav(store.get('onboarded') ? '/launch' : '/onboarding');
-  };
-  ['auth-apple','auth-google','auth-email'].forEach(id => document.getElementById(id).addEventListener('click', auth));
-}
-
-let onboardStep = 1;
-function screenOnboarding(){
-  const name = store.get('profile_name','');
-  const bio = store.get('profile_bio','');
-  const voice = store.get('profile_voice', VOICES[0]);
-  const step = onboardStep;
-  let body = '';
-  if(step===1){
-    body = `<div class="form-stack">
-      <label>Name<input id="ob-name" value="${escapeAttr(name)}" placeholder="Your name" /></label>
-      <label>Bio<textarea id="ob-bio" placeholder="What should people know about you?">${escapeHtml(bio)}</textarea></label>
-    </div>`;
-  } else if(step===2){
-    body = `<div class="voice-list"><h2>How should you sound?</h2>${VOICES.map(v=>`
-      <button class="${v===voice?'selected':''}" data-voice="${escapeAttr(v)}"><span>${v}</span>${v===voice?icon('check',18):icon('chevron',18)}</button>`).join('')}</div>`;
-  } else {
-    body = `<div class="review-card"><h2>You're ready.</h2><p>Your profile gives personas context. You still choose the objective and approve what goes live.</p>
-      <div><span>Name</span><strong>${escapeHtml(name)||'Your name'}</strong></div>
-      <div><span>Voice</span><strong>${voice}</strong></div></div>`;
-  }
-  return shell(`
-    <div class="screen-card onboarding-screen">
-      <div class="screen-top"><button class="icon-button" id="ob-back">${icon('back',20)}</button><span>Create your profile</span><span>${step}/3</span></div>
-      <div class="progress-track"><span style="width:${step*33.333}%"></span></div>
-      <div class="profile-avatar"><img src="${IMG.expert}" alt="" /><button aria-label="Change avatar">${icon('camera',16)}</button></div>
-      ${body}
-      <button class="primary-button" id="ob-next">${step===3?'Finish setup':'Continue'} <span>→</span></button>
-    </div>`, { showNav:false });
-}
-function bindOnboarding(){
-  document.getElementById('ob-back').addEventListener('click', () => {
-    if(onboardStep>1){ onboardStep--; render(); } else { history.back(); }
-  });
-  if(onboardStep===1){
-    document.getElementById('ob-name').addEventListener('input', e => store.set('profile_name', e.target.value));
-    document.getElementById('ob-bio').addEventListener('input', e => store.set('profile_bio', e.target.value));
-  }
-  if(onboardStep===2){
-    document.querySelectorAll('.voice-list button').forEach(btn => {
-      btn.addEventListener('click', () => { store.set('profile_voice', btn.dataset.voice); render(); });
-    });
-  }
-  document.getElementById('ob-next').addEventListener('click', () => {
-    if(onboardStep<3){ onboardStep++; render(); }
-    else {
-      store.set('onboarded','1');
-      onboardStep = 1;
-      nav('/launch');
-    }
-  });
-}
-
-function screenLaunch(){
-  const chosen = PERSONAS.find(p=>p.id===store.get('persona')) || PERSONAS[0];
-  return shell(`
-    <div class="screen-card launch-screen">
-      <div class="screen-top"><button class="icon-button" id="back-btn">${icon('back',20)}</button><span>Launching</span><span></span></div>
-      <div class="launch-visual"><img src="${chosen.image}" alt="" /><div class="launch-orbit orbit-one"></div><div class="launch-orbit orbit-two"></div></div>
-      <h1>Ready when you are.</h1>
-      <p>${chosen.name} will publish one response using the objective and tone you selected.</p>
-      <button class="run-button idle" id="run-btn"><span id="run-btn-label">${icon('send',18)} Launch response</span></button>
-    </div>`, { showNav:false });
-}
-function bindLaunch(){
-  document.getElementById('back-btn').addEventListener('click', () => history.back());
-  const btn = document.getElementById('run-btn');
-  const label = document.getElementById('run-btn-label');
-  const steps = [
-    { text:'Checking context', icon:'sparkles' },
-    { text:'Matching persona', icon:'loader' },
-    { text:'Publishing response', icon:'send' },
-  ];
-  let status = 'idle';
-  btn.addEventListener('click', () => {
-    if(status !== 'idle') return;
-    status = 'running';
-    btn.classList.remove('idle'); btn.classList.add('running');
-    let i = 0;
-    label.innerHTML = `${icon(steps[0].icon,18)} ${steps[0].text}`;
-    const timer = setInterval(() => {
-      i++;
-      if(i >= steps.length){
-        clearInterval(timer);
-        status = 'done';
-        btn.classList.remove('running'); btn.classList.add('done');
-        label.innerHTML = `${icon('check',18)} Response live`;
-        setTimeout(() => nav('/dashboard'), 650);
-        return;
-      }
-      const cls = i===1 ? ' class="spin"' : '';
-      label.innerHTML = `<span${cls} style="display:inline-flex">${icon(steps[i].icon,18)}</span> ${steps[i].text}`;
-    }, 900);
-  });
-}
-
-function screenDashboard(){
-  const activity = PERSONAS.map((p,i) => `
-    <div class="activity-row"><img src="${p.image}" alt="" /><div><strong>${p.name}</strong><span>${[342,412,612][i]} replies · ${[2.8,3.1,4.2][i]}K likes</span></div><small>${['2h','5h','1d'][i]}</small></div>`).join('');
-  return shell(`
-    <div class="dashboard-page">
-      <header class="dashboard-header"><div><div class="smait-logo"><span>SMAIT</span></div><h1>Your impact.</h1><p>See what happened after the response went live.</p></div><button class="notification-button">${icon('bell',19)}<span></span></button></header>
-      <section class="metrics-grid">
-        <div class="metric-card"><div><small>Replies</small><strong>24</strong><span>+20%</span></div><span class="metric-icon">${icon('msg',20)}</span></div>
-        <div class="metric-card"><div><small>Likes</small><strong>138</strong><span>+18%</span></div><span class="metric-icon">${icon('heart',20)}</span></div>
-        <div class="metric-card"><div><small>Profile clicks</small><strong>57</strong><span>+32%</span></div><span class="metric-icon">${icon('cursor',20)}</span></div>
-        <div class="metric-card"><div><small>Engagement</small><strong>6.2%</strong><span>+15%</span></div><span class="metric-icon">${icon('trend',20)}</span></div>
-      </section>
-      <section class="dashboard-columns">
-        <div class="panel recent-panel"><div class="panel-heading"><div><h2>Recent activity</h2><p>Responses that are earning attention.</p></div><button>View all</button></div>${activity}</div>
-        <div class="panel insight-panel"><span class="eyebrow">Performance signal</span><h2>People are responding.</h2><p>The Challenger generated the most replies. The Expert generated the highest profile click rate.</p>
-          <div class="mini-chart"><span style="height:42%"></span><span style="height:68%"></span><span style="height:53%"></span><span style="height:82%"></span><span style="height:74%"></span><span style="height:91%"></span></div>
-          <div class="insight-footer">${icon('users',18)}<span>245K people reached</span></div></div>
-        <div class="panel upgrade-panel"><div><span class="eyebrow">Next step</span><h2>Scale what works.</h2><p>More credits unlock more responses while you keep control of the brief.</p></div><button id="dash-credits">View options ${icon('up',18)}</button></div>
-      </section>
-    </div>`, { wide:true });
-}
-function bindDashboard(){
-  document.getElementById('dash-credits').addEventListener('click', () => nav('/credits'));
-}
-
-function screenCredits(){
-  return shell(`
-    <div class="screen-card credits-screen">
-      <span class="eyebrow">${icon('sparkles',14)} Level up your impact</span>
-      <h1>Keep the conversations moving.</h1>
-      <p>Use credits for more responses, or book a demo for a managed rollout.</p>
-      <div class="price-card featured"><div class="price-icon">${icon('card',22)}</div><div><h2>Buy credits</h2><p>For creators, teams and campaign bursts.</p><strong>Flexible usage</strong></div><button class="primary-button">Buy credits</button></div>
-      <div class="price-card"><div class="price-icon">${icon('cal',22)}</div><div><h2>Book a demo</h2><p>For organisations that need governance, scale and reporting.</p><strong>Talk to SMAIT</strong></div><button class="primary-button secondary">Book demo</button></div>
-    </div>`);
 }
 
 // ---------- helpers ----------
@@ -1849,24 +1642,26 @@ function escapeAttr(s){ return escapeHtml(s); }
 // ---------- router ----------
 const ROUTES = {
   '/': { render: screenLanding, bind: bindLanding },
-  '/compose': { render: screenCompose, bind: bindCompose },
-  '/preview': { render: screenPreview, bind: bindPreview },
-  '/login': { render: screenLogin, bind: bindLogin },
-  '/onboarding': { render: screenOnboarding, bind: bindOnboarding },
-  '/launch': { render: screenLaunch, bind: bindLaunch },
-  '/dashboard': { render: screenDashboard, bind: bindDashboard },
-  '/credits': { render: screenCredits, bind: null },
+  '/features': { render: screenFeatures, bind: bindPublicPage },
+  '/personas': { render: screenPersonas, bind: bindPublicPage },
+  '/pricing': { render: screenPricing, bind: bindPublicPage },
+  '/contact': { render: screenContact, bind: bindPublicPage },
+  '/waitlist': { render: screenWaitlist, bind: bindPublicPage },
+  '/404': { render: screenNotFound, bind: bindPublicPage },
 };
 
 const root = document.getElementById('root');
 function render(){
-  const entry = ROUTES[route] || ROUTES['/'];
+  const entry = ROUTES[route] || ROUTES['/404'];
   document.body.classList.remove('smait-custom-cursor');
   root.innerHTML = entry.render();
   window.scrollTo(0,0);
   if(entry.bind) entry.bind();
-  initDockNavigation();
-  initCometCards();
+  if(entry.render === screenLanding){
+    initDockNavigation();
+    initCometCards();
+  }
+  if(document.querySelector('.public-nav')) bindPublicPage();
 }
 
 render();

@@ -1,5 +1,14 @@
 # Responsive UI/UX Audit
 
+## Marketing Site Migration
+
+- [x] Audit current routes, navigation, and dashboard/product screens.
+- [x] Define public pages and shared marketing navigation.
+- [x] Build the remaining public pages with consistent SMAIT styling.
+- [x] Remove dashboard-specific screens, links, and shell UI.
+- [x] Verify public navigation and responsive layouts, then save a checkpoint.
+
+
 ## Remove World Map Section
 
 - [x] Remove the World Map section call and implementation.

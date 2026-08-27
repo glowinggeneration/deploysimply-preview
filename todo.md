@@ -1,5 +1,12 @@
 # Responsive UI/UX Audit
 
+## Remove Home Hero Waitlist CTA
+
+- [x] Remove the large JOIN WAITLIST CTA from the home-page hero only.
+- [x] Preserve persona controls, top navigation, and waitlist links on other pages.
+- [x] Verify desktop and mobile hero composition, then save a checkpoint.
+
+
 ## Remove Landing Wordmark Pill
 
 - [x] Remove the boxed/pill treatment from the landing hero SMAIT wordmark.

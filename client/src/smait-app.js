@@ -378,7 +378,6 @@ function screenLanding(){
         </div>
       </div>
 
-      <button type="button" class="th-discover" id="th-discover-btn" data-cursor="Waitlist">Join Waitlist ${icon('arrow',22)}</button>
     </div>
 
     <div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div>

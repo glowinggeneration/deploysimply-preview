@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Collapse Landing Navigation
+
+- [x] Collapse the landing-page navigation into a right-aligned menu control.
+- [x] Keep the existing public links accessible inside the menu.
+- [x] Preserve mobile behavior, cursor labels, and keyboard accessibility.
+- [x] Verify menu states and save a checkpoint.
+
+
 ## Style The Scrollbar
 
 - [x] Add a slim pink liquid-glass scrollbar across the public site.

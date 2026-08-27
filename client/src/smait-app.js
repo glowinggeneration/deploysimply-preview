@@ -1777,10 +1777,12 @@ function bindPublicPage(){
     menu.addEventListener('click', () => {
       const open = navEl.classList.toggle('is-open');
       menu.setAttribute('aria-expanded', String(open));
+      menu.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
     });
     navEl.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
       navEl.classList.remove('is-open');
       menu.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-label', 'Open navigation');
     }));
   }
   const waitlist = document.getElementById('public-waitlist-form');

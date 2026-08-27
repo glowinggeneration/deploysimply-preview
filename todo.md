@@ -1,5 +1,20 @@
 # Responsive UI/UX Audit
 
+## Style The Scrollbar
+
+- [x] Add a slim pink liquid-glass scrollbar across the public site.
+- [x] Preserve scroll usability and support both WebKit and Firefox scrollbar styling.
+- [x] Keep the treatment compatible with dark/light mode and touch-device fallback.
+- [x] Verify scrolling and save a checkpoint.
+
+
+## Force Voice Heading Line Break
+
+- [ ] Put “every conversation.” on its own line.
+- [ ] Preserve the pink conversation accent and per-character animation.
+- [ ] Verify desktop and mobile rendering, then save a checkpoint.
+
+
 ## Force Heading Line Breaks
 
 - [x] Put “like you.” on its own line.

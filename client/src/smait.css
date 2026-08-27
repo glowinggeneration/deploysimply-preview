@@ -1887,3 +1887,38 @@ body { transition: background-color .3s ease, color .3s ease; }
 @media (max-width: 700px) {
   .public-hero h1 .smait-text-line--nowrap { max-width: 100%; }
 }
+
+/* Heading line groups stay intact on wide screens and wrap safely on compact screens. */
+.smait-text-line { display: inline-block; }
+@media (max-width: 700px) {
+  .smait-text-line:not(.smait-text-line--nowrap) { display: inline; white-space: normal; }
+}
+
+/* Final heading-wrap correction: the animated character spans must not split a line group on wide screens. */
+.smait-text-line { display: inline-block; white-space: nowrap; }
+@media (max-width: 700px) {
+  .smait-text-line:not(.smait-text-line--nowrap) { display: inline; white-space: normal; }
+}
+
+/* Site-wide liquid-glass scrollbar: translucent track, pink glass thumb, soft highlight. */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 20, 110, .72) rgba(255, 255, 255, .16);
+}
+*::-webkit-scrollbar { width: 11px; height: 11px; }
+*::-webkit-scrollbar-track { background: rgba(255, 255, 255, .12); border-radius: 999px; }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(255, 148, 202, .9), rgba(224, 20, 110, .86));
+  border: 2px solid rgba(255, 255, 255, .42);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.28), 0 0 14px rgba(224,20,110,.26);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(255, 180, 218, .98), rgba(224, 20, 110, .98));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5), 0 0 18px rgba(224,20,110,.42);
+}
+*::-webkit-scrollbar-corner { background: transparent; }
+[data-theme="dark"] {
+  scrollbar-color: rgba(255, 105, 176, .82) rgba(20, 14, 24, .38);
+}
+[data-theme="dark"] *::-webkit-scrollbar-track { background: rgba(20, 14, 24, .32); }

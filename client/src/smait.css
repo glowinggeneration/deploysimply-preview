@@ -1994,3 +1994,72 @@ body { transition: background-color .3s ease, color .3s ease; }
   }
   .public-nav--overlay .public-nav-menu { display: inline-flex; }
 }
+
+/* Landing-led public design system: pink atmosphere, editorial rhythm, glass depth, and gentle entrance motion. */
+.public-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(247,37,103,.08), transparent 28rem),
+    radial-gradient(circle at 8% 42%, rgba(233,93,157,.055), transparent 25rem),
+    #fff;
+}
+.public-page::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(247,37,103,.5), transparent);
+  pointer-events: none;
+}
+.public-page > * { position: relative; z-index: 1; }
+.public-page .public-hero,
+.public-page .public-section,
+.public-page .public-persona-grid,
+.public-page .public-pricing-grid,
+.public-page .public-waitlist {
+  animation: smait-public-rise .72s cubic-bezier(.23,1,.32,1) both;
+}
+.public-page .public-hero { animation-delay: 40ms; }
+.public-page .public-section,
+.public-page .public-persona-grid,
+.public-page .public-pricing-grid,
+.public-page .public-waitlist { animation-delay: 110ms; }
+.public-page .public-hero h1 { text-wrap: balance; }
+.public-page .public-lead { text-wrap: pretty; }
+.public-page .public-feature-grid,
+.public-page .public-persona-card,
+.public-page .public-price-card,
+.public-page .public-contact-form,
+.public-page .public-waitlist-form,
+.public-page .public-waitlist-note {
+  border-color: rgba(247,37,103,.12);
+  box-shadow: 0 18px 50px rgba(55,18,35,.065), inset 0 1px 0 rgba(255,255,255,.8);
+}
+.public-page .public-feature-grid article,
+.public-page .public-price-card,
+.public-page .public-contact-form,
+.public-page .public-waitlist-form {
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.public-page .public-kicker { text-shadow: 0 0 18px rgba(247,37,103,.15); }
+.public-page .public-button,
+.public-page .public-nav nav a,
+.public-page .public-persona-card a,
+.public-page .public-footer a { transition: transform .2s cubic-bezier(.23,1,.32,1), color .2s ease, opacity .2s ease; }
+.public-page .public-button:hover,
+.public-page .public-persona-card a:hover { transform: translateY(-3px); }
+@keyframes smait-public-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .public-page .public-hero,
+  .public-page .public-section,
+  .public-page .public-persona-grid,
+  .public-page .public-pricing-grid,
+  .public-page .public-waitlist { animation: none; }
+}

@@ -1,5 +1,14 @@
 # Responsive UI/UX Audit
 
+## Make Landing The Site-Wide Design System
+
+- [x] Audit landing and interior typography, spacing, colors, surfaces, and motion.
+- [x] Define shared design tokens and motion rules based on the landing page.
+- [x] Apply the system across Features, Personas, Pricing, Contact, Waitlist, FAQ, and 404.
+- [x] Preserve all existing copy, interactions, cursor, theme toggle, and responsive behavior.
+- [x] Verify visual consistency at desktop/mobile sizes and save a checkpoint.
+
+
 ## Uncollapse Landing Navigation
 
 - [x] Restore the expanded landing-page navigation link row.

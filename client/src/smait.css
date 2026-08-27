@@ -1833,3 +1833,6 @@ body { transition: background-color .3s ease, color .3s ease; }
 .public-page .public-feature-accordion-item:nth-child(3), .public-page .public-persona-card:nth-child(3), .public-page .public-price-card:nth-child(3) { --comet-accent: rgba(255, 127, 87, .30); }
 .public-page .comet-card::after { background: radial-gradient(240px circle at var(--comet-glow-x) var(--comet-glow-y), var(--comet-accent), transparent 63%), linear-gradient(135deg, rgba(255,255,255,.08), transparent 54%); }
 .public-page .comet-card:hover { box-shadow: 0 24px 52px rgba(36,8,28,.16), 0 0 0 1px color-mix(in srgb, var(--comet-accent) 62%, transparent); }
+
+/* Different Voices headline accent: keep the new conversation-led message anchored to SMAIT pink. */
+.public-voices-stage-top h2 .public-voice-highlight { color: var(--pink); }

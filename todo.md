@@ -1,5 +1,12 @@
 # Responsive UI/UX Audit
 
+## Update Different Voices Headline
+
+- [x] Replace the headline with “voices behind every conversation.”
+- [x] Highlight only “conversation” in pink.
+- [x] Verify desktop and mobile rendering, then save a checkpoint.
+
+
 ## Replace Voice Portrait Archive
 
 - [x] Extract and inspect the new portrait archive.

@@ -1,5 +1,22 @@
 # Responsive UI/UX Audit
 
+## Fix Root SEO And Image Alt Text
+
+- [x] Audit current root metadata and all homepage image elements.
+- [x] Add 3–8 focused meta keywords.
+- [x] Set a 30–60 character `document.title`.
+- [x] Add a 50–160 character meta description.
+- [x] Add meaningful alt text to all homepage images that convey content.
+- [x] Validate exact limits, build, and homepage output, then save a checkpoint.
+
+
+## Export Complete Website ZIP
+
+- [x] Inventory the current source files, configs, docs, and managed visual assets.
+- [x] Assemble a portable archive excluding node_modules, build output, and transient logs.
+- [x] Validate the ZIP contents and attach the downloadable archive.
+
+
 ## Make Landing The Site-Wide Design System
 
 - [x] Audit landing and interior typography, spacing, colors, surfaces, and motion.

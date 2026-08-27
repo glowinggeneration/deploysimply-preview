@@ -414,7 +414,7 @@ function screenLanding(){
       ${TH_ITEMS.map((it,i) => `
         <div class="th-item" data-idx="${i}" data-cursor="Reply">
           <img class="th-item-base" src="${it.image}" alt="${it.name}" draggable="false" />
-          <img class="th-item-reveal" src="${it.image}" alt="" aria-hidden="true" draggable="false" />
+          <img class="th-item-reveal" src="${it.image}" alt="${it.name} persona preview" draggable="false" />
         </div>`).join('')}
     </div>
 
@@ -496,12 +496,12 @@ function screenLanding(){
           <div class="th-dialog-preview">
             <span class="th-dialog-preview-label">Pick your favourite persona</span>
             <div class="th-dialog-avatar-wrap">
-              <img class="th-dialog-avatar" id="th-dialog-avatar" src="${TH_ITEMS[0].image}" alt="" />
+              <img class="th-dialog-avatar" id="th-dialog-avatar" src="${TH_ITEMS[0].image}" alt="${TH_ITEMS[0].name} persona portrait" />
             </div>
             <p class="th-dialog-avatar-name" id="th-dialog-avatar-name">${TH_ITEMS[0].name}</p>
             <p class="th-dialog-avatar-tagline" id="th-dialog-avatar-tagline">${TH_ITEMS[0].tagline}</p>
             <div class="th-dialog-persona-row" id="th-dialog-persona-row">
-              ${TH_ITEMS.map((p, i) => `<button type="button" class="th-dialog-persona-pick${i===0?' active':''}" data-persona="${p.key}" aria-label="${p.name}"><img src="${p.image}" alt="" /></button>`).join('')}
+              ${TH_ITEMS.map((p, i) => `<button type="button" class="th-dialog-persona-pick${i===0?' active':''}" data-persona="${p.key}" aria-label="${p.name}"><img src="${p.image}" alt="${p.name} persona portrait" /></button>`).join('')}
             </div>
           </div>
         </div>
@@ -656,7 +656,7 @@ function smaitCtaFaqFooter(){
     <div class="smait-cta-inner">
       <main class="smait-cta-grid">
         <div class="smait-cta-card">
-          <img class="smait-cta-persona" src="${IMG.hype}" alt="" aria-hidden="true" />
+          <img class="smait-cta-persona" src="${IMG.hype}" alt="Hype Person persona illustration" />
           <h2>Ready to Meet<br>Your Personas?</h2>
           <p>Let three distinct voices handle replies at scale</p>
           <button type="button" class="smait-cta-btn" id="smait-cta-btn" data-cursor="Waitlist">Join Waitlist</button>
@@ -729,7 +729,7 @@ function smaitCtaFaqFooter(){
 function smaitFalconSection(){
   return `
   <section class="falcon-wrap">
-    <img id="falcon-witty-bg" class="falcon-witty-bg" src="${TH_ITEMS[0].image}" alt="" aria-hidden="true" />
+    <img id="falcon-witty-bg" class="falcon-witty-bg" src="${TH_ITEMS[0].image}" alt="Witty One persona illustration" />
     <div class="falcon-intro">
       <h2 class="th-dia smait-text-effect">Personas at <span class="falcon-intro-accent">Work</span></h2>
       <p>A look inside what SMAIT personas report: conversations, sentiment, reach and outcomes.</p>
@@ -824,7 +824,7 @@ function smaitTestimonials(){
   const cards = SMAIT_TESTIMONIALS.map(card).join('');
   return `
   <section class="smait-testi" id="smait-testi">
-    <img id="smait-testi-persona-bg" class="smait-testi-persona-bg" src="${TH_ITEMS[1].image}" alt="" aria-hidden="true" />
+    <img id="smait-testi-persona-bg" class="smait-testi-persona-bg" src="${TH_ITEMS[1].image}" alt="Thinker persona illustration" />
     <div class="smait-testi-inner">
       <div class="smait-testi-copy">
         <h2 class="th-dia smait-text-effect">Trusted by teams who move <span class="smait-testi-accent">fast on social</span></h2>
@@ -1857,6 +1857,7 @@ const ROUTES = {
 const root = document.getElementById('root');
 function render(){
   const entry = ROUTES[route] || ROUTES['/404'];
+  document.title = route === '/' ? 'SMAIT | AI Personas for Social Replies' : document.title;
   if(window.__smaitVoiceCleanup) window.__smaitVoiceCleanup();
   if(window.__smaitCursorCleanup) window.__smaitCursorCleanup();
   document.body.classList.remove('smait-custom-cursor');

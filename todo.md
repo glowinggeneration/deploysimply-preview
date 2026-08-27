@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Redesign Voice Avatar Controls
+
+- [x] Replace the current spaced avatar rail with overlapping circular portraits.
+- [x] Add a +5 overflow token and an add-voice control with accessible labels.
+- [x] Preserve manual selection, automatic rotation, and mobile horizontal scrolling.
+- [x] Verify the voice navigator and save a checkpoint.
+
+
 ## Extend Landing Cursor Across Site
 
 - [x] Audit custom cursor markup, initialization, and public-page lifecycle.

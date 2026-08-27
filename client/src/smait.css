@@ -1836,3 +1836,21 @@ body { transition: background-color .3s ease, color .3s ease; }
 
 /* Different Voices headline accent: keep the new conversation-led message anchored to SMAIT pink. */
 .public-voices-stage-top h2 .public-voice-highlight { color: var(--pink); }
+
+/* Voice picker: overlapping avatars keep the navigator compact and people-first. */
+.public-voice-picker { gap: 0; align-items: center; padding-bottom: 4px; }
+.public-voice-avatar { position: relative; z-index: 1; margin-left: -10px; }
+.public-voice-avatar:first-child { margin-left: 0; }
+.public-voice-avatar:hover, .public-voice-avatar:focus-visible, .public-voice-avatar.is-active { z-index: 4; }
+.public-voice-avatar-image { width: 58px; height: 58px; border-width: 2px; box-shadow: 0 3px 12px rgba(16, 10, 18, .16); }
+.public-voice-avatar:hover .public-voice-avatar-image, .public-voice-avatar:focus-visible .public-voice-avatar-image, .public-voice-avatar.is-active .public-voice-avatar-image { transform: translateY(-5px) scale(1.04); box-shadow: 0 8px 18px rgba(16, 10, 18, .22); }
+.public-voice-overflow, .public-voice-add { display: inline-flex; width: 58px; height: 58px; flex: 0 0 auto; align-items: center; justify-content: center; margin-left: 10px; border: 2px solid rgba(255,255,255,.68); border-radius: 50%; background: rgba(255,255,255,.78); color: #1a0a12; font-size: 13px; font-weight: 800; letter-spacing: -.02em; box-shadow: 0 3px 12px rgba(16, 10, 18, .16); }
+.public-voice-add { margin-left: 12px; border-color: rgba(255,255,255,.88); background: #1a0a12; color: #fff; font-size: 26px; font-weight: 300; line-height: 1; cursor: pointer; transition: transform .2s ease, background-color .2s ease, color .2s ease; }
+.public-voice-add:hover, .public-voice-add:focus-visible { transform: translateY(-4px); background: var(--pink); color: #fff; }
+.public-voice-add:active { transform: translateY(-1px) scale(.97); }
+@media (max-width: 700px) {
+  .public-voice-avatar { margin-left: -8px; }
+  .public-voice-avatar-image, .public-voice-overflow, .public-voice-add { width: 46px; height: 46px; }
+  .public-voice-overflow, .public-voice-add { margin-left: 8px; font-size: 11px; }
+  .public-voice-add { margin-left: 10px; font-size: 22px; }
+}

@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Extend CometCard Treatment Across Public Pages
+
+- [x] Audit non-landing card classes and current CometCard initialization.
+- [x] Add the 3D tilt and cursor-following color sheen to cards on Features, Personas, Pricing, Contact, and Waitlist.
+- [x] Preserve card content, accordion behavior, forms, and mobile touch usability.
+- [x] Verify hover states, reduced motion, and responsive layouts, then save a checkpoint.
+
+
 ## Apply UI Component Collection To Public Pages
 
 - [x] Map the supplied component patterns to Features, Personas, Pricing, Contact, and Waitlist pages.

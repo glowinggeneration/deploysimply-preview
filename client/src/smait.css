@@ -1824,3 +1824,10 @@ body { transition: background-color .3s ease, color .3s ease; }
 @media (prefers-reduced-motion: reduce) {
   .public-feature-accordion-item, .public-feature-accordion-mark, .public-feature-accordion-panel { transition: none; }
 }
+
+/* Public-page CometCards: the hover board picks up SMAIT pink, lilac, and warm coral light. */
+.public-page .comet-card { --comet-accent: rgba(245, 37, 115, .34); }
+.public-page .public-feature-accordion-item:nth-child(2), .public-page .public-persona-card:nth-child(2), .public-page .public-price-card:nth-child(2) { --comet-accent: rgba(151, 121, 255, .32); }
+.public-page .public-feature-accordion-item:nth-child(3), .public-page .public-persona-card:nth-child(3), .public-page .public-price-card:nth-child(3) { --comet-accent: rgba(255, 127, 87, .30); }
+.public-page .comet-card::after { background: radial-gradient(240px circle at var(--comet-glow-x) var(--comet-glow-y), var(--comet-accent), transparent 63%), linear-gradient(135deg, rgba(255,255,255,.08), transparent 54%); }
+.public-page .comet-card:hover { box-shadow: 0 24px 52px rgba(36,8,28,.16), 0 0 0 1px color-mix(in srgb, var(--comet-accent) 62%, transparent); }

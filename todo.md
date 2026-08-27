@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Redesign Different Voices Navigation
+
+- [x] Replace the block-style voice cards with a full-bleed active portrait navigator.
+- [x] Add circular avatar selection, active voice copy, role metadata, and WhatsApp link treatment.
+- [x] Add smooth crossfade and responsive mobile behavior without autoplay.
+- [x] Verify the Personas page on desktop and mobile, then save a checkpoint.
+
+
 ## Add Different Voices Section
 
 - [x] Define voices as individuals within the persona groups.

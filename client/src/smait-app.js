@@ -329,8 +329,9 @@ function screenFeatures(){
 }
 function screenPersonas(){
   const personaCards = TH_ITEMS.map((p, i) => `<article class="public-persona-card"><div class="public-persona-art"><img src="${p.image}" alt="${p.name}" /></div><div><p class="public-kicker">0${i+1}</p><h2>${p.name}</h2><p>${p.tagline}</p><a href="#/waitlist">Choose this voice ${icon('arrow',15)}</a></div></article>`).join('');
-  const voiceCards = VOICE_ITEMS.map((voice, i) => `<article class="public-voice-card"><div class="public-voice-image"><img loading="lazy" src="${voice.image}" alt="${voice.name}" /></div><div class="public-voice-copy"><div class="public-voice-meta"><span>0${i+1}</span><span>${voice.role}</span></div><h3>${voice.name}</h3><p>${voice.description}</p></div></article>`).join('');
-  return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1>Three ways to sound <em>like you.</em></h1><p class="public-lead">A persona represents a demographic group. A voice is the individual character within it.</p></section><section class="public-persona-grid">${personaCards}</section><section class="public-voices-section"><div class="public-section-intro"><p class="public-kicker">Different voices</p><h2>Meet the individuals behind the signal.</h2><p class="public-lead">Each voice brings its own craft, instincts, and way of seeing the work.</p></div><div class="public-voices-grid">${voiceCards}</div></section>`);
+  const voiceBackdrops = VOICE_ITEMS.map((voice, i) => `<div class="public-voice-backdrop${i===0?' is-active':''}" data-voice-backdrop="${i}" style="background-image:url('${voice.image}')" aria-hidden="true"></div>`).join('');
+  const voiceAvatars = VOICE_ITEMS.map((voice, i) => `<button type="button" class="public-voice-avatar${i===0?' is-active':''}" data-voice-index="${i}" aria-label="Show ${voice.name}" aria-selected="${i===0?'true':'false'}"><span class="public-voice-dot" aria-hidden="true"></span><span class="public-voice-avatar-image"><img loading="lazy" src="${voice.image}" alt="${voice.name}" /></span></button>`).join('');
+  return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1>Three ways to sound <em>like you.</em></h1><p class="public-lead">A persona represents a demographic group. A voice is the individual character within it.</p></section><section class="public-persona-grid">${personaCards}</section><section class="public-voices-stage" id="public-voices-stage"><div class="public-voices-backdrops">${voiceBackdrops}</div><div class="public-voices-scrim" aria-hidden="true"></div><div class="public-voices-stage-content"><div class="public-voices-stage-top"><div><p class="public-voices-eyebrow">Different voices</p><h2>Meet the individuals<br />you build with.</h2></div><p class="public-voice-description" id="public-voice-description">${VOICE_ITEMS[0].description}</p></div><div class="public-voices-stage-bottom"><div class="public-voice-picker" role="tablist" aria-label="Choose a voice">${voiceAvatars}</div><div class="public-voice-meta-rail"><span class="public-voice-name" id="public-voice-name">${VOICE_ITEMS[0].name}</span><span class="public-voice-role" id="public-voice-role">${VOICE_ITEMS[0].role}</span><span class="public-voice-tenure">In the business since 2020</span><a class="public-voice-whatsapp" href="#/contact">WhatsApp</a></div></div></div></section>`);
 }
 function screenPricing(){
   const tiers = [['Starter','For finding your first signal.','3 personas','Reply previews','Approval queue'],['Team','For teams moving every day.','3 personas + custom voice','Shared reply review','Priority support'],['Studio','For brands scaling the conversation.','Custom persona system','Multi-brand workspaces','Managed rollout']];
@@ -1612,6 +1613,34 @@ function initTHCursor(hero){
 function screenNotFound(){
   return publicPage('', `<section class="public-hero public-hero--compact public-not-found"><p class="public-kicker">404 / No signal here</p><h1>This page took a <em>different route.</em></h1><p class="public-lead">The link may have moved, but the conversation is still happening.</p><a class="public-button" href="#/">Return home ${icon('arrow',15)}</a></section>`);
 }
+function bindVoiceNavigator(){
+  const stage = document.getElementById('public-voices-stage');
+  if(!stage) return;
+  const description = document.getElementById('public-voice-description');
+  const name = document.getElementById('public-voice-name');
+  const role = document.getElementById('public-voice-role');
+  const avatars = Array.from(stage.querySelectorAll('[data-voice-index]'));
+  const backdrops = Array.from(stage.querySelectorAll('[data-voice-backdrop]'));
+  const setActive = (index) => {
+    const voice = VOICE_ITEMS[index];
+    avatars.forEach((avatar, i) => {
+      const active = i === index;
+      avatar.classList.toggle('is-active', active);
+      avatar.setAttribute('aria-selected', String(active));
+    });
+    backdrops.forEach((backdrop, i) => backdrop.classList.toggle('is-active', i === index));
+    [description, name, role].forEach((node) => { node.classList.remove('is-changing'); void node.offsetWidth; node.classList.add('is-changing'); });
+    description.textContent = voice.description;
+    name.textContent = voice.name;
+    role.textContent = voice.role;
+  };
+  avatars.forEach((avatar) => avatar.addEventListener('click', () => setActive(Number(avatar.dataset.voiceIndex))));
+  setActive(0);
+}
+function bindPersonasPage(){
+  bindPublicPage();
+  bindVoiceNavigator();
+}
 function bindPublicPage(){
   const menu = document.querySelector('.public-nav-menu');
   const navEl = document.querySelector('.public-nav nav');
@@ -1647,7 +1676,7 @@ function escapeAttr(s){ return escapeHtml(s); }
 const ROUTES = {
   '/': { render: screenLanding, bind: bindLanding },
   '/features': { render: screenFeatures, bind: bindPublicPage },
-  '/personas': { render: screenPersonas, bind: bindPublicPage },
+  '/personas': { render: screenPersonas, bind: bindPersonasPage },
   '/pricing': { render: screenPricing, bind: bindPublicPage },
   '/contact': { render: screenContact, bind: bindPublicPage },
   '/waitlist': { render: screenWaitlist, bind: bindPublicPage },

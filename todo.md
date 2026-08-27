@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Align FAQ Card To Reference
+
+- [x] Audit the current FAQ card content visibility and navigation rail.
+- [x] Match the reference with a spacious white panel and anchored Previous/Next controls.
+- [x] Preserve the complete FAQ copy, carousel behavior, and dark/light theme support.
+- [x] Verify desktop/mobile FAQ rendering and save a checkpoint.
+
+
 ## Add Comprehensive FAQ Content
 
 - [x] Add all supplied FAQ questions and answers to the existing FAQ data.

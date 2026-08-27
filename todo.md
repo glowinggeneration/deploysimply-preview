@@ -1,5 +1,14 @@
 # Responsive UI/UX Audit
 
+## Force Heading Line Breaks
+
+- [x] Put “like you.” on its own line.
+- [x] Put “direction.” on its own line.
+- [x] Put “sound like you.” on its own line.
+- [x] Preserve text effects, pink emphasis, and responsive sizing.
+- [x] Verify affected pages and save a checkpoint.
+
+
 ## Add Per-Character Text Effects
 
 - [x] Locate all seven supplied phrases in the public page markup.

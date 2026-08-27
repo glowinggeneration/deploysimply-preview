@@ -1881,3 +1881,9 @@ body { transition: background-color .3s ease, color .3s ease; }
 @media (prefers-reduced-motion: reduce) {
   .smait-text-effect .smait-text-char, .smait-text-effect.is-text-revealed .smait-text-char { opacity: 1; transform: none; filter: none; transition: none; }
 }
+
+/* Heading line breaks: keep the requested emphasized phrases together without clipping. */
+.smait-text-line--nowrap { display: inline-block; white-space: nowrap; }
+@media (max-width: 700px) {
+  .public-hero h1 .smait-text-line--nowrap { max-width: 100%; }
+}

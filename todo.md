@@ -1,5 +1,12 @@
 # Responsive UI/UX Audit
 
+## Remove Landing Wordmark Pill
+
+- [x] Remove the boxed/pill treatment from the landing hero SMAIT wordmark.
+- [x] Keep plain SMAIT text visible in the top navigation.
+- [x] Verify desktop and mobile hero layout, then save a checkpoint.
+
+
 ## Make SMAIT Visible In Landing Top Navigation
 
 - [x] Inspect the landing top navigation wordmark and contrast.

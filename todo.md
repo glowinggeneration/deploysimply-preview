@@ -334,3 +334,10 @@
 - [ ] Implement targeted mobile layout fixes for the landing page and dashboard while preserving desktop composition.
 - [ ] Verify landing and dashboard screenshots at mobile and desktop breakpoints.
 - [ ] Run type checking and production build, then save a checkpoint.
+
+## Create Favicon And Social Sharing Image
+
+- [x] Generate a simple SMAIT symbol favicon with transparent background.
+- [x] Generate a 1200×630 SMAIT social-sharing image using the established pink visual language.
+- [x] Add favicon links plus Open Graph and Twitter Card metadata.
+- [x] Verify asset references, metadata values, build, and homepage rendering.

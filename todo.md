@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Replace Voice Portrait Archive
+
+- [x] Extract and inspect the new portrait archive.
+- [x] Map the replacement portraits to the existing twelve voice entries.
+- [x] Preserve descriptions, descriptor labels, and navigator behavior.
+- [x] Verify image loading on desktop/mobile and save a checkpoint.
+
+
 ## Update Voices With Supplied Portraits
 
 - [x] Extract the PDF descriptions and portrait archive.

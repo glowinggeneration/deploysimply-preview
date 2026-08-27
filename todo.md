@@ -1,5 +1,21 @@
 # Responsive UI/UX Audit
 
+## Replace Social Platform Section With World Map
+
+- [x] Add a responsive connectivity map section where the social-platform section was removed.
+- [x] Configure map routes and markers for South Africa, Kenya, Nigeria, Zambia, Liberia, and Canada.
+- [x] Preserve the existing CTA/footer flow and mobile layout.
+- [x] Verify desktop and mobile rendering, then save a checkpoint.
+
+
+## Remove Social Platform Section
+
+- [ ] Locate the “Plugs into every social platform” section and its CTA.
+- [ ] Remove the section markup without affecting adjacent content or footer layout.
+- [ ] Remove or preserve related styles and handlers as appropriate.
+- [ ] Verify the landing page at desktop and mobile sizes, then save a checkpoint.
+
+
 ## Remove CometCard From Testimonials
 
 - [x] Remove the CometCard class from the testimonial cards only.

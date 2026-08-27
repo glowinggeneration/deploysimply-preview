@@ -1613,50 +1613,44 @@ body { transition: background-color .3s ease, color .3s ease; }
 }
 
 
-/* ============ Social platform integrations section ============ */
-.smait-int-wrap { padding: 40px 0 20px; }
-.smait-int-grid-outer {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
-  background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(240,245,255,.55));
-  border: 1px solid rgba(255,255,255,.85);
-  backdrop-filter: blur(40px) saturate(1.5);
-  -webkit-backdrop-filter: blur(40px) saturate(1.5);
-  border-radius: 28px; padding: 48px; position: relative; overflow: hidden;
-  box-shadow: 0 20px 60px rgba(20,10,30,.08), inset 0 0 40px rgba(255,255,255,.4);
-}
-.smait-int-visual { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.smait-int-row { display: flex; gap: 18px; }
-.smait-int-card {
-  width: 74px; height: 74px; border-radius: 20px; display: grid; place-items: center;
-  background: rgba(255,255,255,.75); border: 1px solid rgba(20,10,30,.08);
-  box-shadow: 0 8px 24px rgba(20,10,30,.07);
-  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, color .3s ease;
-  color: #2a1f2a;
-}
-.smait-int-card:hover { transform: translateY(-6px) scale(1.05); color: #E0146E; box-shadow: 0 14px 34px rgba(224,20,110,.22); }
-.smait-int-logo svg { width: 30px; height: 30px; display: block; }
-.smait-int-copy h2 { font-family: Anton, Archivo, sans-serif; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.03; margin: 0 0 14px; text-transform: uppercase; }
-.smait-int-copy p { margin: 0 0 24px; font-size: 15px; line-height: 1.6; opacity: .75; max-width: 46ch; }
-.smait-int-btn {
-  height: 46px; padding: 0 26px; border: 0; border-radius: 999px; cursor: pointer;
-  background: linear-gradient(135deg, #f72567, #E0146E); color: #fff; font-weight: 700; font-size: 14px;
-  box-shadow: 0 10px 26px rgba(224,20,110,.3); transition: transform .2s ease, box-shadow .25s ease;
-}
-.smait-int-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(224,20,110,.4); }
+/* ============ World Map connectivity section ============ */
+.smait-world-map-wrap { padding: 80px 0 40px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: center; }
+.smait-world-map-copy { max-width: 480px; }
+.smait-world-map-kicker { font-weight: 700; color: var(--pink); text-transform: uppercase; letter-spacing: .1em; font-size: 12px; margin-bottom: 12px; }
+.smait-world-map-copy h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.02; margin: 0 0 20px; letter-spacing: -.04em; }
+.smait-world-map-copy h2 span { color: #888; }
+.smait-world-map-copy p { color: var(--muted); font-size: 17px; line-height: 1.6; margin-bottom: 28px; }
+.smait-world-map-countries { display: flex; flex-wrap: wrap; gap: 10px; }
+.smait-world-map-countries span { padding: 6px 14px; background: var(--pink-soft); color: #c51e55; border-radius: 999px; font-size: 12px; font-weight: 650; }
 
-[data-theme="dark"] .smait-int-grid-outer { background: linear-gradient(135deg, rgba(40,28,40,.6), rgba(26,19,25,.5)); border-color: rgba(255,255,255,.12); box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 0 40px rgba(255,255,255,.05); }
-[data-theme="dark"] .smait-int-card { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.12); color: #f4eef2; }
+.smait-world-map { position: relative; width: 100%; aspect-ratio: 2/1; background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.04); overflow: hidden; }
+.smait-world-map svg { width: 100%; height: 100%; display: block; }
+.world-map-land { fill: #f5f5f7; }
+.world-map-dots { fill: #e2e2e6; }
+.world-map-route { fill: none; stroke: url(#world-map-route-gradient); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: world-map-route-draw 3s ease-out forwards; animation-delay: var(--route-delay, 0s); }
+@keyframes world-map-route-draw { to { stroke-dashoffset: 0; } }
 
-@media (max-width: 900px) {
-  .smait-int-grid-outer { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px; }
-  .smait-int-copy { text-align: center; }
-  .smait-int-copy p { margin-inline: auto; }
+.world-map-marker circle { fill: var(--pink); }
+.world-map-pulse { fill: var(--pink); opacity: .4; animation: world-map-pulse 2s ease-out infinite; }
+@keyframes world-map-pulse { 0% { r: 3.2; opacity: .6; } 100% { r: 12; opacity: 0; } }
+.world-map-marker text { font-size: 10px; font-weight: 700; fill: #1a0a12; pointer-events: none; }
+
+[data-theme="dark"] .smait-world-map { background: #111; border-color: rgba(255,255,255,.08); }
+[data-theme="dark"] .world-map-land { fill: #1a1a1e; }
+[data-theme="dark"] .world-map-dots { fill: #2a2a2e; }
+[data-theme="dark"] .world-map-marker text { fill: #fff; }
+
+@media (max-width: 960px) {
+  .smait-world-map-wrap { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+  .smait-world-map-copy { max-width: 600px; margin: 0 auto; }
+  .smait-world-map-countries { justify-content: center; }
 }
 @media (max-width: 639px) {
-  .smait-int-wrap { padding: 24px 0 8px; }
-  .smait-int-card { width: 58px; height: 58px; border-radius: 16px; }
-  .smait-int-logo svg { width: 24px; height: 24px; }
-  .smait-int-row { gap: 12px; }
+  .smait-world-map-wrap { padding: 48px 0 24px; }
+  .smait-world-map { padding: 10px; border-radius: 16px; }
+  .world-map-marker text { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .smait-int-card { transition: none; } }
-.smait-int-copy h2 .smait-int-accent, .smait-int-accent { color: #E0146E !important; -webkit-text-fill-color: #E0146E; }
+@media (prefers-reduced-motion: reduce) {
+  .world-map-route { animation: none; stroke-dashoffset: 0; }
+  .world-map-pulse { animation: none; opacity: 0; }
+}

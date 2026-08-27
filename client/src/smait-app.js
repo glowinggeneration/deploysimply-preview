@@ -567,32 +567,57 @@ function smaitBentoMetrics(){
   </section>`;
 }
 
-const SOCIAL_LOGOS = {
-  x: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2h3.3l-7.2 8.3L23.5 22h-6.6l-5.2-6.8L5.7 22H2.4l7.7-8.8L1.9 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20Z"/></svg>',
-  instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>',
-  linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.3 8.2h4.4V24H.3V8.2Zm7.4 0h4.2v2.2h.06c.6-1.1 2.05-2.3 4.22-2.3 4.5 0 5.34 2.9 5.34 6.7V24h-4.4v-7.3c0-1.75-.03-4-2.46-4-2.47 0-2.85 1.9-2.85 3.87V24H7.7V8.2Z"/></svg>',
-  facebook: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg>',
-  tiktok: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v14.1a2.7 2.7 0 1 1-2.2-2.66V10.1a6 6 0 1 0 5.4 5.97V9.2a7.2 7.2 0 0 0 4.2 1.35V7.3a4.1 4.1 0 0 1-4.2-4.05V2Z"/></svg>',
-  youtube: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.9a3 3 0 0 0-2.1-2.13C19.5 4.25 12 4.25 12 4.25s-7.5 0-9.4.52A3 3 0 0 0 .5 6.9 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.1 3 3 0 0 0 2.1 2.13c1.9.52 9.4.52 9.4.52s7.5 0 9.4-.52a3 3 0 0 0 2.1-2.13A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.1ZM9.6 15.5v-7l6.3 3.5-6.3 3.5Z"/></svg>',
-  whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2Zm5.3 14.1c-.23.64-1.34 1.23-1.85 1.27-.5.05-.97.24-3.27-.68-2.75-1.08-4.48-3.9-4.62-4.08-.13-.18-1.1-1.46-1.1-2.78s.7-1.98.94-2.25c.24-.27.53-.34.7-.34h.5c.16 0 .38-.06.6.45.22.53.75 1.84.82 1.97.07.13.11.29.02.47-.09.18-.13.29-.27.44l-.4.47c-.13.13-.27.28-.12.55.15.26.67 1.1 1.44 1.79 1 .88 1.83 1.16 2.09 1.29.26.13.41.11.56-.07.15-.18.65-.75.82-1.01.18-.27.35-.22.59-.13.24.09 1.54.72 1.8.86.27.13.44.2.51.31.07.11.07.64-.16 1.28Z"/></svg>',
-  threads: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 11.4c-.1-.05-.2-.1-.3-.14-.18-3.2-1.94-5.04-4.88-5.06h-.04c-1.76 0-3.22.75-4.12 2.11l1.62 1.11c.67-1.02 1.72-1.23 2.5-1.23h.03c.97 0 1.7.28 2.17.84.34.4.57.96.68 1.66a12.3 12.3 0 0 0-2.77-.13c-2.79.16-4.58 1.78-4.46 4.03.06 1.14.63 2.12 1.6 2.76.83.54 1.89.8 3 .74 1.46-.08 2.6-.63 3.4-1.65.6-.77.98-1.77 1.15-3.03.7.42 1.21.98 1.5 1.65.48 1.14.51 3.02-1.01 4.54-1.34 1.33-2.94 1.9-5.37 1.92-2.7-.02-4.74-.88-6.06-2.56C4.6 17.4 4 15.19 3.98 12c.02-3.19.63-5.4 1.83-6.9C7.13 3.42 9.17 2.56 11.87 2.54c2.72.02 4.8.88 6.17 2.57.68.83 1.19 1.87 1.53 3.08l1.9-.5c-.41-1.5-1.06-2.79-1.94-3.86C17.77 1.65 15.19.56 11.88.54h-.01C8.57.56 6.02 1.66 4.3 3.84 2.77 5.78 1.98 8.48 1.96 11.99v.02c.02 3.51.81 6.21 2.34 8.15 1.72 2.18 4.27 3.28 7.57 3.3h.01c2.94-.02 5-.79 6.71-2.5 2.23-2.23 2.17-5.03 1.43-6.75-.53-1.23-1.54-2.23-2.92-2.9Zm-4.5 5.7c-1.23.07-2.5-.48-2.56-1.62-.05-.85.6-1.79 2.64-1.9.23-.02.46-.02.69-.02.74 0 1.43.07 2.06.21-.24 2.94-1.62 3.27-2.83 3.33Z"/></svg>',
-};
-
-function smaitIntegrations(){
-  const cell = (k, cls) => `<div class="smait-int-card ${cls||''}" data-cursor="${k}"><span class="smait-int-logo">${SOCIAL_LOGOS[k]}</span></div>`;
+function smaitWorldMap(){
+  const countries = [
+    { name:'Canada', lat:56.1304, lng:-106.3468, dx:-8, dy:-12 },
+    { name:'Liberia', lat:6.4281, lng:-9.4295, dx:-10, dy:18 },
+    { name:'Nigeria', lat:9.082, lng:8.6753, dx:8, dy:-12 },
+    { name:'Kenya', lat:-0.0236, lng:37.9062, dx:8, dy:-12 },
+    { name:'Zambia', lat:-13.1339, lng:27.8493, dx:8, dy:18 },
+    { name:'South Africa', lat:-30.5595, lng:22.9375, dx:-12, dy:20 },
+  ];
+  const project = (lat, lng) => ({ x: (lng + 180) * (800 / 360), y: (90 - lat) * (400 / 180) });
+  const paths = [
+    ['Canada','Liberia'], ['Liberia','Nigeria'], ['Nigeria','Kenya'], ['Kenya','Zambia'], ['Zambia','South Africa'], ['Canada','Nigeria'],
+  ].map(([from, to], index) => {
+    const a = countries.find(c => c.name === from), b = countries.find(c => c.name === to);
+    const p1 = project(a.lat, a.lng), p2 = project(b.lat, b.lng);
+    const cx = (p1.x + p2.x) / 2, cy = Math.min(p1.y, p2.y) - (index % 2 ? 34 : 52);
+    return `<path class="world-map-route" d="M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}" style="--route-delay:${(index * .18).toFixed(2)}s" />`;
+  }).join('');
+  const markers = countries.map(c => {
+    const p = project(c.lat, c.lng);
+    return `<g class="world-map-marker" transform="translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})"><circle r="3.2" /><circle class="world-map-pulse" r="5" /><text x="${c.dx}" y="${c.dy}">${escapeHtml(c.name)}</text></g>`;
+  }).join('');
+  const dots = Array.from({length: 770}, (_, i) => {
+    const x = (i * 37) % 800, y = (i * 67) % 400;
+    return `<circle cx="${x}" cy="${y}" r="1" />`;
+  }).join('');
   return `
-  <section class="smait-int-wrap" aria-labelledby="smait-int-title">
-    <div class="smait-int-grid-outer">
-      <div class="smait-int-visual" aria-hidden="true">
-        <div class="smait-int-row">${cell('x')}${cell('instagram')}</div>
-        <div class="smait-int-row">${cell('linkedin')}${cell('tiktok')}${cell('youtube')}</div>
-        <div class="smait-int-row">${cell('facebook')}${cell('whatsapp')}${cell('threads')}</div>
-      </div>
-      <div class="smait-int-copy">
-        <h2 id="smait-int-title" class="th-dia">Plugs into every <span class="smait-int-accent">social platform</span></h2>
-        <p>Your personas reply where the conversation happens. Connect the networks you already run and let SMAIT handle the volume.</p>
-        <button type="button" class="smait-int-btn" id="smait-int-btn" data-cursor="Waitlist">Get Started</button>
-      </div>
+  <section class="smait-world-map-wrap" aria-labelledby="smait-world-map-title">
+    <div class="smait-world-map-copy">
+      <p class="smait-world-map-kicker">Remote connectivity</p>
+      <h2 id="smait-world-map-title" class="th-dia">Every voice, <span>closer to the conversation.</span></h2>
+      <p>SMAIT helps teams stay connected to the conversations that matter, wherever their communities are building momentum.</p>
+      <div class="smait-world-map-countries" aria-label="Connected countries">${countries.map(c => `<span>${escapeHtml(c.name)}</span>`).join('')}</div>
+    </div>
+    <div class="smait-world-map" role="img" aria-label="Animated connectivity map linking Canada, Liberia, Nigeria, Kenya, Zambia, and South Africa">
+      <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="world-map-route-gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ffbad8"/><stop offset="50%" stop-color="#e0146e"/><stop offset="100%" stop-color="#ffbad8"/></linearGradient>
+          <filter id="world-map-glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <g class="world-map-land" aria-hidden="true">
+          <path d="M104 95 124 64 174 48 221 61 247 84 233 111 202 117 181 143 148 133 120 145 93 126Z" />
+          <path d="M263 119 301 102 343 111 367 139 361 172 343 198 335 241 312 278 290 308 269 294 270 258 250 223 256 184 244 151Z" />
+          <path d="M384 94 416 69 457 67 496 81 532 106 565 111 592 131 583 159 553 166 528 152 493 160 470 184 441 177 421 150 392 143Z" />
+          <path d="M557 184 595 173 622 189 631 223 609 247 585 251 572 282 543 302 515 289 502 260 516 231 542 216Z" />
+          <path d="M652 302 679 293 703 310 695 334 667 344 646 329Z" />
+        </g>
+        <g class="world-map-dots" aria-hidden="true">${dots}</g>
+        <g class="world-map-routes" filter="url(#world-map-glow)">${paths}</g>
+        <g class="world-map-markers">${markers}</g>
+      </svg>
     </div>
   </section>`;
 }
@@ -602,6 +627,7 @@ function smaitCtaFaqFooter(){
   return `
   <section class="smait-cta-wrap">
     <div class="smait-cta-inner">
+      ${smaitWorldMap()}
       <main class="smait-cta-grid">
         <div class="smait-cta-card">
           <img class="smait-cta-persona" src="${IMG.hype}" alt="" aria-hidden="true" />
@@ -621,7 +647,6 @@ function smaitCtaFaqFooter(){
         </div>
       </main>
 
-      ${smaitIntegrations()}
 
 
 
@@ -1009,14 +1034,6 @@ function bindSmaitCtaFaqFooter(){
     renderSlide();
     updateNav();
     window.addEventListener('resize', () => { viewport.style.height = slide.scrollHeight + 'px'; });
-  }
-
-  const intBtn = document.getElementById('smait-int-btn');
-  if(intBtn){
-    intBtn.addEventListener('click', () => {
-      const discoverBtn = document.getElementById('th-discover-btn');
-      if(discoverBtn) discoverBtn.click();
-    });
   }
 
   const ctaBtn = document.getElementById('smait-cta-btn');

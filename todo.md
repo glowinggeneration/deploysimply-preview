@@ -1,5 +1,21 @@
 # Responsive UI/UX Audit
 
+## Add Comprehensive FAQ Content
+
+- [x] Add all supplied FAQ questions and answers to the existing FAQ data.
+- [x] Preserve the established FAQ navigation and copy exactly as supplied.
+- [x] Verify FAQ readability, carousel behavior, footer, and theme toggle on desktop/mobile.
+- [x] Run checks and save a checkpoint.
+
+
+## Unify Public Footers And Theme Toggle
+
+- [x] Audit the landing footer, interior footer, and existing theme-toggle binding.
+- [x] Use one consistent footer treatment across public pages.
+- [x] Make the dark/light mode toggle available in the shared footer.
+- [x] Verify light/dark states and responsive footer layout, then save a checkpoint.
+
+
 ## Move Landing Navigation Right
 
 - [x] Move the landing-page navigation links to the right side.

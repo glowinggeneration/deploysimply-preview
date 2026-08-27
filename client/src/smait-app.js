@@ -324,7 +324,51 @@ function publicNav(active){
   </header>`;
 }
 function publicFooter(){
-  return `<footer class="public-footer"><div><a href="#/" class="public-wordmark">SMAIT<span>.</span></a><p>Distinct voices for the conversations that matter.</p></div><div><strong>Explore</strong><a href="#/features">Features</a><a href="#/personas">Personas</a><a href="#/pricing">Pricing</a></div><div><strong>Company</strong><a href="#/contact">Contact</a><a href="#/waitlist">Join waitlist</a></div><small>© 2026 SMAIT. Personas, powered by pink.</small></footer>`;
+  return `<footer class="smait-footer">
+    <div class="smait-footer-grid">
+      <div class="smait-footer-col">
+        <div class="smait-footer-logo">SMAIT</div>
+        <p>Personas that reply exactly like you would, at scale.</p>
+      </div>
+      <div class="smait-footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#/features" data-cursor="Visit">Features</a></li>
+          <li><a href="#/personas" data-cursor="Visit">Personas</a></li>
+          <li><a href="#/" data-cursor="Visit">Testimonials</a></li>
+          <li><a href="#/pricing" data-cursor="Visit">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="smait-footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="#/" data-cursor="Visit">Home</a></li>
+          <li><a href="#/contact" data-cursor="Visit">Contact</a></li>
+          <li><a href="#/404" data-cursor="Visit">404</a></li>
+        </ul>
+      </div>
+      <div class="smait-footer-col smait-footer-news">
+        <h4>Newsletter</h4>
+        <p>Join our newsletter and get notified.</p>
+        <form class="smait-footer-form" id="smait-newsletter-form">
+          <input type="email" placeholder="Enter your email..." required data-cursor="Join" />
+          <button type="submit" data-cursor="Join">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="smait-footer-bottom">
+      <span>All rights reserved. &copy; 2026 SMAIT</span>
+      <span class="smait-footer-pink-line">
+        Personas, powered by pink.
+        <button type="button" class="th-theme-toggle" id="th-theme-toggle" aria-label="Toggle dark mode" data-cursor="View">
+          <span class="th-theme-knob">
+            <span class="th-theme-icon th-theme-icon-sun">${icon('sun',15)}</span>
+            <span class="th-theme-icon th-theme-icon-moon">${icon('moon',15)}</span>
+          </span>
+        </button>
+      </span>
+    </div>
+  </footer>`;
 }
 function publicPage(active, content){
   return `<div class="public-page">${publicNav(active)}<main>${content}</main>${publicFooter()}<div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div></div>`;
@@ -482,11 +526,26 @@ function screenLanding(){
 }
 
 const SMAIT_FAQS = [
-  { q: 'What is the maximum number of personas I can use?', a: 'Every plan includes three ready-made personas. Higher tiers let you train additional custom voices tuned to your brand.' },
-  { q: 'Does my brand need social accounts connected?', a: 'Yes, connect the accounts you want personas replying on. SMAIT never posts anywhere you haven’t explicitly linked.' },
-  { q: 'Is there a mobile app available?', a: 'Yes, our mobile app is available on both iOS and Android so you can review and approve replies on the go.' },
-  { q: 'Can I edit a persona’s reply before it posts?', a: 'Always. Every reply lands in a review queue first: edit, approve, or regenerate before anything goes live.' },
-  { q: 'What platforms are supported?', a: 'SMAIT currently supports X, Instagram, and LinkedIn, with more channels rolling out throughout the year.' },
+  { q: 'What is SMAIT?', a: 'SMAIT is intelligence for communications. It listens to conversations, understands what is changing, and helps organisations respond with the right voice at the right moment.' },
+  { q: 'What is a persona?', a: 'A persona is the role being played in a conversation. An Expert adds clarity. A Challenger introduces another perspective. A Hype Person brings energy and momentum.' },
+  { q: 'What is a voice?', a: 'A voice is the individual behind the persona. Each has their own age, background, personality, vocabulary and way of expressing an idea.' },
+  { q: 'Why have multiple voices?', a: 'Because people do not all speak the same way. Different voices allow the same idea to enter different conversations naturally, without sounding copied or repetitive.' },
+  { q: 'Can two voices from the same persona respond differently?', a: 'Yes. They share the same strategic role, but not the same personality. An Expert might be curious and conversational, while another is more experienced and measured.' },
+  { q: 'Do voices replace social media managers?', a: 'No. They extend what people can do. Humans set the direction, objectives and boundaries. SMAIT helps carry that work across more relevant conversations.' },
+  { q: 'Does every response need human approval?', a: 'That depends on how the organisation configures SMAIT. Responses can begin with human review and gradually operate with greater autonomy as the system learns the organisation\'s standards and boundaries.' },
+  { q: 'Does SMAIT learn over time?', a: 'Yes. Voices become more familiar with context, tone, preferences and previous decisions. The aim is not simply to respond more often, but to become more useful over time.' },
+  { q: 'How many conversations can a voice respond to?', a: 'There is no arbitrary daily conversation limit. If conversations remain relevant to the objective and fall within the configured rules, SMAIT can continue responding.' },
+  { q: 'How does SMAIT decide what is relevant?', a: 'It looks at signals including context, topic, keywords, sentiment, intent and the objective of the campaign before deciding whether a conversation deserves a response.' },
+  { q: 'Will every person receive the same message?', a: 'No. The underlying idea can remain consistent while the language, perspective and delivery change according to the conversation and the voice responding.' },
+  { q: 'Can we test a message before publishing it?', a: 'Yes. SMAIT can show how different personas and voices may interpret or respond to a message before it is released, helping teams see potential reactions earlier.' },
+  { q: 'Can SMAIT help with misinformation?', a: 'Yes. SMAIT can detect relevant conversations, surface questionable claims and help verified information enter those conversations through appropriate voices.' },
+  { q: 'Is SMAIT only for social media?', a: 'No. The model is built around conversations and communication workflows, not a single platform. It can support different channels as they are connected to the system.' },
+  { q: 'What industries can use SMAIT?', a: 'Any industry where public conversation, reputation, customer understanding or communication matters. That includes technology, finance, telecommunications, retail, healthcare, government, education, manufacturing, travel and hospitality, and consumer brands.' },
+  { q: 'Can we choose which voices are used?', a: 'Yes. Teams can select a persona, choose individual voices, or create a combination suited to the objective and audience.' },
+  { q: 'Can a brand create its own voices?', a: 'Yes. Voices can be shaped around the organisation\'s audience, language, tone and communication requirements while remaining distinct enough to feel human.' },
+  { q: 'What happens before a response goes live?', a: 'SMAIT identifies the conversation, considers the objective, selects an appropriate persona and voice, prepares the response, applies the configured review rules and then publishes when approved or authorised.' },
+  { q: 'How do we know whether the voices are working?', a: 'SMAIT tracks what happens after they participate, including replies, engagement, reach, profile activity and other campaign outcomes.' },
+  { q: 'What makes SMAIT different?', a: 'Most communication tools help teams publish. SMAIT helps them participate. It senses what people are saying, makes sense of it, acts through distinct voices, influences the conversation and tracks what changes. Sense. Make. Act. Influence. Track.' },
 ];
 
 /* ---------- bento grid: platform health/metrics, below "Personas at Work" ---------- */
@@ -1736,6 +1795,14 @@ function bindPublicPage(){
     document.getElementById('public-contact-success').hidden = false;
     contact.reset();
   });
+  const newsletterForm = document.getElementById('smait-newsletter-form');
+  if(newsletterForm) newsletterForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = newsletterForm.querySelector('input');
+    const button = newsletterForm.querySelector('button');
+    if(button) button.textContent = 'Subscribed';
+    if(input) input.disabled = true;
+  });
 }
 
 // ---------- helpers ----------
@@ -1770,6 +1837,7 @@ function render(){
   if(document.querySelector('.public-page')) {
     initCometCards();
     initTHCursor(document.querySelector('.public-page'));
+    initTHTheme();
   }
 }
 

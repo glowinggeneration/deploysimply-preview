@@ -1,5 +1,21 @@
 # Responsive UI/UX Audit
 
+## Extend Landing Cursor Across Site
+
+- [x] Audit custom cursor markup, initialization, and public-page lifecycle.
+- [x] Enable the cursor treatment on all public pages, not just the landing page.
+- [x] Preserve data-cursor labels, touch-device fallback, and reduced-motion behavior.
+- [x] Verify desktop and mobile behavior, then save a checkpoint.
+
+
+## Add Tilt To Reference Feature Boards
+
+- [ ] Locate the reference-style feature board cards and any previous/next controls.
+- [ ] Apply the shared 3D tilt and colored hover sheen to the board surfaces.
+- [ ] Preserve existing copy, controls, accessibility, and mobile behavior.
+- [ ] Verify desktop/mobile rendering and save a checkpoint.
+
+
 ## Update Different Voices Headline
 
 - [x] Replace the headline with “voices behind every conversation.”

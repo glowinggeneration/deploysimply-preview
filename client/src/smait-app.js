@@ -327,7 +327,7 @@ function publicFooter(){
   return `<footer class="public-footer"><div><a href="#/" class="public-wordmark">SMAIT<span>.</span></a><p>Distinct voices for the conversations that matter.</p></div><div><strong>Explore</strong><a href="#/features">Features</a><a href="#/personas">Personas</a><a href="#/pricing">Pricing</a></div><div><strong>Company</strong><a href="#/contact">Contact</a><a href="#/waitlist">Join waitlist</a></div><small>© 2026 SMAIT. Personas, powered by pink.</small></footer>`;
 }
 function publicPage(active, content){
-  return `<div class="public-page">${publicNav(active)}<main>${content}</main>${publicFooter()}</div>`;
+  return `<div class="public-page">${publicNav(active)}<main>${content}</main>${publicFooter()}<div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div></div>`;
 }
 function screenFeatures(){
   return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-accordion"><article class="public-feature-accordion-item comet-card is-open"><button type="button" aria-expanded="true"><span class="public-feature-accordion-heading"><span class="public-feature-number">01</span><span>Distinct voices</span></span><span class="public-feature-accordion-mark" aria-hidden="true">−</span></button><div class="public-feature-accordion-panel"><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">02</span><span>Human direction</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Give every reply a clear objective before a persona turns it into language.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">03</span><span>Review before live</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></div></article></div></section>`);
@@ -1564,18 +1564,18 @@ const TH_CURSOR_ICONS = {
 };
 function initTHCursor(hero){
   const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if(!supportsHover) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!supportsHover || reduceMotion) return;
 
   const cursor = document.getElementById('th-cursor');
   const label = document.getElementById('th-cursor-label');
-  const page = document.getElementById('smait-landing-page') || hero;
+  const page = document.getElementById('smait-landing-page') || hero || document.querySelector('.public-page');
+  if(!cursor || !label || !page) return;
   document.body.classList.add('smait-custom-cursor');
 
   let mouseX = 0, mouseY = 0, curX = 0, curY = 0, vx = 0, vy = 0, raf = null, activeLabel = null;
-
-  // spring physics for a smooth, momentum-driven follow
-  const stiffness = 0.18;   // pull toward target
-  const damping = 0.72;     // friction / settle
+  const stiffness = 0.18;
+  const damping = 0.72;
   function loop(){
     vx = (vx + (mouseX - curX) * stiffness) * damping;
     vy = (vy + (mouseY - curY) * stiffness) * damping;
@@ -1584,15 +1584,12 @@ function initTHCursor(hero){
     cursor.style.transform = `translate(${curX}px, ${curY}px) translate(-50%,-50%)`;
     raf = requestAnimationFrame(loop);
   }
-
-  document.addEventListener('mousemove', (e) => {
+  function onMouseMove(e){
     mouseX = e.clientX;
     mouseY = e.clientY;
     if(!raf) { curX = mouseX; curY = mouseY; vx = 0; vy = 0; loop(); }
-  });
-  page.addEventListener('mouseenter', () => cursor.classList.add('visible'));
-  page.addEventListener('mouseleave', () => { cursor.classList.remove('visible'); setLabel(null); });
-
+  }
+  document.addEventListener('mousemove', onMouseMove);
   function setLabel(text){
     if(text === activeLabel) return;
     activeLabel = text;
@@ -1605,11 +1602,30 @@ function initTHCursor(hero){
       setTimeout(() => { if(!activeLabel) label.innerHTML = ''; }, 150);
     }
   }
-
-  page.querySelectorAll('[data-cursor]').forEach((el) => {
-    el.addEventListener('mouseenter', () => setLabel(el.dataset.cursor));
-    el.addEventListener('mouseleave', () => setLabel(null));
+  function onPageEnter(){ cursor.classList.add('visible'); }
+  function onPageLeave(){ cursor.classList.remove('visible'); setLabel(null); }
+  page.addEventListener('mouseenter', onPageEnter);
+  page.addEventListener('mouseleave', onPageLeave);
+  const targets = page.querySelectorAll('[data-cursor], a, button, input, textarea, select');
+  const targetBindings = [];
+  targets.forEach((el) => {
+    const text = el.dataset.cursor || (el.tagName === 'BUTTON' ? 'View' : el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' ? 'Join' : 'Visit');
+    const enter = () => setLabel(text);
+    const leave = () => setLabel(null);
+    el.addEventListener('mouseenter', enter);
+    el.addEventListener('mouseleave', leave);
+    targetBindings.push([el, enter, leave]);
   });
+  window.__smaitCursorCleanup = () => {
+    document.removeEventListener('mousemove', onMouseMove);
+    page.removeEventListener('mouseenter', onPageEnter);
+    page.removeEventListener('mouseleave', onPageLeave);
+    targetBindings.forEach(([el, enter, leave]) => { el.removeEventListener('mouseenter', enter); el.removeEventListener('mouseleave', leave); });
+    if(raf) cancelAnimationFrame(raf);
+    cursor.classList.remove('visible','expanded');
+    document.body.classList.remove('smait-custom-cursor');
+    window.__smaitCursorCleanup = null;
+  };
 }
 
 function screenNotFound(){
@@ -1741,6 +1757,7 @@ const root = document.getElementById('root');
 function render(){
   const entry = ROUTES[route] || ROUTES['/404'];
   if(window.__smaitVoiceCleanup) window.__smaitVoiceCleanup();
+  if(window.__smaitCursorCleanup) window.__smaitCursorCleanup();
   document.body.classList.remove('smait-custom-cursor');
   root.innerHTML = entry.render();
   window.scrollTo(0,0);
@@ -1750,7 +1767,10 @@ function render(){
     initCometCards();
   }
   if(document.querySelector('.public-nav')) bindPublicPage();
-  if(document.querySelector('.public-page')) initCometCards();
+  if(document.querySelector('.public-page')) {
+    initCometCards();
+    initTHCursor(document.querySelector('.public-page'));
+  }
 }
 
 render();

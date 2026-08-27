@@ -1,5 +1,21 @@
 # Responsive UI/UX Audit
 
+## Uncollapse Landing Navigation
+
+- [x] Restore the expanded landing-page navigation link row.
+- [x] Remove the collapsed menu control from the landing page only.
+- [x] Preserve interior-page navigation, cursor labels, and mobile usability.
+- [x] Verify desktop/mobile header behavior and save a checkpoint.
+
+
+## Remove Landing FAQ Card
+
+- [ ] Remove the landing-page FAQ card and Previous/Next controls.
+- [ ] Remove or preserve related FAQ bindings and styles as appropriate.
+- [ ] Keep other page content, shared footer, and navigation intact.
+- [ ] Verify the landing flow and save a checkpoint.
+
+
 ## Fix Collapsed Menu Clickability
 
 - [x] Trace the landing menu click binding and stacking behavior.

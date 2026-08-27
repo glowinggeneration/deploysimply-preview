@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Remove World Map Section
+
+- [x] Remove the World Map section call and implementation.
+- [x] Remove its related World Map styles and animations.
+- [x] Verify CTA, FAQ, footer, and landing-page flow remain intact.
+- [x] Run checks and save a checkpoint.
+
+
 ## Replace Social Platform Section With World Map
 
 - [x] Add a responsive connectivity map section where the social-platform section was removed.

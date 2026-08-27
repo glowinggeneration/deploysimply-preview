@@ -567,67 +567,11 @@ function smaitBentoMetrics(){
   </section>`;
 }
 
-function smaitWorldMap(){
-  const countries = [
-    { name:'Canada', lat:56.1304, lng:-106.3468, dx:-8, dy:-12 },
-    { name:'Liberia', lat:6.4281, lng:-9.4295, dx:-10, dy:18 },
-    { name:'Nigeria', lat:9.082, lng:8.6753, dx:8, dy:-12 },
-    { name:'Kenya', lat:-0.0236, lng:37.9062, dx:8, dy:-12 },
-    { name:'Zambia', lat:-13.1339, lng:27.8493, dx:8, dy:18 },
-    { name:'South Africa', lat:-30.5595, lng:22.9375, dx:-12, dy:20 },
-  ];
-  const project = (lat, lng) => ({ x: (lng + 180) * (800 / 360), y: (90 - lat) * (400 / 180) });
-  const paths = [
-    ['Canada','Liberia'], ['Liberia','Nigeria'], ['Nigeria','Kenya'], ['Kenya','Zambia'], ['Zambia','South Africa'], ['Canada','Nigeria'],
-  ].map(([from, to], index) => {
-    const a = countries.find(c => c.name === from), b = countries.find(c => c.name === to);
-    const p1 = project(a.lat, a.lng), p2 = project(b.lat, b.lng);
-    const cx = (p1.x + p2.x) / 2, cy = Math.min(p1.y, p2.y) - (index % 2 ? 34 : 52);
-    return `<path class="world-map-route" d="M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}" style="--route-delay:${(index * .18).toFixed(2)}s" />`;
-  }).join('');
-  const markers = countries.map(c => {
-    const p = project(c.lat, c.lng);
-    return `<g class="world-map-marker" transform="translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})"><circle r="3.2" /><circle class="world-map-pulse" r="5" /><text x="${c.dx}" y="${c.dy}">${escapeHtml(c.name)}</text></g>`;
-  }).join('');
-  const dots = Array.from({length: 770}, (_, i) => {
-    const x = (i * 37) % 800, y = (i * 67) % 400;
-    return `<circle cx="${x}" cy="${y}" r="1" />`;
-  }).join('');
-  return `
-  <section class="smait-world-map-wrap" aria-labelledby="smait-world-map-title">
-    <div class="smait-world-map-copy">
-      <p class="smait-world-map-kicker">Remote connectivity</p>
-      <h2 id="smait-world-map-title" class="th-dia">Every voice, <span>closer to the conversation.</span></h2>
-      <p>SMAIT helps teams stay connected to the conversations that matter, wherever their communities are building momentum.</p>
-      <div class="smait-world-map-countries" aria-label="Connected countries">${countries.map(c => `<span>${escapeHtml(c.name)}</span>`).join('')}</div>
-    </div>
-    <div class="smait-world-map" role="img" aria-label="Animated connectivity map linking Canada, Liberia, Nigeria, Kenya, Zambia, and South Africa">
-      <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="world-map-route-gradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ffbad8"/><stop offset="50%" stop-color="#e0146e"/><stop offset="100%" stop-color="#ffbad8"/></linearGradient>
-          <filter id="world-map-glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <g class="world-map-land" aria-hidden="true">
-          <path d="M104 95 124 64 174 48 221 61 247 84 233 111 202 117 181 143 148 133 120 145 93 126Z" />
-          <path d="M263 119 301 102 343 111 367 139 361 172 343 198 335 241 312 278 290 308 269 294 270 258 250 223 256 184 244 151Z" />
-          <path d="M384 94 416 69 457 67 496 81 532 106 565 111 592 131 583 159 553 166 528 152 493 160 470 184 441 177 421 150 392 143Z" />
-          <path d="M557 184 595 173 622 189 631 223 609 247 585 251 572 282 543 302 515 289 502 260 516 231 542 216Z" />
-          <path d="M652 302 679 293 703 310 695 334 667 344 646 329Z" />
-        </g>
-        <g class="world-map-dots" aria-hidden="true">${dots}</g>
-        <g class="world-map-routes" filter="url(#world-map-glow)">${paths}</g>
-        <g class="world-map-markers">${markers}</g>
-      </svg>
-    </div>
-  </section>`;
-}
-
 function smaitCtaFaqFooter(){
 
   return `
   <section class="smait-cta-wrap">
     <div class="smait-cta-inner">
-      ${smaitWorldMap()}
       <main class="smait-cta-grid">
         <div class="smait-cta-card">
           <img class="smait-cta-persona" src="${IMG.hype}" alt="" aria-hidden="true" />

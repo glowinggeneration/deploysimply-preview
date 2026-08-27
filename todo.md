@@ -1,5 +1,13 @@
 # Responsive UI/UX Audit
 
+## Update Voices With Supplied Portraits
+
+- [x] Extract the PDF descriptions and portrait archive.
+- [x] Map each portrait to the correct voice profile.
+- [x] Replace the generic role and tenure phrases with descriptor words from each description.
+- [x] Update the navigator and verify image loading plus responsive layout, then save a checkpoint.
+
+
 ## Hide Landing Home Navigation Wordmark
 
 - [x] Hide the SMAIT home-navigation button on the landing page only.

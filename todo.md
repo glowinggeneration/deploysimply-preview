@@ -341,3 +341,11 @@
 - [x] Generate a 1200×630 SMAIT social-sharing image using the established pink visual language.
 - [x] Add favicon links plus Open Graph and Twitter Card metadata.
 - [x] Verify asset references, metadata values, build, and homepage rendering.
+
+## Install UI UX Pro Max And Refine Mobile
+
+- [x] Install the provided UI/UX Pro Max skill into the workspace.
+- [x] Review its mobile design guidance and inspect the current SMAIT mobile implementation.
+- [x] Identify mobile layout, navigation, typography, spacing, overflow, and interaction issues.
+- [x] Apply targeted mobile-first refinements while preserving the SMAIT brand and existing copy.
+- [x] Verify representative mobile and desktop breakpoints, run checks/build, and save a checkpoint.

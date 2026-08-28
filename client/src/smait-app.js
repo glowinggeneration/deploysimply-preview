@@ -1413,6 +1413,7 @@ function initTHTheme(){
 
 function initTHDialog(hero){
   const overlay = document.getElementById('th-dialog-overlay');
+  if(!overlay) return;
   const dialog = overlay.querySelector('.th-dialog');
   const openBtn = document.getElementById('th-discover-btn');
   const closeBtn = document.getElementById('th-dialog-close');
@@ -1596,10 +1597,11 @@ function initTHDialog(hero){
   }
 
   const cancelBtn = document.getElementById('th-dialog-cancel');
-  openBtn.addEventListener('click', open);
-  closeBtn.addEventListener('click', close);
+  if(openBtn) openBtn.addEventListener('click', open);
+  if(closeBtn) closeBtn.addEventListener('click', close);
   if(cancelBtn) cancelBtn.addEventListener('click', close);
   overlay.addEventListener('mousedown', (e) => { if(e.target === overlay) close(); });
+  if(!form) return;
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     store.set('demoName', nameInput.value.trim());
@@ -1828,12 +1830,24 @@ function initTextEffects(root = document){
     textNodes.forEach((node) => {
       if(!node.nodeValue || !node.nodeValue.trim()) return;
       const fragment = document.createDocumentFragment();
-      Array.from(node.nodeValue).forEach((character, index) => {
-        const span = document.createElement('span');
-        span.className = 'smait-text-char';
-        span.style.setProperty('--char-index', index);
-        span.textContent = character;
-        fragment.appendChild(span);
+      const tokens = node.nodeValue.split(/(\s+)/);
+      let charIndex = 0;
+      tokens.forEach((token) => {
+        if(!token) return;
+        if(/^\s+$/.test(token)){
+          fragment.appendChild(document.createTextNode(token));
+          return;
+        }
+        const word = document.createElement('span');
+        word.className = 'smait-text-word';
+        Array.from(token).forEach((character) => {
+          const span = document.createElement('span');
+          span.className = 'smait-text-char';
+          span.style.setProperty('--char-index', charIndex++);
+          span.textContent = character;
+          word.appendChild(span);
+        });
+        fragment.appendChild(word);
       });
       node.replaceWith(fragment);
     });

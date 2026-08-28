@@ -370,8 +370,23 @@ function publicFooter(){
     </div>
   </footer>`;
 }
+function publicMobileShell(active){
+  const items = [
+    ['home','Home','/','dash'],
+    ['features','Features','/features','sparkles'],
+    ['personas','Personas','/personas','users'],
+    ['pricing','Pricing','/pricing','card'],
+    ['waitlist','Join','/waitlist','plus'],
+  ];
+  return `<div class="public-mobile-shell" aria-label="Mobile app navigation">
+    <div class="public-mobile-shell-brand"><a href="#/" aria-label="SMAIT home">SMAIT<span>.</span></a><span>Make every reply intentional.</span></div>
+    <nav class="public-mobile-dock" aria-label="Mobile primary navigation">
+      ${items.map(([key,label,path,glyph]) => `<a href="#${path}" class="${active===key?'is-active':''}${key==='waitlist'?' public-mobile-dock-join':''}" aria-current="${active===key?'page':'false'}" data-cursor="${label}"><span class="public-mobile-dock-icon">${icon(glyph,18)}</span><span>${label}</span></a>`).join('')}
+    </nav>
+  </div>`;
+}
 function publicPage(active, content){
-  return `<div class="public-page">${publicNav(active)}<main>${content}</main>${publicFooter()}<div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div></div>`;
+  return `<div class="public-page">${publicNav(active)}${publicMobileShell(active)}<main>${content}</main>${publicFooter()}<div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div></div>`;
 }
 function screenFeatures(){
   return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-accordion"><article class="public-feature-accordion-item comet-card is-open"><button type="button" aria-expanded="true"><span class="public-feature-accordion-heading"><span class="public-feature-number">01</span><span>Distinct voices</span></span><span class="public-feature-accordion-mark" aria-hidden="true">−</span></button><div class="public-feature-accordion-panel"><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">02</span><span>Human direction</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Give every reply a clear objective before a persona turns it into language.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">03</span><span>Review before live</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></div></article></div></section>`);
@@ -397,6 +412,7 @@ function screenLanding(){
   <div id="smait-landing-page">
   <div class="th-hero" id="th-hero" style="background-color:${TH_ITEMS[0].bg}">
     ${publicNav('home')}
+    ${publicMobileShell('home')}
     <div class="th-grain" style="background-image:url('${TH_GRAIN_URI}')" aria-hidden="true"></div>
     <div class="th-hero-veil" aria-hidden="true"></div>
 

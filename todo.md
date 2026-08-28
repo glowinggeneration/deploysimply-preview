@@ -349,3 +349,19 @@
 - [x] Identify mobile layout, navigation, typography, spacing, overflow, and interaction issues.
 - [x] Apply targeted mobile-first refinements while preserving the SMAIT brand and existing copy.
 - [x] Verify representative mobile and desktop breakpoints, run checks/build, and save a checkpoint.
+
+## Export Website To GitHub
+
+- [ ] Verify GitHub authentication and destination owner.
+- [ ] Prepare the current SMAIT source for export without build output or secrets.
+- [ ] Create and push a new GitHub repository.
+- [ ] Verify the repository URL and source contents.
+
+## Simplify Mobile Into An App-Like Experience
+
+- [x] Define a mobile information architecture with one clear primary action and fewer competing elements.
+- [x] Audit existing mobile routes, navigation, forms, cards, and footer density.
+- [x] Implement app-like mobile navigation with predictable access to core routes and a clear waitlist action.
+- [x] Simplify mobile hero sections, spacing, content grouping, and interaction patterns without changing approved copy.
+- [x] Preserve desktop behavior while verifying 320px, 375px, and tablet breakpoints.
+- [x] Run checks, capture representative responsive screenshots, and save a checkpoint.

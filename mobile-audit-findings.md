@@ -20,6 +20,14 @@ Reviewed the provided UI/UX Pro Max guidance and audited the SMAIT hash-routed p
 - Allowed the Contact hero heading to wrap at the 768px tablet breakpoint without splitting words or clipping the emphasized line.
 - Rechecked representative routes at 320px, 375px, and 768px; the inspected screens remain readable with no confirmed horizontal overflow.
 
+## App-Like Mobile Pass
+
+- Added a persistent five-destination mobile dock: Home, Features, Personas, Pricing, and Join.
+- Added a compact SMAIT mobile brand row and a 44px menu control for the secondary Contact route.
+- Reduced mobile footer density to the SMAIT brand and essential legal/theme controls.
+- Simplified mobile card geometry, section spacing, CTA sizing, and hero art height while preserving approved copy.
+- Rechecked 375px and 768px routes; the mobile shell is hidden on desktop and the desktop navigation remains intact at 1280px.
+
 ## Design Direction
 
 Keep the established SMAIT pink editorial system, preserve supplied copy, use mobile-first wrapping, maintain visible focus states, and avoid hover-only interactions on touch devices.

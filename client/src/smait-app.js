@@ -42,6 +42,21 @@ let route = location.hash.replace('#','') || '/';
 window.addEventListener('hashchange', () => { route = location.hash.replace('#','') || '/'; render(); });
 function nav(path){ location.hash = path; }
 
+// Single persistent Escape handler for the public nav's collapsed dropdown,
+// added once here rather than re-added by bindPublicPage() on every render
+// (which left one extra dead listener on `document` per navigation, forever).
+document.addEventListener('keydown', (event) => {
+  if(event.key !== 'Escape') return;
+  const navRoot = document.querySelector('[data-public-nav]');
+  const menu = navRoot?.querySelector('[data-public-nav-toggle]');
+  const navEl = navRoot?.querySelector('[data-public-nav-panel]');
+  if(navEl && navEl.classList.contains('is-open')){
+    navEl.classList.remove('is-open');
+    menu.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-label', 'Open navigation');
+  }
+});
+
 // ---------- icon set (inline SVG, stroke-based, mirrors lucide look) ----------
 function icon(name, size){
   size = size || 20;
@@ -183,7 +198,7 @@ const TH_GRAIN_URI = 'data:image/svg+xml,' + encodeURIComponent(TH_GRAIN_SVG);
 // ---------- services ----------
 const SERVICES = [
   {
-    key: 'advertising', icon: 'sparkles', kicker: '01 · Proactive Advertising',
+    key: 'advertising', icon: 'send', kicker: '01 · Proactive Advertising',
     title: 'Be ready for the moment.',
     summary: 'SMAIT personas monitor your market, follow emerging conversations and develop advertising ideas in your brand voice. Your team reviews and approves each concept before it goes live.',
     bullets: [
@@ -223,7 +238,7 @@ const SERVICES = [
 // ---------- case studies ----------
 // Illustrative examples showing how each service plays out. Swap in real client
 // names, numbers and quotes before this page goes live.
-// All six examples below are illustrative — written to show how each service
+// All six examples below are illustrative, written to show how each service
 // plays out, not documented results from real client engagements. They're
 // labeled "Illustrative example" in the UI and deliberately avoid stating
 // specific figures or quotes, since none are verified. Replace with real,
@@ -234,7 +249,7 @@ const CASE_STUDIES = [
     service: 'advertising', client: 'Specialty Coffee Roaster', industry: 'Food & beverage', illustrative: true,
     title: 'Every seasonal drop. Ready to launch.',
     preview: 'An always-on persona keeps campaign concepts ready before each new blend even launches.',
-    challenge: 'New seasonal blends launch every few weeks, but the team can typically only brief a new ad campaign about once a month — most drops go unadvertised.',
+    challenge: 'New seasonal blends launch every few weeks, but the team can typically only brief a new ad campaign about once a month. Most drops go unadvertised.',
     approach: 'A SMAIT persona would monitor flavour trends and local conversation daily, drafting campaign concepts and captions ahead of each drop, ready for same-day approval.',
     outcome: 'A faster path from launch day to a live ad, more campaigns shipped each quarter, and stronger engagement on drop-day posts.',
   },
@@ -250,7 +265,7 @@ const CASE_STUDIES = [
     service: 'management', client: 'Regional Restaurant Group', industry: 'Hospitality', illustrative: true,
     title: 'Eight locations. One voice.',
     preview: 'One tuned persona brings a single consistent voice to scheduling, publishing and replies across every location.',
-    challenge: 'Each location posts inconsistently, with replies handled ad hoc by whoever is free — brand voice varies from location to location.',
+    challenge: 'Each location posts inconsistently, with replies handled ad hoc by whoever is free, and brand voice varies from location to location.',
     approach: 'SMAIT would take over scheduling, publishing and comment/DM replies across all locations, using one persona tuned to the brand with local context per site.',
     outcome: 'A single consistent brand voice across every location, noticeably quicker replies, and steadier follower growth over time.',
   },
@@ -265,9 +280,9 @@ const CASE_STUDIES = [
   {
     service: 'ads', client: 'B2B SaaS Startup', industry: 'Software', illustrative: true,
     title: 'A clearer path to demo bookings.',
-    preview: 'Campaigns rebuilt around one objective — demo bookings — instead of broad awareness.',
+    preview: 'Campaigns rebuilt around one objective, demo bookings, instead of broad awareness.',
     challenge: 'Paid social spend is going toward broad awareness campaigns with no clear line back to demo bookings or pipeline.',
-    approach: 'Campaigns would be rebuilt around a single objective — demo bookings — with persona-written ad variants tested against a narrower, higher-intent audience.',
+    approach: 'Campaigns would be rebuilt around a single objective, demo bookings, with persona-written ad variants tested against a narrower, higher-intent audience.',
     outcome: 'A stronger return on ad spend and more demo bookings from the same budget, by keeping every campaign tied to one clear objective.',
   },
   {
@@ -408,9 +423,6 @@ function smaitLogoSlider(){
   </section>`;
 }
 
-function thFingerprintIcon(){
-  return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/><path d="M5 19.5C7.5 22 10.5 21.5 12 20"/><path d="M4 15.5C2 12 3 8 5 6"/><path d="M8 20C4.5 15 5 8 8 6c3-2 6.5-1 8 1"/><path d="M12 20c-2-3-2.5-6-2.5-8 0-2.5 1.5-4 4-4S17 9.5 17 12"/><path d="M20 14c0 2-1 3.5-2 4.5"/><path d="M17.5 17.5c1.5-1.5 2.5-3.5 2.5-6a8 8 0 0 0-1-4"/></svg>`;
-}
 
 function publicServicesMega(active){
   const items = SERVICES.map(s => `<a href="#/services#service-${s.key}" class="public-nav-mega-item"><span class="public-nav-mega-icon">${icon(s.icon,16)}</span><span><strong>${s.kicker.replace(/^0\d · /,'')}</strong><small>${s.title}</small></span></a>`).join('');
@@ -418,7 +430,7 @@ function publicServicesMega(active){
     <a href="#/services" class="public-nav-mega-trigger${active==='services'?' active':''}">Services${icon('chevron',13)}</a>
     <div class="public-nav-mega-panel">
       ${items}
-      <a href="#/services" class="public-nav-mega-item public-nav-mega-item--wide"><span class="public-nav-mega-icon">${icon('sparkles',16)}</span><span><strong>All services</strong><small>Compare what each one covers</small></span></a>
+      <a href="#/services" class="public-nav-mega-item public-nav-mega-item--wide"><span class="public-nav-mega-icon">${icon('card',16)}</span><span><strong>All services</strong><small>Compare what each one covers</small></span></a>
       <a href="#/case-studies" class="public-nav-mega-item public-nav-mega-item--wide public-nav-mega-item--cta"><span class="public-nav-mega-icon">${icon('trend',16)}</span><span><strong>Case studies</strong><small>Real results from every service</small></span></a>
     </div>
   </div>`;
@@ -491,7 +503,7 @@ function publicFooter(){
 function publicMobileShell(active){
   const items = [
     ['home','Home','/','dash'],
-    ['services','Services','/services','sparkles'],
+    ['services','Services','/services','card'],
     ['personas','Personas','/personas','users'],
     ['pricing','Pricing','/pricing','card'],
     ['waitlist','Join','/waitlist','plus'],
@@ -510,7 +522,7 @@ function screenFeatures(){
   return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-accordion"><article class="public-feature-accordion-item comet-card is-open"><button type="button" aria-expanded="true"><span class="public-feature-accordion-heading"><span class="public-feature-number">01</span><span>Distinct voices</span></span><span class="public-feature-accordion-mark" aria-hidden="true">−</span></button><div class="public-feature-accordion-panel"><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">02</span><span>Human direction</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Give every reply a clear objective before a persona turns it into language.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">03</span><span>Review before live</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></div></article></div></section>`);
 }
 function screenPersonas(){
-  const personaCards = TH_ITEMS.map((p, i) => `<article class="public-persona-card comet-card"><div class="public-persona-art"><img src="${p.image}" alt="${p.name}" /></div><div><p class="public-kicker">0${i+1}</p><h2>${p.name}</h2><p>${p.tagline}</p><a href="#/waitlist">Choose this voice ${icon('arrow',15)}</a></div></article>`).join('');
+  const personaCards = TH_ITEMS.map((p, i) => `<article class="public-persona-card comet-card"><div class="public-persona-art"><img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" /></div><div><p class="public-kicker">0${i+1}</p><h2>${p.name}</h2><p>${p.tagline}</p><a href="#/waitlist">Choose this voice ${icon('arrow',15)}</a></div></article>`).join('');
   const voiceBackdrops = VOICE_ITEMS.map((voice, i) => `<div class="public-voice-backdrop${i===0?' is-active':''}" data-voice-backdrop="${i}" style="background-image:url('${voice.image}')" aria-hidden="true"></div>`).join('');
   const voiceAvatars = VOICE_ITEMS.map((voice, i) => `<button type="button" class="public-voice-avatar${i===0?' is-active':''}" data-voice-index="${i}" aria-label="Show ${voice.name}" aria-selected="${i===0?'true':'false'}"><span class="public-voice-dot" aria-hidden="true"></span><span class="public-voice-avatar-image"><img loading="lazy" src="${voice.image}" alt="${voice.name}" /></span></button>`).join('');
   return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1 class="smait-text-effect"><span class="smait-text-line">Three ways to sound</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">like you.</em></h1><p class="public-lead">A persona represents a demographic group. A voice is the individual character within it.</p></section><section class="public-persona-grid">${personaCards}</section><section class="public-voices-stage" id="public-voices-stage"><div class="public-voices-backdrops">${voiceBackdrops}</div><div class="public-voices-scrim" aria-hidden="true"></div><div class="public-voices-stage-content"><div class="public-voices-stage-top"><div><p class="public-voices-eyebrow">Different voices</p><h2 class="smait-text-effect">voices behind<br class="smait-heading-break" /><span class="smait-text-line smait-text-line--nowrap">every <span class="public-voice-highlight">conversation</span>.</span></h2></div><p class="public-voice-description" id="public-voice-description">${VOICE_ITEMS[0].description}</p></div><div class="public-voices-stage-bottom"><div class="public-voice-picker" role="tablist" aria-label="Choose a voice">${voiceAvatars}</div><div class="public-voice-meta-rail"><span class="public-voice-name" id="public-voice-name">${VOICE_ITEMS[0].name}</span><span class="public-voice-role" id="public-voice-role">${VOICE_ITEMS[0].role}</span><span class="public-voice-tenure">${VOICE_ITEMS[0].tenure}</span><a class="public-voice-whatsapp" href="#/contact">WhatsApp</a></div></div></div></section>`);
@@ -524,7 +536,7 @@ function screenServices(){
     <ul class="public-service-list">${s.bullets.map(b => `<li>${icon('check',14)}<span>${b}</span></li>`).join('')}</ul>
     <a class="public-button" href="#/case-studies/${s.key}">${s.cta} ${icon('arrow',15)}</a>
   </article>`).join('');
-  return publicPage('services', `<section class="public-hero public-hero--compact"><p class="public-kicker">What we do</p><h1 class="smait-text-effect"><span class="smait-text-line">Three ways we grow</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">your brand.</em></h1><p class="public-lead">Persona-driven services that cover the whole loop — from the ad nobody briefed to the reply nobody had time for.</p></section><section class="public-service-grid">${cards}</section><section class="public-cta-strip comet-card"><div><p class="public-kicker">Not sure where to start?</p><h2>Tell us what's slow, we'll tell you which service fixes it.</h2></div><a class="public-button public-button--dark" href="#/contact">Talk to us ${icon('arrow',15)}</a></section>`);
+  return publicPage('services', `<section class="public-hero public-hero--compact"><p class="public-kicker">What we do</p><h1 class="smait-text-effect"><span class="smait-text-line">Three ways we grow</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">your brand.</em></h1><p class="public-lead">Persona-driven services that cover the whole loop, from the ad nobody briefed to the reply nobody had time for.</p></section><section class="public-service-grid">${cards}</section><section class="public-cta-strip comet-card"><div><p class="public-kicker">Not sure where to start?</p><h2>Tell us what's slow, we'll tell you which service fixes it.</h2></div><a class="public-button public-button--dark" href="#/contact">Talk to us ${icon('arrow',15)}</a></section>`);
 }
 function screenCaseStudies(){
   const initial = (route.split('/')[2] || 'all');
@@ -557,7 +569,7 @@ function screenPricing(){
   return publicPage('pricing', `<section class="public-hero public-hero--compact"><p class="public-kicker">Simple by design</p><h1 class="smait-text-effect"><span class="smait-text-line">Choose your level of</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">direction.</em></h1><p class="public-lead">Start with the voices you need now. Add depth as your team finds its rhythm.</p></section><section class="public-pricing-grid">${tiers.map((tier, i) => `<article class="public-price-card comet-card${i===1?' is-featured':''}">${i===1?'<span class="public-price-badge">Most flexible</span>':''}<p class="public-kicker">${tier[0]}</p><h2>${tier[1]}</h2><ul>${tier.slice(2).map(item=>`<li>${icon('check',14)}${item}</li>`).join('')}</ul><a class="public-button${i===1?' public-button--dark':''}" href="#/waitlist">Join the waitlist ${icon('arrow',15)}</a></article>`).join('')}</section>`);
 }
 function screenContact(){
-  return publicPage('contact', `<section class="public-hero public-hero--split public-contact"><div><p class="public-kicker">Start a conversation</p><h1 class="smait-text-effect"><span class="smait-text-line">Let’s make your next reply</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">sound like you.</em></h1><p class="public-lead">Tell us where your team is headed and we’ll show you how SMAIT can help you get there.</p></div><form class="public-contact-form comet-card" id="public-contact-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A little context helps."></textarea></label><button class="public-button" type="submit">Send note ${icon('arrow',15)}</button><p class="public-form-success" id="public-contact-success" hidden>Thanks — your note is ready for the SMAIT team.</p></form></section>`);
+  return publicPage('contact', `<section class="public-hero public-hero--split public-contact"><div><p class="public-kicker">Start a conversation</p><h1 class="smait-text-effect"><span class="smait-text-line">Let’s make your next reply</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">sound like you.</em></h1><p class="public-lead">Tell us where your team is headed and we’ll show you how SMAIT can help you get there.</p></div><form class="public-contact-form comet-card" id="public-contact-form"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A little context helps."></textarea></label><button class="public-button" type="submit">Send note ${icon('arrow',15)}</button><p class="public-form-success" id="public-contact-success" hidden>Thanks, your note is ready for the SMAIT team.</p></form></section>`);
 }
 function screenWaitlist(){
   return publicPage('waitlist', `<section class="public-hero public-hero--compact public-waitlist-head"><p class="public-kicker">Early access</p><h1>Get closer to the next <em>reply.</em></h1><p class="public-lead">Leave your details and we’ll keep you close to the next release.</p></section><section class="public-waitlist"><form id="public-waitlist-form" class="public-waitlist-form comet-card"><label>Name<input name="name" required placeholder="Your name" /></label><label>Email<input name="email" type="email" required placeholder="you@company.com" /></label><label>Brand or team<input name="brand" placeholder="Who are you building for?" /></label><button class="public-button" type="submit">Join waitlist ${icon('arrow',15)}</button><p class="public-form-success" id="public-waitlist-success" hidden>You’re on the list. We’ll be in touch soon.</p></form><aside class="public-waitlist-note comet-card"><span>“</span><p>The best reply is the one that sounds like it was meant for this exact moment.</p><small>SMAIT principle 01</small></aside></section>`);
@@ -665,12 +677,12 @@ function screenLanding(){
           <div class="th-dialog-preview">
             <span class="th-dialog-preview-label">Pick your favourite persona</span>
             <div class="th-dialog-avatar-wrap">
-              <img class="th-dialog-avatar" id="th-dialog-avatar" src="${TH_ITEMS[0].image}" alt="${TH_ITEMS[0].name} persona portrait" />
+              <img class="th-dialog-avatar" id="th-dialog-avatar" src="${TH_ITEMS[0].image}" alt="${TH_ITEMS[0].name} persona portrait" loading="lazy" decoding="async" />
             </div>
             <p class="th-dialog-avatar-name" id="th-dialog-avatar-name">${TH_ITEMS[0].name}</p>
             <p class="th-dialog-avatar-tagline" id="th-dialog-avatar-tagline">${TH_ITEMS[0].tagline}</p>
             <div class="th-dialog-persona-row" id="th-dialog-persona-row">
-              ${TH_ITEMS.map((p, i) => `<button type="button" class="th-dialog-persona-pick${i===0?' active':''}" data-persona="${p.key}" aria-label="${p.name}"><img src="${p.image}" alt="${p.name} persona portrait" /></button>`).join('')}
+              ${TH_ITEMS.map((p, i) => `<button type="button" class="th-dialog-persona-pick${i===0?' active':''}" data-persona="${p.key}" aria-label="${p.name}"><img src="${p.image}" alt="${p.name} persona portrait" loading="lazy" decoding="async" /></button>`).join('')}
             </div>
           </div>
         </div>
@@ -825,7 +837,7 @@ function smaitCtaFaqFooter(){
     <div class="smait-cta-inner">
       <main class="smait-cta-grid">
         <div class="smait-cta-card">
-          <img class="smait-cta-persona" src="${IMG.hype}" alt="Hype Person persona illustration" />
+          <img class="smait-cta-persona" src="${IMG.hype}" alt="Hype Person persona illustration" loading="lazy" decoding="async" />
           <h2>Ready to Meet<br>Your Personas?</h2>
           <p>Let three distinct voices handle replies at scale</p>
           <button type="button" class="smait-cta-btn" id="smait-cta-btn">Join Waitlist</button>
@@ -898,7 +910,7 @@ function smaitCtaFaqFooter(){
 function smaitFalconSection(){
   return `
   <section class="falcon-wrap">
-    <img id="falcon-witty-bg" class="falcon-witty-bg" src="${TH_ITEMS[0].image}" alt="Witty One persona illustration" />
+    <img id="falcon-witty-bg" class="falcon-witty-bg" src="${TH_ITEMS[0].image}" alt="Witty One persona illustration" loading="lazy" decoding="async" />
     <div class="falcon-intro">
       <h2 class="th-dia smait-text-effect">Personas at <span class="falcon-intro-accent">Work</span></h2>
       <p>A look inside what SMAIT personas report: conversations, sentiment, reach and outcomes.</p>
@@ -920,18 +932,16 @@ function smaitFalconSection(){
           <div class="card-copy">
             <h3>Instant Visibility</h3>
             <p>Real-time conversations across your<br>coffee campaign.</p>
-            <span class="corner-icon"><i class="spark"></i></span>
           </div>
         </article>
 
         <article class="card comet-card">
           <div class="panel">
-            <div class="assistant-head"><span class="badge"><i class="spark"></i></span><span>SMAIT</span></div>
+            <div class="assistant-head"><span class="badge"></span><span>SMAIT</span></div>
             <p class="question">What are people saying about our coffee?</p>
             <div class="prompt">Positive mentions are rising during morning hours,<br>with taste leading the conversation and service<br>driving most negative replies.</div>
             <div class="automate">
               <span class="automate-label">Analyse campaign</span>
-              <canvas class="magic" data-sparkle-icon aria-hidden="true"></canvas>
             </div>
             <i class="cursor" aria-hidden="true"></i>
           </div>
@@ -993,7 +1003,7 @@ function smaitTestimonials(){
   const cards = SMAIT_TESTIMONIALS.map(card).join('');
   return `
   <section class="smait-testi" id="smait-testi">
-    <img id="smait-testi-persona-bg" class="smait-testi-persona-bg" src="${TH_ITEMS[1].image}" alt="Thinker persona illustration" />
+    <img id="smait-testi-persona-bg" class="smait-testi-persona-bg" src="${TH_ITEMS[1].image}" alt="Thinker persona illustration" loading="lazy" decoding="async" />
     <div class="smait-testi-inner">
       <div class="smait-testi-copy">
         <h2 class="th-dia smait-text-effect">Trusted by teams who move <span class="smait-testi-accent">fast on social</span></h2>
@@ -1145,12 +1155,22 @@ function bindLanding(){
     if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
   }
   function restartAutoplay(){ startAutoplay(); }
-  document.addEventListener('visibilitychange', () => {
+  function onVisibilityChange(){
     if(document.hidden) stopAutoplay(); else startAutoplay();
-  });
+  }
+  document.addEventListener('visibilitychange', onVisibilityChange);
   hero.addEventListener('mouseenter', stopAutoplay);
   hero.addEventListener('mouseleave', startAutoplay);
   startAutoplay();
+  // without this, every visit to the home page left the previous visit's
+  // autoplay interval and window/document listeners running in the
+  // background forever, since a fresh bindLanding() call never stopped them.
+  window.__smaitLandingCleanup = () => {
+    stopAutoplay();
+    window.removeEventListener('resize', applyRoles);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    window.__smaitLandingCleanup = null;
+  };
 
   applyRoles();
   initTHDialog(hero);
@@ -1251,48 +1271,7 @@ function bindSmaitCtaFaqFooter(){
 }
 
 /* ---------- Falcon triptych: canvas art + scroll-triggered entrance ---------- */
-function falconRoundedPolygon(ctx, points, roundness){
-  const n = points.length;
-  const lerp = (a,b,t) => [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t];
-  const start = lerp(points[n-1], points[0], 1-roundness);
-  ctx.moveTo(start[0], start[1]);
-  for(let i=0;i<n;i++){
-    const cur = points[i];
-    const next = points[(i+1)%n];
-    const before = lerp(points[(i-1+n)%n], cur, 1-roundness);
-    const after = lerp(cur, next, roundness);
-    ctx.lineTo(before[0], before[1]);
-    ctx.quadraticCurveTo(cur[0], cur[1], after[0], after[1]);
-  }
-  ctx.closePath();
-}
-const FALCON_SPARKLE_POINTS = [[.50,.06],[.59,.41],[.94,.50],[.59,.59],[.50,.94],[.41,.59],[.06,.50],[.41,.41]];
-const FALCON_SPARKLES = [{x:.01,y:.01,size:.50},{x:.28,y:.26,size:.72}];
 
-function falconDrawSparkle(canvas){
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.getBoundingClientRect();
-  const w = Math.max(1, rect.width), h = Math.max(1, rect.height);
-  canvas.width = Math.round(w*dpr); canvas.height = Math.round(h*dpr);
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.clearRect(0,0,w,h);
-  FALCON_SPARKLES.forEach(s => {
-    const size = Math.min(w,h) * s.size;
-    const ox = s.x * w, oy = s.y * h;
-    const pts = FALCON_SPARKLE_POINTS.map(p => [ox + p[0]*size, oy + p[1]*size]);
-    ctx.beginPath();
-    falconRoundedPolygon(ctx, pts, .34);
-    ctx.fillStyle = 'rgba(255,214,232,.6)';
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = Math.max(1.1, size*.15);
-    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    ctx.shadowColor = 'rgba(255,255,255,.78)';
-    ctx.shadowBlur = size*.06;
-    ctx.fill(); ctx.stroke();
-    ctx.shadowBlur = 0;
-  });
-}
 
 const FALCON_BANDS = [
   {source:[.08,.26], target:[.29,.32],  color:'rgba(255,161,203,.60)'},
@@ -1463,7 +1442,6 @@ function falconRunEntrance(scene){
 function initFalconSection(){
   const scene = document.querySelector('.falcon-scene');
   if(!scene) return;
-  falconBindResize(scene.querySelector('[data-sparkle-icon]'), falconDrawSparkle);
   falconBindResize(scene.querySelector('[data-flow-chart]'), falconDrawFlow);
 
   let started = false;
@@ -1712,7 +1690,14 @@ function initTHDialog(hero){
     });
   }
   if(schedulePop) schedulePop.addEventListener('click', (e) => e.stopPropagation());
-  document.addEventListener('click', () => { if(schedulePop && !schedulePop.hidden) closeSchedule(); });
+  function onDocumentClick(){ if(schedulePop && !schedulePop.hidden) closeSchedule(); }
+  document.addEventListener('click', onDocumentClick);
+  // same leak as the landing autoplay: without this, every home-page visit
+  // left the previous visit's document click listener running forever.
+  window.__smaitDialogCleanup = () => {
+    document.removeEventListener('click', onDocumentClick);
+    window.__smaitDialogCleanup = null;
+  };
   if(scheduleCancelBtn) scheduleCancelBtn.addEventListener('click', closeSchedule);
   if(scheduleApplyBtn){
     scheduleApplyBtn.addEventListener('click', () => {
@@ -1946,13 +1931,6 @@ function bindPublicPage(){
       menu.setAttribute('aria-expanded', 'false');
       menu.setAttribute('aria-label', 'Open navigation');
     }));
-    document.addEventListener('keydown', (event) => {
-      if(event.key === 'Escape'){
-        navEl.classList.remove('is-open');
-        menu.setAttribute('aria-expanded', 'false');
-        menu.setAttribute('aria-label', 'Open navigation');
-      }
-    });
   }
   const waitlist = document.getElementById('public-waitlist-form');
   if(waitlist && !waitlist.dataset.bound){
@@ -2025,22 +2003,52 @@ function escapeAttr(s){ return escapeHtml(s); }
 
 // ---------- router ----------
 const ROUTES = {
-  '/': { render: screenLanding, bind: bindLanding },
-  '/features': { render: screenFeatures, bind: bindFeaturesPage },
-  '/personas': { render: screenPersonas, bind: bindPersonasPage },
-  '/services': { render: screenServices, bind: bindPublicPage },
-  '/case-studies': { render: screenCaseStudies, bind: bindCaseStudiesPage },
-  '/pricing': { render: screenPricing, bind: bindPublicPage },
-  '/contact': { render: screenContact, bind: bindPublicPage },
-  '/waitlist': { render: screenWaitlist, bind: bindPublicPage },
-  '/404': { render: screenNotFound, bind: bindPublicPage },
+  '/': { render: screenLanding, bind: bindLanding,
+    title: 'SMAIT | AI Personas for Proactive Marketing & Ads',
+    desc: 'SMAIT creates AI personas that run proactive advertising, manage your social media, and post ads in one consistent brand voice, so your team is never behind.' },
+  '/features': { render: screenFeatures, bind: bindFeaturesPage,
+    title: 'Platform Features | SMAIT AI Personas',
+    desc: 'See how SMAIT personas turn proactive advertising, social media management, and social media ads into one consistent, on-brand voice.' },
+  '/personas': { render: screenPersonas, bind: bindPersonasPage,
+    title: 'Meet the Personas | SMAIT AI Personas',
+    desc: 'Meet the AI personas behind SMAIT, distinct voices trained on your brand that power proactive advertising and social media management.' },
+  '/services': { render: screenServices, bind: bindPublicPage,
+    title: 'Services | Proactive Advertising & Social Media | SMAIT',
+    desc: 'Proactive advertising, social media management, and social media ads, all run by AI personas trained on your brand voice.' },
+  '/case-studies': { render: screenCaseStudies, bind: bindCaseStudiesPage,
+    title: 'Case Studies | SMAIT AI Personas',
+    desc: 'See how SMAIT personas apply proactive advertising, social media management, and social media ads to real work.' },
+  '/pricing': { render: screenPricing, bind: bindPublicPage,
+    title: 'Pricing | SMAIT AI Personas',
+    desc: 'Simple pricing for AI personas that handle proactive advertising, social media management, and social media ads.' },
+  '/contact': { render: screenContact, bind: bindPublicPage,
+    title: 'Contact | SMAIT AI Personas',
+    desc: 'Talk to SMAIT about AI personas for proactive advertising, social media management, and social media ads.' },
+  '/waitlist': { render: screenWaitlist, bind: bindPublicPage,
+    title: 'Join the Waitlist | SMAIT AI Personas',
+    desc: 'Get early access to SMAIT, AI personas for proactive advertising, social media management, and social media ads.' },
+  '/404': { render: screenNotFound, bind: bindPublicPage,
+    title: 'Page Not Found | SMAIT' },
 };
 
 const root = document.getElementById('root');
+function setPageMeta(entry){
+  document.title = entry.title || 'SMAIT | AI Personas for Proactive Marketing & Ads';
+  if(entry.desc){
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if(metaDesc) metaDesc.setAttribute('content', entry.desc);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if(ogDesc) ogDesc.setAttribute('content', entry.desc);
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+    if(twitterDesc) twitterDesc.setAttribute('content', entry.desc);
+  }
+}
 function render(){
   const entry = ROUTES[route] || (route.indexOf('/case-studies/') === 0 ? ROUTES['/case-studies'] : null) || ROUTES['/404'];
-  document.title = route === '/' ? 'SMAIT | AI Personas for Social Replies' : document.title;
+  setPageMeta(entry);
   if(window.__smaitVoiceCleanup) window.__smaitVoiceCleanup();
+  if(window.__smaitLandingCleanup) window.__smaitLandingCleanup();
+  if(window.__smaitDialogCleanup) window.__smaitDialogCleanup();
   root.innerHTML = entry.render();
   window.scrollTo(0,0);
   if(entry.bind) entry.bind();

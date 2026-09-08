@@ -365,3 +365,10 @@
 - [x] Simplify mobile hero sections, spacing, content grouping, and interaction patterns without changing approved copy.
 - [x] Preserve desktop behavior while verifying 320px, 375px, and tablet breakpoints.
 - [x] Run checks, capture representative responsive screenshots, and save a checkpoint.
+
+## Publish GitHub Commit 90342b6
+
+- [ ] Sync commit 90342b6 from the connected GitHub repository into the active WebDev project.
+- [ ] Run type checking, production build, and representative preview verification.
+- [ ] Save a checkpoint to auto-publish the synchronized source.
+- [ ] Confirm the live www.smait.co.za domain reflects the published version.

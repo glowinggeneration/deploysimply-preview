@@ -184,111 +184,99 @@ const TH_GRAIN_URI = 'data:image/svg+xml,' + encodeURIComponent(TH_GRAIN_SVG);
 const SERVICES = [
   {
     key: 'advertising', icon: 'sparkles', kicker: '01 · Proactive Advertising',
-    title: 'Advertising that starts the conversation.',
-    summary: 'Most ad campaigns start with a brief. Ours start with a persona already watching your market. SMAIT personas track trends, competitor moves and audience sentiment every day, then turn what they see into ready-to-approve ad concepts and copy — so your brand is advertising the moment, not reacting to it a week later.',
+    title: 'Be ready for the moment.',
+    summary: 'SMAIT personas monitor your market, follow emerging conversations and develop advertising ideas in your brand voice. Your team reviews and approves each concept before it goes live.',
     bullets: [
-      'Always-on persona monitoring of trends, seasons and conversation triggers in your industry',
-      'Daily proactive ad concepts, hooks and captions written in your brand voice',
-      'A human approval queue before anything goes live — you stay the final word',
-      'A creative cycle measured in hours, not the usual weeks',
+      'Ongoing market monitoring',
+      'Fresh concepts, hooks and captions',
+      'Creative shaped around your brand',
+      'Your approval before publishing',
     ],
-    cta: 'See proactive advertising in action',
+    cta: 'Explore proactive advertising',
   },
   {
     key: 'management', icon: 'users', kicker: '02 · Social Media Management',
-    title: 'Your day-to-day, handled.',
-    summary: 'Scheduling, publishing, replies and reporting across every channel — run by personas trained on your brand voice, with a human checkpoint wherever it matters. Your feed stays active and on-brand without eating your team’s week.',
+    title: 'Your brand. In good hands.',
+    summary: 'From content planning to everyday conversations, SMAIT manages your social presence with a consistent voice and a clear purpose. Stay connected to your audience while your team focuses on the business.',
     bullets: [
-      'A content calendar planned and scheduled around your goals',
-      'On-brand persona replies to comments and DMs, reviewed before they post',
-      'Consistent posting cadence across every platform you run',
-      'A monthly report that shows what worked and what’s next',
+      'Content planned around your goals',
+      'Publishing across your connected channels',
+      'Replies reviewed before posting',
+      'Monthly insights and next steps',
     ],
-    cta: 'See social media management in action',
+    cta: 'Explore social management',
   },
   {
     key: 'ads', icon: 'trendUp', kicker: '03 · Social Media Ads',
-    title: 'Paid campaigns that convert, not just impress.',
-    summary: 'Strategy, creative, targeting and optimisation across Meta, TikTok and beyond — built around a clear objective (replies, clicks or authority) and refined continuously against real performance data, not guesswork.',
+    title: 'Every campaign. A clear purpose.',
+    summary: 'Bring strategy, creative and audience targeting together around your business goals. SMAIT tests and refines your campaigns using performance data, with clear reporting throughout.',
     bullets: [
-      'Campaign strategy and audience targeting tied to a single clear objective',
-      'Persona-crafted ad creative and copy, tested in variants',
-      'Ongoing A/B testing and budget optimisation as data comes in',
-      'Transparent reporting tied back to the goal you set, not vanity metrics',
+      'Strategy built around your objective',
+      'Creative and copy tested in variants',
+      'Ongoing targeting and budget refinement',
+      'Results measured against your goals',
     ],
-    cta: 'See social media ads in action',
+    cta: 'Explore paid campaigns',
   },
 ];
 
 // ---------- case studies ----------
 // Illustrative examples showing how each service plays out. Swap in real client
 // names, numbers and quotes before this page goes live.
+// All six examples below are illustrative — written to show how each service
+// plays out, not documented results from real client engagements. They're
+// labeled "Illustrative example" in the UI and deliberately avoid stating
+// specific figures or quotes, since none are verified. Replace with real,
+// documented case studies (with measurement periods and baselines) as they
+// become available.
 const CASE_STUDIES = [
   {
-    service: 'advertising', client: 'Specialty Coffee Roaster', industry: 'Food & beverage',
-    title: 'A same-day campaign for every seasonal drop',
-    challenge: 'New seasonal blends launched every few weeks, but the team could only brief a new ad campaign roughly once a month — most drops went unadvertised.',
-    approach: 'A SMAIT persona monitored flavour trends and local conversation daily, drafting campaign concepts and captions ahead of each drop for same-day approval and publish.',
-    results: [
-      { stat: '9 days', label: 'faster from launch to first ad' },
-      { stat: '3.1x', label: 'more campaigns shipped per quarter' },
-      { stat: '+41%', label: 'engagement on drop-day posts' },
-    ],
-    quote: 'We used to miss half our own launches. Now the ad is live before the coffee is.',
+    service: 'advertising', client: 'Specialty Coffee Roaster', industry: 'Food & beverage', illustrative: true,
+    title: 'Every seasonal drop. Ready to launch.',
+    preview: 'An always-on persona keeps campaign concepts ready before each new blend even launches.',
+    challenge: 'New seasonal blends launch every few weeks, but the team can typically only brief a new ad campaign about once a month — most drops go unadvertised.',
+    approach: 'A SMAIT persona would monitor flavour trends and local conversation daily, drafting campaign concepts and captions ahead of each drop, ready for same-day approval.',
+    outcome: 'A faster path from launch day to a live ad, more campaigns shipped each quarter, and stronger engagement on drop-day posts.',
   },
   {
-    service: 'advertising', client: 'Boutique Fitness Studio', industry: 'Health & wellness',
-    title: 'Filling classes before they go on the calendar',
-    challenge: 'New class formats needed promotion, but by the time creative was briefed, the first few sessions had already passed half-empty.',
-    approach: 'Personas drafted promo concepts as soon as a new class was scheduled internally, so ads were ready to run from the class’s very first session.',
-    results: [
-      { stat: '+58%', label: 'first-session attendance' },
-      { stat: '6 hrs', label: 'saved per launch on creative briefing' },
-    ],
+    service: 'advertising', client: 'Boutique Fitness Studio', industry: 'Health & wellness', illustrative: true,
+    title: 'New classes. Ready for their first session.',
+    preview: 'Promotional concepts ready the moment a new class format is scheduled, not after it has already run.',
+    challenge: 'New class formats need promotion, but by the time creative is briefed, the first few sessions have often already passed half-empty.',
+    approach: 'Personas would draft promo concepts as soon as a new class is scheduled internally, so ads can be ready to run from a class’s very first session.',
+    outcome: 'Stronger attendance from a class’s opening session, and far less time spent briefing creative for each new launch.',
   },
   {
-    service: 'management', client: 'Regional Restaurant Group', industry: 'Hospitality',
-    title: 'One consistent voice across eight locations',
-    challenge: 'Each location posted inconsistently, with replies handled ad hoc by whoever was free — brand voice varied location to location.',
-    approach: 'SMAIT took over scheduling, publishing and comment/DM replies across all locations, using one persona tuned to the brand with local-menu context per site.',
-    results: [
-      { stat: '7x', label: 'weekly posting consistency across sites' },
-      { stat: '<2 hrs', label: 'average reply time, up from 2 days' },
-      { stat: '+33%', label: 'follower growth in 90 days' },
-    ],
-    quote: 'It finally sounds like one restaurant group instead of eight different people guessing.',
+    service: 'management', client: 'Regional Restaurant Group', industry: 'Hospitality', illustrative: true,
+    title: 'Eight locations. One voice.',
+    preview: 'One tuned persona brings a single consistent voice to scheduling, publishing and replies across every location.',
+    challenge: 'Each location posts inconsistently, with replies handled ad hoc by whoever is free — brand voice varies from location to location.',
+    approach: 'SMAIT would take over scheduling, publishing and comment/DM replies across all locations, using one persona tuned to the brand with local context per site.',
+    outcome: 'A single consistent brand voice across every location, noticeably quicker replies, and steadier follower growth over time.',
   },
   {
-    service: 'management', client: 'D2C Skincare Brand', industry: 'Beauty & personal care',
-    title: 'Community management that scaled with launches',
-    challenge: 'Product launches spiked comment and DM volume far beyond what the founder could personally answer, and replies were slipping for days.',
-    approach: 'A dedicated persona handled first-response replies in the brand’s voice, escalating anything sensitive to the team and reporting weekly themes back.',
-    results: [
-      { stat: '96%', label: 'of comments answered within 4 hours' },
-      { stat: '11 hrs', label: 'saved weekly for the founder' },
-    ],
+    service: 'management', client: 'D2C Skincare Brand', industry: 'Beauty & personal care', illustrative: true,
+    title: 'More conversations. The same care.',
+    preview: 'A dedicated persona keeps first-response replies personal, even when launch-day volume spikes.',
+    challenge: 'Product launches spike comment and DM volume well beyond what the founder can personally answer, and replies slip for days.',
+    approach: 'A dedicated persona would handle first-response replies in the brand’s voice, escalating anything sensitive to the team and reporting weekly themes back.',
+    outcome: 'Much faster first-response times during launch spikes, and meaningfully less day-to-day load on the founder.',
   },
   {
-    service: 'ads', client: 'B2B SaaS Startup', industry: 'Software',
-    title: 'Turning ad spend into qualified demo bookings',
-    challenge: 'Paid social spend was going toward broad awareness campaigns with no clear line back to demo bookings or pipeline.',
-    approach: 'Campaigns were rebuilt around a single objective — demo bookings — with persona-written ad variants tested against a narrower, higher-intent audience.',
-    results: [
-      { stat: '4.2x', label: 'return on ad spend' },
-      { stat: '-37%', label: 'cost per qualified demo booking' },
-      { stat: '2.6x', label: 'more demo bookings, same budget' },
-    ],
-    quote: 'We stopped paying for attention and started paying for pipeline.',
+    service: 'ads', client: 'B2B SaaS Startup', industry: 'Software', illustrative: true,
+    title: 'A clearer path to demo bookings.',
+    preview: 'Campaigns rebuilt around one objective — demo bookings — instead of broad awareness.',
+    challenge: 'Paid social spend is going toward broad awareness campaigns with no clear line back to demo bookings or pipeline.',
+    approach: 'Campaigns would be rebuilt around a single objective — demo bookings — with persona-written ad variants tested against a narrower, higher-intent audience.',
+    outcome: 'A stronger return on ad spend and more demo bookings from the same budget, by keeping every campaign tied to one clear objective.',
   },
   {
-    service: 'ads', client: 'Fashion Retailer', industry: 'Retail & e-commerce',
-    title: 'Always-on ads that flex with inventory',
-    challenge: 'Manual ad creative couldn’t keep pace with weekly drops and sell-through, leaving out-of-stock items running as ads for days.',
-    approach: 'Continuous A/B-tested ad variants were paired with faster creative turnaround, so campaigns could rotate as fast as inventory did.',
-    results: [
-      { stat: '+52%', label: 'revenue from paid social' },
-      { stat: '3 days → 4 hrs', label: 'time to refresh a campaign' },
-    ],
+    service: 'ads', client: 'Fashion Retailer', industry: 'Retail & e-commerce', illustrative: true,
+    title: 'Campaigns that keep pace with stock.',
+    preview: 'Continuous, tested ad variants that rotate as fast as inventory does.',
+    challenge: 'Manual ad creative can’t keep pace with weekly drops and sell-through, leaving out-of-stock items running as ads for days.',
+    approach: 'Continuously tested ad variants would be paired with faster creative turnaround, so campaigns could rotate as fast as inventory does.',
+    outcome: 'More revenue from paid social and a much shorter turnaround to refresh a campaign.',
   },
 ];
 
@@ -542,24 +530,27 @@ function screenCaseStudies(){
   const initial = (route.split('/')[2] || 'all');
   const filters = [['all','All work'], ...SERVICES.map(s => [s.key, s.kicker.replace(/^0\d · /,'')])];
   const filterButtons = filters.map(([key,label]) => `<button type="button" class="public-case-filter${key===initial?' is-active':''}" data-case-filter="${key}">${label}</button>`).join('');
-  const cards = CASE_STUDIES.map((c) => {
+  const cards = CASE_STUDIES.map((c, i) => {
     const service = SERVICES.find(s => s.key === c.service);
+    const serviceLabel = service.kicker.replace(/^0\d · /,'');
     return `<article class="public-case-card comet-card" data-case-service="${c.service}">
       <div class="public-case-card-top">
-        <span class="public-case-badge">${icon(service.icon,13)}<span>${service.kicker.replace(/^0\d · /,'')}</span></span>
-        <span class="public-case-industry">${c.industry}</span>
+        <span class="public-case-badge">${icon(service.icon,13)}<span>${serviceLabel} · ${c.industry}</span></span>
+        ${c.illustrative ? '<span class="public-case-illustrative">Illustrative example</span>' : ''}
       </div>
       <p class="public-kicker">${c.client}</p>
       <h2>${c.title}</h2>
-      <p class="public-case-label">Challenge</p>
-      <p class="public-case-text">${c.challenge}</p>
-      <p class="public-case-label">Approach</p>
-      <p class="public-case-text">${c.approach}</p>
-      <div class="public-case-results">${c.results.map(r => `<div class="public-case-result"><strong>${r.stat}</strong><span>${r.label}</span></div>`).join('')}</div>
-      ${c.quote ? `<p class="public-case-quote">“${c.quote}”</p>` : ''}
+      <p class="public-case-preview">${c.preview}</p>
+      <button type="button" class="public-case-view" data-case-view="${i}">View case study ${icon('arrow',14)}</button>
     </article>`;
   }).join('');
-  return publicPage('case-studies', `<section class="public-hero public-hero--compact"><p class="public-kicker">Proof, not promises</p><h1 class="smait-text-effect"><span class="smait-text-line">Case studies from</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">real campaigns.</em></h1><p class="public-lead">A look at how each service plays out — filter by the work you're most curious about.</p></section><div class="public-case-filters" role="tablist" aria-label="Filter case studies by service">${filterButtons}</div><section class="public-case-grid" id="public-case-grid">${cards}</section>`);
+  const modal = `<div class="public-case-modal-overlay" id="public-case-modal-overlay">
+    <div class="public-case-modal" role="dialog" aria-modal="true" aria-labelledby="public-case-modal-title">
+      <button type="button" class="public-case-modal-close" id="public-case-modal-close" aria-label="Close case study"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div id="public-case-modal-body"></div>
+    </div>
+  </div>`;
+  return publicPage('case-studies', `<section class="public-hero public-hero--compact"><p class="public-kicker">Selected work</p><h1 class="smait-text-effect"><span class="smait-text-line">Intelligence.</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">In practice.</em></h1><p class="public-lead">Explore how insight shapes the work, from the first idea to everyday conversations and paid campaigns.</p></section><div class="public-case-filters" role="tablist" aria-label="Filter case studies by service">${filterButtons}</div><section class="public-case-grid" id="public-case-grid">${cards}</section>${modal}`);
 }
 function screenPricing(){
   const tiers = [['Starter','For finding your first signal.','3 personas','Reply previews','Approval queue'],['Team','For teams moving every day.','3 personas + custom voice','Shared reply review','Priority support'],['Studio','For brands scaling the conversation.','Custom persona system','Multi-brand workspaces','Managed rollout']];
@@ -1887,9 +1878,52 @@ function bindCaseStudiesFilters(){
   const active = buttons.find((b) => b.classList.contains('is-active'));
   applyFilter(active ? active.dataset.caseFilter : 'all');
 }
+function bindCaseStudyModal(){
+  const overlay = document.getElementById('public-case-modal-overlay');
+  const body = document.getElementById('public-case-modal-body');
+  const closeBtn = document.getElementById('public-case-modal-close');
+  if(!overlay || !body) return;
+  let lastFocused = null;
+  function open(index){
+    const c = CASE_STUDIES[index];
+    if(!c) return;
+    const service = SERVICES.find(s => s.key === c.service);
+    const serviceLabel = service.kicker.replace(/^0\d · /,'');
+    lastFocused = document.activeElement;
+    body.innerHTML = `<div class="public-case-modal-top">
+        <span class="public-case-badge">${icon(service.icon,13)}<span>${serviceLabel} · ${c.industry}</span></span>
+        ${c.illustrative ? '<span class="public-case-illustrative">Illustrative example</span>' : ''}
+      </div>
+      <p class="public-kicker">${c.client}</p>
+      <h2 id="public-case-modal-title">${c.title}</h2>
+      <p class="public-case-label">The challenge</p>
+      <p class="public-case-text">${c.challenge}</p>
+      <p class="public-case-label">Our approach</p>
+      <p class="public-case-text">${c.approach}</p>
+      <p class="public-case-label">The outcome</p>
+      <p class="public-case-text">${c.outcome}</p>`;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeydown);
+    setTimeout(() => closeBtn.focus(), 60);
+  }
+  function close(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKeydown);
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+  function onKeydown(e){ if(e.key === 'Escape') close(); }
+  document.querySelectorAll('[data-case-view]').forEach((btn) => {
+    btn.addEventListener('click', () => open(Number(btn.dataset.caseView)));
+  });
+  if(closeBtn) closeBtn.addEventListener('click', close);
+  overlay.addEventListener('mousedown', (e) => { if(e.target === overlay) close(); });
+}
 function bindCaseStudiesPage(){
   bindPublicPage();
   bindCaseStudiesFilters();
+  bindCaseStudyModal();
 }
 function bindPublicPage(){
   // Multiple bind*Page() functions call this per render (e.g. a page's own

@@ -180,6 +180,118 @@ const VOICE_ITEMS = [
 const TH_GRAIN_SVG = `<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>`;
 const TH_GRAIN_URI = 'data:image/svg+xml,' + encodeURIComponent(TH_GRAIN_SVG);
 
+// ---------- services ----------
+const SERVICES = [
+  {
+    key: 'advertising', icon: 'sparkles', kicker: '01 · Proactive Advertising',
+    title: 'Advertising that starts the conversation.',
+    summary: 'Most ad campaigns start with a brief. Ours start with a persona already watching your market. SMAIT personas track trends, competitor moves and audience sentiment every day, then turn what they see into ready-to-approve ad concepts and copy — so your brand is advertising the moment, not reacting to it a week later.',
+    bullets: [
+      'Always-on persona monitoring of trends, seasons and conversation triggers in your industry',
+      'Daily proactive ad concepts, hooks and captions written in your brand voice',
+      'A human approval queue before anything goes live — you stay the final word',
+      'A creative cycle measured in hours, not the usual weeks',
+    ],
+    cta: 'See proactive advertising in action',
+  },
+  {
+    key: 'management', icon: 'users', kicker: '02 · Social Media Management',
+    title: 'Your day-to-day, handled.',
+    summary: 'Scheduling, publishing, replies and reporting across every channel — run by personas trained on your brand voice, with a human checkpoint wherever it matters. Your feed stays active and on-brand without eating your team’s week.',
+    bullets: [
+      'A content calendar planned and scheduled around your goals',
+      'On-brand persona replies to comments and DMs, reviewed before they post',
+      'Consistent posting cadence across every platform you run',
+      'A monthly report that shows what worked and what’s next',
+    ],
+    cta: 'See social media management in action',
+  },
+  {
+    key: 'ads', icon: 'trendUp', kicker: '03 · Social Media Ads',
+    title: 'Paid campaigns that convert, not just impress.',
+    summary: 'Strategy, creative, targeting and optimisation across Meta, TikTok and beyond — built around a clear objective (replies, clicks or authority) and refined continuously against real performance data, not guesswork.',
+    bullets: [
+      'Campaign strategy and audience targeting tied to a single clear objective',
+      'Persona-crafted ad creative and copy, tested in variants',
+      'Ongoing A/B testing and budget optimisation as data comes in',
+      'Transparent reporting tied back to the goal you set, not vanity metrics',
+    ],
+    cta: 'See social media ads in action',
+  },
+];
+
+// ---------- case studies ----------
+// Illustrative examples showing how each service plays out. Swap in real client
+// names, numbers and quotes before this page goes live.
+const CASE_STUDIES = [
+  {
+    service: 'advertising', client: 'Specialty Coffee Roaster', industry: 'Food & beverage',
+    title: 'A same-day campaign for every seasonal drop',
+    challenge: 'New seasonal blends launched every few weeks, but the team could only brief a new ad campaign roughly once a month — most drops went unadvertised.',
+    approach: 'A SMAIT persona monitored flavour trends and local conversation daily, drafting campaign concepts and captions ahead of each drop for same-day approval and publish.',
+    results: [
+      { stat: '9 days', label: 'faster from launch to first ad' },
+      { stat: '3.1x', label: 'more campaigns shipped per quarter' },
+      { stat: '+41%', label: 'engagement on drop-day posts' },
+    ],
+    quote: 'We used to miss half our own launches. Now the ad is live before the coffee is.',
+  },
+  {
+    service: 'advertising', client: 'Boutique Fitness Studio', industry: 'Health & wellness',
+    title: 'Filling classes before they go on the calendar',
+    challenge: 'New class formats needed promotion, but by the time creative was briefed, the first few sessions had already passed half-empty.',
+    approach: 'Personas drafted promo concepts as soon as a new class was scheduled internally, so ads were ready to run from the class’s very first session.',
+    results: [
+      { stat: '+58%', label: 'first-session attendance' },
+      { stat: '6 hrs', label: 'saved per launch on creative briefing' },
+    ],
+  },
+  {
+    service: 'management', client: 'Regional Restaurant Group', industry: 'Hospitality',
+    title: 'One consistent voice across eight locations',
+    challenge: 'Each location posted inconsistently, with replies handled ad hoc by whoever was free — brand voice varied location to location.',
+    approach: 'SMAIT took over scheduling, publishing and comment/DM replies across all locations, using one persona tuned to the brand with local-menu context per site.',
+    results: [
+      { stat: '7x', label: 'weekly posting consistency across sites' },
+      { stat: '<2 hrs', label: 'average reply time, up from 2 days' },
+      { stat: '+33%', label: 'follower growth in 90 days' },
+    ],
+    quote: 'It finally sounds like one restaurant group instead of eight different people guessing.',
+  },
+  {
+    service: 'management', client: 'D2C Skincare Brand', industry: 'Beauty & personal care',
+    title: 'Community management that scaled with launches',
+    challenge: 'Product launches spiked comment and DM volume far beyond what the founder could personally answer, and replies were slipping for days.',
+    approach: 'A dedicated persona handled first-response replies in the brand’s voice, escalating anything sensitive to the team and reporting weekly themes back.',
+    results: [
+      { stat: '96%', label: 'of comments answered within 4 hours' },
+      { stat: '11 hrs', label: 'saved weekly for the founder' },
+    ],
+  },
+  {
+    service: 'ads', client: 'B2B SaaS Startup', industry: 'Software',
+    title: 'Turning ad spend into qualified demo bookings',
+    challenge: 'Paid social spend was going toward broad awareness campaigns with no clear line back to demo bookings or pipeline.',
+    approach: 'Campaigns were rebuilt around a single objective — demo bookings — with persona-written ad variants tested against a narrower, higher-intent audience.',
+    results: [
+      { stat: '4.2x', label: 'return on ad spend' },
+      { stat: '-37%', label: 'cost per qualified demo booking' },
+      { stat: '2.6x', label: 'more demo bookings, same budget' },
+    ],
+    quote: 'We stopped paying for attention and started paying for pipeline.',
+  },
+  {
+    service: 'ads', client: 'Fashion Retailer', industry: 'Retail & e-commerce',
+    title: 'Always-on ads that flex with inventory',
+    challenge: 'Manual ad creative couldn’t keep pace with weekly drops and sell-through, leaving out-of-stock items running as ads for days.',
+    approach: 'Continuous A/B-tested ad variants were paired with faster creative turnaround, so campaigns could rotate as fast as inventory did.',
+    results: [
+      { stat: '+52%', label: 'revenue from paid social' },
+      { stat: '3 days → 4 hrs', label: 'time to refresh a campaign' },
+    ],
+  },
+];
+
 // mirrors motion-primitives <TextEffect per="char" preset="fade">: each character
 // is its own span, fading + rising in with a small stagger.
 function thPerCharFade(text, opts){
@@ -312,14 +424,25 @@ function thFingerprintIcon(){
   return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/><path d="M5 19.5C7.5 22 10.5 21.5 12 20"/><path d="M4 15.5C2 12 3 8 5 6"/><path d="M8 20C4.5 15 5 8 8 6c3-2 6.5-1 8 1"/><path d="M12 20c-2-3-2.5-6-2.5-8 0-2.5 1.5-4 4-4S17 9.5 17 12"/><path d="M20 14c0 2-1 3.5-2 4.5"/><path d="M17.5 17.5c1.5-1.5 2.5-3.5 2.5-6a8 8 0 0 0-1-4"/></svg>`;
 }
 
+function publicServicesMega(active){
+  const items = SERVICES.map(s => `<a href="#/services#service-${s.key}" class="public-nav-mega-item"><span class="public-nav-mega-icon">${icon(s.icon,16)}</span><span><strong>${s.kicker.replace(/^0\d · /,'')}</strong><small>${s.title}</small></span></a>`).join('');
+  return `<div class="public-nav-mega" data-nav-mega>
+    <a href="#/services" class="public-nav-mega-trigger${active==='services'?' active':''}">Services${icon('chevron',13)}</a>
+    <div class="public-nav-mega-panel">
+      ${items}
+      <a href="#/services" class="public-nav-mega-item public-nav-mega-item--wide"><span class="public-nav-mega-icon">${icon('sparkles',16)}</span><span><strong>All services</strong><small>Compare what each one covers</small></span></a>
+      <a href="#/case-studies" class="public-nav-mega-item public-nav-mega-item--wide public-nav-mega-item--cta"><span class="public-nav-mega-icon">${icon('trend',16)}</span><span><strong>Case studies</strong><small>Real results from every service</small></span></a>
+    </div>
+  </div>`;
+}
 function publicNav(active){
   const links = [
-    ['features','Features'], ['personas','Personas'], ['contact','Contact'],
+    ['personas','Personas'], ['pricing','Pricing'], ['case-studies','Case Studies'], ['contact','Contact'],
   ];
   const wordmark = active === 'home' ? '' : '<a href="#/" class="public-wordmark">SMAIT<span>.</span></a>';
   return `<header class="public-nav${active==='home'?' public-nav--overlay':''}" data-public-nav="${active==='home'?'landing':'interior'}">
     ${wordmark}
-    <nav data-public-nav-panel aria-label="Primary navigation">${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
+    <nav data-public-nav-panel aria-label="Primary navigation">${publicServicesMega(active)}${links.map(([key,label]) => `<a href="#/${key}" class="${active===key?'active':''}">${label}</a>`).join('')}</nav>
     <button class="public-nav-menu" data-public-nav-toggle type="button" aria-label="Open navigation" aria-expanded="false">${icon('menu',20)}</button>
   </header>`;
 }
@@ -331,28 +454,35 @@ function publicFooter(){
         <p>Personas that reply exactly like you would, at scale.</p>
       </div>
       <div class="smait-footer-col">
+        <h4>Services</h4>
+        <ul>
+          ${SERVICES.map(s => `<li><a href="#/services#service-${s.key}">${s.kicker.replace(/^0\d · /,'')}</a></li>`).join('')}
+          <li><a href="#/case-studies">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="smait-footer-col">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="#/features" data-cursor="Visit">Features</a></li>
-          <li><a href="#/personas" data-cursor="Visit">Personas</a></li>
-          <li><a href="#/" data-cursor="Visit">Testimonials</a></li>
-          <li><a href="#/contact" data-cursor="Visit">Contact</a></li>
+          <li><a href="#/features">Features</a></li>
+          <li><a href="#/personas">Personas</a></li>
+          <li><a href="#/">Testimonials</a></li>
+          <li><a href="#/pricing">Pricing</a></li>
         </ul>
       </div>
       <div class="smait-footer-col">
         <h4>Pages</h4>
         <ul>
-          <li><a href="#/" data-cursor="Visit">Home</a></li>
-          <li><a href="#/contact" data-cursor="Visit">Contact</a></li>
-          <li><a href="#/404" data-cursor="Visit">404</a></li>
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/contact">Contact</a></li>
+          <li><a href="#/404">404</a></li>
         </ul>
       </div>
       <div class="smait-footer-col smait-footer-news">
         <h4>Newsletter</h4>
         <p>Join our newsletter and get notified.</p>
         <form class="smait-footer-form" id="smait-newsletter-form">
-          <input type="email" placeholder="Enter your email..." required data-cursor="Join" />
-          <button type="submit" data-cursor="Join">Subscribe</button>
+          <input type="email" placeholder="Enter your email..." required />
+          <button type="submit">Subscribe</button>
         </form>
       </div>
     </div>
@@ -360,7 +490,7 @@ function publicFooter(){
       <span>All rights reserved. &copy; 2026 SMAIT</span>
       <span class="smait-footer-pink-line">
         Personas, powered by pink.
-        <button type="button" class="th-theme-toggle" id="th-theme-toggle" aria-label="Toggle dark mode" data-cursor="View">
+        <button type="button" class="th-theme-toggle" id="th-theme-toggle" aria-label="Toggle dark mode">
           <span class="th-theme-knob">
             <span class="th-theme-icon th-theme-icon-sun">${icon('sun',15)}</span>
             <span class="th-theme-icon th-theme-icon-moon">${icon('moon',15)}</span>
@@ -373,20 +503,20 @@ function publicFooter(){
 function publicMobileShell(active){
   const items = [
     ['home','Home','/','dash'],
-    ['features','Features','/features','sparkles'],
+    ['services','Services','/services','sparkles'],
     ['personas','Personas','/personas','users'],
-    ['contact','Contact','/contact','mail'],
+    ['pricing','Pricing','/pricing','card'],
     ['waitlist','Join','/waitlist','plus'],
   ];
   return `<div class="public-mobile-shell" aria-label="Mobile app navigation">
     <div class="public-mobile-shell-brand"><a href="#/" aria-label="SMAIT home">SMAIT<span>.</span></a><span>Make every reply intentional.</span></div>
     <nav class="public-mobile-dock" aria-label="Mobile primary navigation">
-      ${items.map(([key,label,path,glyph]) => `<a href="#${path}" class="${active===key?'is-active':''}${key==='waitlist'?' public-mobile-dock-join':''}" aria-current="${active===key?'page':'false'}" data-cursor="${label}"><span class="public-mobile-dock-icon">${icon(glyph,18)}</span><span>${label}</span></a>`).join('')}
+      ${items.map(([key,label,path,glyph]) => `<a href="#${path}" class="${active===key?'is-active':''}${key==='waitlist'?' public-mobile-dock-join':''}" aria-current="${active===key?'page':'false'}"><span class="public-mobile-dock-icon">${icon(glyph,18)}</span><span>${label}</span></a>`).join('')}
     </nav>
   </div>`;
 }
 function publicPage(active, content){
-  return `<div class="public-page">${publicNav(active)}${publicMobileShell(active)}<main>${content}</main>${publicFooter()}<div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div></div>`;
+  return `<div class="public-page">${publicNav(active)}${publicMobileShell(active)}<main>${content}</main>${publicFooter()}</div>`;
 }
 function screenFeatures(){
   return publicPage('features', `<section class="public-hero public-hero--split"><div><p class="public-kicker">Built for the reply</p><h1>Make every response feel <em>intentional.</em></h1><p class="public-lead">SMAIT gives your team a set of distinct voices that stay close to your brand, your goals, and the moment.</p><a class="public-button" href="#/waitlist">Meet the system ${icon('arrow',16)}</a></div><div class="public-hero-art public-hero-art--pink"><img src="${IMG.expert}" alt="SMAIT persona" /></div></section><section class="public-section"><div class="public-section-intro"><p class="public-kicker">One clear workflow</p><h2>Less switching. More signal.</h2></div><div class="public-feature-accordion"><article class="public-feature-accordion-item comet-card is-open"><button type="button" aria-expanded="true"><span class="public-feature-accordion-heading"><span class="public-feature-number">01</span><span>Distinct voices</span></span><span class="public-feature-accordion-mark" aria-hidden="true">−</span></button><div class="public-feature-accordion-panel"><p>Switch from thoughtful to bold to energetic without losing the thread of your brand.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">02</span><span>Human direction</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Give every reply a clear objective before a persona turns it into language.</p></div></article><article class="public-feature-accordion-item comet-card"><button type="button" aria-expanded="false"><span class="public-feature-accordion-heading"><span class="public-feature-number">03</span><span>Review before live</span></span><span class="public-feature-accordion-mark" aria-hidden="true">+</span></button><div class="public-feature-accordion-panel"><p>Keep your approval step. SMAIT supports the decision instead of hiding it.</p></div></article></div></section>`);
@@ -396,6 +526,40 @@ function screenPersonas(){
   const voiceBackdrops = VOICE_ITEMS.map((voice, i) => `<div class="public-voice-backdrop${i===0?' is-active':''}" data-voice-backdrop="${i}" style="background-image:url('${voice.image}')" aria-hidden="true"></div>`).join('');
   const voiceAvatars = VOICE_ITEMS.map((voice, i) => `<button type="button" class="public-voice-avatar${i===0?' is-active':''}" data-voice-index="${i}" aria-label="Show ${voice.name}" aria-selected="${i===0?'true':'false'}"><span class="public-voice-dot" aria-hidden="true"></span><span class="public-voice-avatar-image"><img loading="lazy" src="${voice.image}" alt="${voice.name}" /></span></button>`).join('');
   return publicPage('personas', `<section class="public-hero public-hero--compact"><p class="public-kicker">Personas with a point of view</p><h1 class="smait-text-effect"><span class="smait-text-line">Three ways to sound</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">like you.</em></h1><p class="public-lead">A persona represents a demographic group. A voice is the individual character within it.</p></section><section class="public-persona-grid">${personaCards}</section><section class="public-voices-stage" id="public-voices-stage"><div class="public-voices-backdrops">${voiceBackdrops}</div><div class="public-voices-scrim" aria-hidden="true"></div><div class="public-voices-stage-content"><div class="public-voices-stage-top"><div><p class="public-voices-eyebrow">Different voices</p><h2 class="smait-text-effect">voices behind<br class="smait-heading-break" /><span class="smait-text-line smait-text-line--nowrap">every <span class="public-voice-highlight">conversation</span>.</span></h2></div><p class="public-voice-description" id="public-voice-description">${VOICE_ITEMS[0].description}</p></div><div class="public-voices-stage-bottom"><div class="public-voice-picker" role="tablist" aria-label="Choose a voice">${voiceAvatars}</div><div class="public-voice-meta-rail"><span class="public-voice-name" id="public-voice-name">${VOICE_ITEMS[0].name}</span><span class="public-voice-role" id="public-voice-role">${VOICE_ITEMS[0].role}</span><span class="public-voice-tenure">${VOICE_ITEMS[0].tenure}</span><a class="public-voice-whatsapp" href="#/contact">WhatsApp</a></div></div></div></section>`);
+}
+function screenServices(){
+  const cards = SERVICES.map((s) => `<article class="public-service-card comet-card" id="service-${s.key}">
+    <span class="public-service-icon">${icon(s.icon,22)}</span>
+    <p class="public-kicker">${s.kicker}</p>
+    <h2>${s.title}</h2>
+    <p class="public-service-summary">${s.summary}</p>
+    <ul class="public-service-list">${s.bullets.map(b => `<li>${icon('check',14)}<span>${b}</span></li>`).join('')}</ul>
+    <a class="public-button" href="#/case-studies/${s.key}">${s.cta} ${icon('arrow',15)}</a>
+  </article>`).join('');
+  return publicPage('services', `<section class="public-hero public-hero--compact"><p class="public-kicker">What we do</p><h1 class="smait-text-effect"><span class="smait-text-line">Three ways we grow</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">your brand.</em></h1><p class="public-lead">Persona-driven services that cover the whole loop — from the ad nobody briefed to the reply nobody had time for.</p></section><section class="public-service-grid">${cards}</section><section class="public-cta-strip comet-card"><div><p class="public-kicker">Not sure where to start?</p><h2>Tell us what's slow, we'll tell you which service fixes it.</h2></div><a class="public-button public-button--dark" href="#/contact">Talk to us ${icon('arrow',15)}</a></section>`);
+}
+function screenCaseStudies(){
+  const initial = (route.split('/')[2] || 'all');
+  const filters = [['all','All work'], ...SERVICES.map(s => [s.key, s.kicker.replace(/^0\d · /,'')])];
+  const filterButtons = filters.map(([key,label]) => `<button type="button" class="public-case-filter${key===initial?' is-active':''}" data-case-filter="${key}">${label}</button>`).join('');
+  const cards = CASE_STUDIES.map((c) => {
+    const service = SERVICES.find(s => s.key === c.service);
+    return `<article class="public-case-card comet-card" data-case-service="${c.service}">
+      <div class="public-case-card-top">
+        <span class="public-case-badge">${icon(service.icon,13)}<span>${service.kicker.replace(/^0\d · /,'')}</span></span>
+        <span class="public-case-industry">${c.industry}</span>
+      </div>
+      <p class="public-kicker">${c.client}</p>
+      <h2>${c.title}</h2>
+      <p class="public-case-label">Challenge</p>
+      <p class="public-case-text">${c.challenge}</p>
+      <p class="public-case-label">Approach</p>
+      <p class="public-case-text">${c.approach}</p>
+      <div class="public-case-results">${c.results.map(r => `<div class="public-case-result"><strong>${r.stat}</strong><span>${r.label}</span></div>`).join('')}</div>
+      ${c.quote ? `<p class="public-case-quote">“${c.quote}”</p>` : ''}
+    </article>`;
+  }).join('');
+  return publicPage('case-studies', `<section class="public-hero public-hero--compact"><p class="public-kicker">Proof, not promises</p><h1 class="smait-text-effect"><span class="smait-text-line">Case studies from</span><br class="smait-heading-break" /><em class="smait-text-line smait-text-line--nowrap">real campaigns.</em></h1><p class="public-lead">A look at how each service plays out — filter by the work you're most curious about.</p></section><div class="public-case-filters" role="tablist" aria-label="Filter case studies by service">${filterButtons}</div><section class="public-case-grid" id="public-case-grid">${cards}</section>`);
 }
 function screenPricing(){
   const tiers = [['Starter','For finding your first signal.','3 personas','Reply previews','Approval queue'],['Team','For teams moving every day.','3 personas + custom voice','Shared reply review','Priority support'],['Studio','For brands scaling the conversation.','Custom persona system','Multi-brand workspaces','Managed rollout']];
@@ -428,7 +592,7 @@ function screenLanding(){
 
     <div class="th-carousel" id="th-carousel">
       ${TH_ITEMS.map((it,i) => `
-        <div class="th-item" data-idx="${i}" data-cursor="Reply">
+        <div class="th-item" data-idx="${i}">
           <img class="th-item-base" src="${it.image}" alt="${it.name}" draggable="false" />
           <img class="th-item-reveal" src="${it.image}" alt="${it.name} persona preview" draggable="false" />
         </div>`).join('')}
@@ -438,14 +602,12 @@ function screenLanding(){
       <div class="th-bottom-left">
         <p>Meet personas</p>
         <div class="th-arrows">
-          <button id="th-prev" aria-label="Previous persona" data-cursor="Back">${icon('back',24)}</button>
-          <button id="th-next" aria-label="Next persona" data-cursor="Next">${icon('arrow',24)}</button>
+          <button id="th-prev" aria-label="Previous persona">${icon('back',24)}</button>
+          <button id="th-next" aria-label="Next persona">${icon('arrow',24)}</button>
         </div>
       </div>
 
     </div>
-
-    <div class="th-cursor" id="th-cursor"><span class="th-cursor-label" id="th-cursor-label"></span></div>
 
     <div class="th-dialog-overlay" id="th-dialog-overlay">
       <div class="th-dialog th-dialog--wide" role="dialog" aria-modal="true" aria-labelledby="th-dialog-title">
@@ -675,7 +837,7 @@ function smaitCtaFaqFooter(){
           <img class="smait-cta-persona" src="${IMG.hype}" alt="Hype Person persona illustration" />
           <h2>Ready to Meet<br>Your Personas?</h2>
           <p>Let three distinct voices handle replies at scale</p>
-          <button type="button" class="smait-cta-btn" id="smait-cta-btn" data-cursor="Waitlist">Join Waitlist</button>
+          <button type="button" class="smait-cta-btn" id="smait-cta-btn">Join Waitlist</button>
         </div>
 
         <div class="smait-faq comet-card" id="smait-faq">
@@ -683,8 +845,8 @@ function smaitCtaFaqFooter(){
             <div class="smait-faq-slide" id="smait-faq-slide"></div>
           </div>
           <div class="smait-faq-nav">
-            <button type="button" class="smait-faq-btn" id="smait-faq-prev" data-cursor="View">Previous</button>
-            <button type="button" class="smait-faq-btn" id="smait-faq-next" data-cursor="View">Next</button>
+            <button type="button" class="smait-faq-btn" id="smait-faq-prev">Previous</button>
+            <button type="button" class="smait-faq-btn" id="smait-faq-next">Next</button>
           </div>
         </div>
       </main>
@@ -701,26 +863,26 @@ function smaitCtaFaqFooter(){
           <div class="smait-footer-col">
             <h4>Navigation</h4>
             <ul>
-              <li><a href="#/" data-cursor="Visit">Features</a></li>
-              <li><a href="#/" data-cursor="Visit">Personas</a></li>
-              <li><a href="#smait-testi" data-cursor="Visit">Testimonials</a></li>
-              <li><a href="#/contact" data-cursor="Visit">Contact</a></li>
+              <li><a href="#/">Features</a></li>
+              <li><a href="#/">Personas</a></li>
+              <li><a href="#smait-testi">Testimonials</a></li>
+              <li><a href="#/pricing">Pricing</a></li>
             </ul>
           </div>
           <div class="smait-footer-col">
             <h4>Pages</h4>
             <ul>
-              <li><a href="#/" data-cursor="Visit">Home</a></li>
-              <li><a href="#/" data-cursor="Visit">Contact</a></li>
-              <li><a href="#/" data-cursor="Visit">404</a></li>
+              <li><a href="#/">Home</a></li>
+              <li><a href="#/">Contact</a></li>
+              <li><a href="#/">404</a></li>
             </ul>
           </div>
           <div class="smait-footer-col smait-footer-news">
             <h4>Newsletter</h4>
             <p>Join our newsletter and get notified.</p>
             <form class="smait-footer-form" id="smait-newsletter-form">
-              <input type="email" placeholder="Enter your email..." required data-cursor="Join" />
-              <button type="submit" data-cursor="Join">Subscribe</button>
+              <input type="email" placeholder="Enter your email..." required />
+              <button type="submit">Subscribe</button>
             </form>
           </div>
         </div>
@@ -728,7 +890,7 @@ function smaitCtaFaqFooter(){
           <span>All rights reserved. &copy; 2026 SMAIT</span>
           <span class="smait-footer-pink-line">
             Personas, powered by pink.
-            <button type="button" class="th-theme-toggle" id="th-theme-toggle" aria-label="Toggle dark mode" data-cursor="View">
+            <button type="button" class="th-theme-toggle" id="th-theme-toggle" aria-label="Toggle dark mode">
               <span class="th-theme-knob">
                 <span class="th-theme-icon th-theme-icon-sun">${icon('sun',15)}</span>
                 <span class="th-theme-icon th-theme-icon-moon">${icon('moon',15)}</span>
@@ -776,7 +938,7 @@ function smaitFalconSection(){
             <div class="assistant-head"><span class="badge"><i class="spark"></i></span><span>SMAIT</span></div>
             <p class="question">What are people saying about our coffee?</p>
             <div class="prompt">Positive mentions are rising during morning hours,<br>with taste leading the conversation and service<br>driving most negative replies.</div>
-            <div class="automate" data-cursor="Analyse">
+            <div class="automate">
               <span class="automate-label">Analyse campaign</span>
               <canvas class="magic" data-sparkle-icon aria-hidden="true"></canvas>
             </div>
@@ -826,7 +988,7 @@ const SMAIT_TESTIMONIALS = [
 function smaitTestimonials(){
   const initials = (name) => name.split(' ').map(n => n[0]).join('');
   const card = (t) => `
-    <div class="smait-testi-card" data-cursor="Read">
+    <div class="smait-testi-card">
       <div class="smait-testi-card-top">
         <div class="smait-testi-avatar">${initials(t.name)}</div>
         <div class="smait-testi-who">
@@ -1000,7 +1162,6 @@ function bindLanding(){
   startAutoplay();
 
   applyRoles();
-  initTHCursor(hero);
   initTHDialog(hero);
   initTHTheme();
   initTHSpotlight(items);
@@ -1456,7 +1617,6 @@ function initTHDialog(hero){
   const avatarImg = document.getElementById('th-dialog-avatar');
   const avatarName = document.getElementById('th-dialog-avatar-name');
   const avatarTagline = document.getElementById('th-dialog-avatar-tagline');
-  const cursor = document.getElementById('th-cursor');
   let lastFocused = null;
 
   function applyPersona(key){
@@ -1589,19 +1749,12 @@ function initTHDialog(hero){
     closeSchedule();
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    // hand the pointer back to the OS while the dialog is up - the liquid-glass
-    // cursor covers the whole landing page but shouldn't fight normal clicking in a modal.
-    document.body.classList.remove('smait-custom-cursor');
-    if(cursor){ cursor.classList.remove('visible','expanded'); }
     setTimeout(() => nameInput.focus(), 60);
     document.addEventListener('keydown', onKeydown);
   }
   function close(){
     overlay.classList.remove('open');
     document.body.style.overflow = '';
-    if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){
-      document.body.classList.add('smait-custom-cursor');
-    }
     document.removeEventListener('keydown', onKeydown);
     if(lastFocused && lastFocused.focus) lastFocused.focus();
     closeSchedule();
@@ -1630,79 +1783,6 @@ function initTHDialog(hero){
     close();
     nav('/waitlist');
   });
-}
-
-// liquid-glass custom cursor: a small glass dot that follows the pointer with a
-// spring-like lag, and blooms into a pill carrying a social-media-flavored word
-// whenever it passes over an interactive element (data-cursor="...").
-const TH_CURSOR_ICONS = {
-  Reply: 'msg', Back: 'back', Next: 'arrow', Demo: 'send', Start: 'send', Waitlist: 'send',
-  View: 'chevron', Read: 'msg', Visit: 'ext', Join: 'mail', Analyse: 'sparkles',
-};
-function initTHCursor(hero){
-  const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!supportsHover || reduceMotion) return;
-
-  const cursor = document.getElementById('th-cursor');
-  const label = document.getElementById('th-cursor-label');
-  const page = document.getElementById('smait-landing-page') || hero || document.querySelector('.public-page');
-  if(!cursor || !label || !page) return;
-  document.body.classList.add('smait-custom-cursor');
-
-  let mouseX = 0, mouseY = 0, curX = 0, curY = 0, vx = 0, vy = 0, raf = null, activeLabel = null;
-  const stiffness = 0.18;
-  const damping = 0.72;
-  function loop(){
-    vx = (vx + (mouseX - curX) * stiffness) * damping;
-    vy = (vy + (mouseY - curY) * stiffness) * damping;
-    curX += vx;
-    curY += vy;
-    cursor.style.transform = `translate(${curX}px, ${curY}px) translate(-50%,-50%)`;
-    raf = requestAnimationFrame(loop);
-  }
-  function onMouseMove(e){
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if(!raf) { curX = mouseX; curY = mouseY; vx = 0; vy = 0; loop(); }
-  }
-  document.addEventListener('mousemove', onMouseMove);
-  function setLabel(text){
-    if(text === activeLabel) return;
-    activeLabel = text;
-    if(text){
-      const iconName = TH_CURSOR_ICONS[text] || 'sparkles';
-      label.innerHTML = `${icon(iconName,13)}<span>${escapeHtml(text)}</span>`;
-      cursor.classList.add('expanded');
-    } else {
-      cursor.classList.remove('expanded');
-      setTimeout(() => { if(!activeLabel) label.innerHTML = ''; }, 150);
-    }
-  }
-  function onPageEnter(){ cursor.classList.add('visible'); }
-  function onPageLeave(){ cursor.classList.remove('visible'); setLabel(null); }
-  page.addEventListener('mouseenter', onPageEnter);
-  page.addEventListener('mouseleave', onPageLeave);
-  const targets = page.querySelectorAll('[data-cursor], a, button, input, textarea, select');
-  const targetBindings = [];
-  targets.forEach((el) => {
-    const text = el.dataset.cursor || (el.tagName === 'BUTTON' ? 'View' : el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' ? 'Join' : 'Visit');
-    const enter = () => setLabel(text);
-    const leave = () => setLabel(null);
-    el.addEventListener('mouseenter', enter);
-    el.addEventListener('mouseleave', leave);
-    targetBindings.push([el, enter, leave]);
-  });
-  window.__smaitCursorCleanup = () => {
-    document.removeEventListener('mousemove', onMouseMove);
-    page.removeEventListener('mouseenter', onPageEnter);
-    page.removeEventListener('mouseleave', onPageLeave);
-    targetBindings.forEach(([el, enter, leave]) => { el.removeEventListener('mouseenter', enter); el.removeEventListener('mouseleave', leave); });
-    if(raf) cancelAnimationFrame(raf);
-    cursor.classList.remove('visible','expanded');
-    document.body.classList.remove('smait-custom-cursor');
-    window.__smaitCursorCleanup = null;
-  };
 }
 
 function screenNotFound(){
@@ -1788,11 +1868,38 @@ function bindFeaturesPage(){
   bindPublicPage();
   bindFeatureAccordion();
 }
+function bindCaseStudiesFilters(){
+  const grid = document.getElementById('public-case-grid');
+  if(!grid) return;
+  const buttons = Array.from(document.querySelectorAll('[data-case-filter]'));
+  const cards = Array.from(grid.querySelectorAll('[data-case-service]'));
+  const applyFilter = (key) => {
+    cards.forEach((card) => {
+      card.hidden = !(key === 'all' || card.dataset.caseService === key);
+    });
+  };
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+      applyFilter(btn.dataset.caseFilter);
+    });
+  });
+  const active = buttons.find((b) => b.classList.contains('is-active'));
+  applyFilter(active ? active.dataset.caseFilter : 'all');
+}
+function bindCaseStudiesPage(){
+  bindPublicPage();
+  bindCaseStudiesFilters();
+}
 function bindPublicPage(){
+  // Multiple bind*Page() functions call this per render (e.g. a page's own
+  // bind + the generic call in render()); guard each element with a
+  // data-bound flag so listeners are never attached twice to the same node.
   const navRoot = document.querySelector('[data-public-nav]');
   const menu = navRoot?.querySelector('[data-public-nav-toggle]');
   const navEl = navRoot?.querySelector('[data-public-nav-panel]');
-  if(menu && navEl){
+  if(menu && navEl && !menu.dataset.bound){
+    menu.dataset.bound = 'true';
     menu.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -1814,25 +1921,34 @@ function bindPublicPage(){
     });
   }
   const waitlist = document.getElementById('public-waitlist-form');
-  if(waitlist) waitlist.addEventListener('submit', (event) => {
-    event.preventDefault();
-    document.getElementById('public-waitlist-success').hidden = false;
-    waitlist.reset();
-  });
+  if(waitlist && !waitlist.dataset.bound){
+    waitlist.dataset.bound = 'true';
+    waitlist.addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.getElementById('public-waitlist-success').hidden = false;
+      waitlist.reset();
+    });
+  }
   const contact = document.getElementById('public-contact-form');
-  if(contact) contact.addEventListener('submit', (event) => {
-    event.preventDefault();
-    document.getElementById('public-contact-success').hidden = false;
-    contact.reset();
-  });
+  if(contact && !contact.dataset.bound){
+    contact.dataset.bound = 'true';
+    contact.addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.getElementById('public-contact-success').hidden = false;
+      contact.reset();
+    });
+  }
   const newsletterForm = document.getElementById('smait-newsletter-form');
-  if(newsletterForm) newsletterForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const input = newsletterForm.querySelector('input');
-    const button = newsletterForm.querySelector('button');
-    if(button) button.textContent = 'Subscribed';
-    if(input) input.disabled = true;
-  });
+  if(newsletterForm && !newsletterForm.dataset.bound){
+    newsletterForm.dataset.bound = 'true';
+    newsletterForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = newsletterForm.querySelector('input');
+      const button = newsletterForm.querySelector('button');
+      if(button) button.textContent = 'Subscribed';
+      if(input) input.disabled = true;
+    });
+  }
 }
 
 // ---------- helpers ----------
@@ -1878,6 +1994,9 @@ const ROUTES = {
   '/': { render: screenLanding, bind: bindLanding },
   '/features': { render: screenFeatures, bind: bindFeaturesPage },
   '/personas': { render: screenPersonas, bind: bindPersonasPage },
+  '/services': { render: screenServices, bind: bindPublicPage },
+  '/case-studies': { render: screenCaseStudies, bind: bindCaseStudiesPage },
+  '/pricing': { render: screenPricing, bind: bindPublicPage },
   '/contact': { render: screenContact, bind: bindPublicPage },
   '/waitlist': { render: screenWaitlist, bind: bindPublicPage },
   '/404': { render: screenNotFound, bind: bindPublicPage },
@@ -1885,11 +2004,9 @@ const ROUTES = {
 
 const root = document.getElementById('root');
 function render(){
-  const entry = ROUTES[route] || ROUTES['/404'];
+  const entry = ROUTES[route] || (route.indexOf('/case-studies/') === 0 ? ROUTES['/case-studies'] : null) || ROUTES['/404'];
   document.title = route === '/' ? 'SMAIT | AI Personas for Social Replies' : document.title;
   if(window.__smaitVoiceCleanup) window.__smaitVoiceCleanup();
-  if(window.__smaitCursorCleanup) window.__smaitCursorCleanup();
-  document.body.classList.remove('smait-custom-cursor');
   root.innerHTML = entry.render();
   window.scrollTo(0,0);
   if(entry.bind) entry.bind();
@@ -1900,7 +2017,6 @@ function render(){
   if(document.querySelector('.public-nav')) bindPublicPage();
   if(document.querySelector('.public-page')) {
     initCometCards();
-    initTHCursor(document.querySelector('.public-page'));
     initTHTheme();
   }
   initTextEffects(document);

@@ -314,7 +314,7 @@ function thFingerprintIcon(){
 
 function publicNav(active){
   const links = [
-    ['features','Features'], ['personas','Personas'], ['pricing','Pricing'], ['contact','Contact'],
+    ['features','Features'], ['personas','Personas'], ['contact','Contact'],
   ];
   const wordmark = active === 'home' ? '' : '<a href="#/" class="public-wordmark">SMAIT<span>.</span></a>';
   return `<header class="public-nav${active==='home'?' public-nav--overlay':''}" data-public-nav="${active==='home'?'landing':'interior'}">
@@ -336,7 +336,7 @@ function publicFooter(){
           <li><a href="#/features" data-cursor="Visit">Features</a></li>
           <li><a href="#/personas" data-cursor="Visit">Personas</a></li>
           <li><a href="#/" data-cursor="Visit">Testimonials</a></li>
-          <li><a href="#/pricing" data-cursor="Visit">Pricing</a></li>
+          <li><a href="#/contact" data-cursor="Visit">Contact</a></li>
         </ul>
       </div>
       <div class="smait-footer-col">
@@ -375,7 +375,7 @@ function publicMobileShell(active){
     ['home','Home','/','dash'],
     ['features','Features','/features','sparkles'],
     ['personas','Personas','/personas','users'],
-    ['pricing','Pricing','/pricing','card'],
+    ['contact','Contact','/contact','mail'],
     ['waitlist','Join','/waitlist','plus'],
   ];
   return `<div class="public-mobile-shell" aria-label="Mobile app navigation">
@@ -704,7 +704,7 @@ function smaitCtaFaqFooter(){
               <li><a href="#/" data-cursor="Visit">Features</a></li>
               <li><a href="#/" data-cursor="Visit">Personas</a></li>
               <li><a href="#smait-testi" data-cursor="Visit">Testimonials</a></li>
-              <li><a href="#/pricing" data-cursor="Visit">Pricing</a></li>
+              <li><a href="#/contact" data-cursor="Visit">Contact</a></li>
             </ul>
           </div>
           <div class="smait-footer-col">
@@ -1878,7 +1878,6 @@ const ROUTES = {
   '/': { render: screenLanding, bind: bindLanding },
   '/features': { render: screenFeatures, bind: bindFeaturesPage },
   '/personas': { render: screenPersonas, bind: bindPersonasPage },
-  '/pricing': { render: screenPricing, bind: bindPublicPage },
   '/contact': { render: screenContact, bind: bindPublicPage },
   '/waitlist': { render: screenWaitlist, bind: bindPublicPage },
   '/404': { render: screenNotFound, bind: bindPublicPage },

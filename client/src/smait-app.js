@@ -295,45 +295,6 @@ const CASE_STUDIES = [
   },
 ];
 
-// mirrors motion-primitives <TextEffect per="char" preset="fade">: each character
-// is its own span, fading + rising in with a small stagger.
-function thPerCharFade(text, opts){
-  opts = opts || {};
-  const stagger = opts.stagger != null ? opts.stagger : 0.035;
-  const baseDelay = opts.baseDelay != null ? opts.baseDelay : 0.1;
-  return text.split('').map((ch, i) => {
-    const delay = (baseDelay + i * stagger).toFixed(3);
-    const display = ch === ' ' ? '&nbsp;' : escapeHtml(ch);
-    return `<span class="th-char" style="animation-delay:${delay}s">${display}</span>`;
-  }).join('');
-}
-
-// mirrors motion-primitives <TextEffect per="word" preset="blur">: each word
-// fades in from a blurred, slightly-raised state, one after another.
-function thPerWordBlur(words, opts){
-  opts = opts || {};
-  const stagger = opts.stagger != null ? opts.stagger : 0.09;
-  const baseDelay = opts.baseDelay != null ? opts.baseDelay : 0.15;
-  return words.map((w, i) => {
-    const delay = (baseDelay + i * stagger).toFixed(3);
-    const cls = 'th-word' + (w.em ? ' th-word-em' : '');
-    return `<span class="${cls}" style="animation-delay:${delay}s">${escapeHtml(w.text)}</span>`;
-  }).join(' ');
-}
-
-// mirrors motion-primitives <TextShimmerWave>: a band of brightness sweeps
-// left-to-right through the text, looping, via per-char staggered animation.
-function thShimmerWave(text, opts){
-  opts = opts || {};
-  const duration = opts.duration != null ? opts.duration : 1.6;
-  const stagger = opts.stagger != null ? opts.stagger : 0.045;
-  return text.split('').map((ch, i) => {
-    const delay = (i * stagger).toFixed(3);
-    const display = ch === ' ' ? '&nbsp;' : escapeHtml(ch);
-    return `<span class="th-shimmer-char" style="animation-delay:${delay}s;animation-duration:${duration}s">${display}</span>`;
-  }).join('');
-}
-
 /* ---------- magicui <DiaTextReveal> - per-word masked reveal with blur ---------- */
 // Splits a heading into word-units (text words + any existing accent spans),
 // wraps each in an overflow-hidden mask with an inner span that slides up +
@@ -577,39 +538,34 @@ function screenWaitlist(){
 function screenLanding(){
   return `
   <div id="smait-landing-page">
-  <div class="th-hero" id="th-hero" style="background-color:${TH_ITEMS[0].bg}">
+  <div class="th-hero tesla-hero" id="th-hero" style="background-color:${TH_ITEMS[0].bg}">
     ${publicNav('home')}
     ${publicMobileShell('home')}
     <div class="th-grain" style="background-image:url('${TH_GRAIN_URI}')" aria-hidden="true"></div>
-    <div class="th-hero-veil" aria-hidden="true"></div>
 
-    <div class="th-ghost-group">
-      <p id="th-persona-desc">${thShimmerWave(TH_ITEMS[0].tagline)}</p>
-      <div class="th-ghost" aria-hidden="true"><span id="th-ghost-text">${thPerCharFade(TH_ITEMS[0].name.toUpperCase())}</span></div>
+    <div class="tesla-hero-track" id="tesla-hero-track">
+      ${SERVICES.map((s,i) => {
+        const persona = TH_ITEMS[i % TH_ITEMS.length];
+        const label = s.kicker.replace(/^0\d · /,'');
+        const firstSentence = (s.summary.match(/^[^.]*\./) || [s.summary])[0];
+        return `<div class="tesla-hero-slide${i===0?' is-active':''}" data-slide="${i}" aria-hidden="${i===0?'false':'true'}">
+          <img class="tesla-hero-art" src="${persona.image}" alt="" aria-hidden="true" loading="${i===0?'eager':'lazy'}" decoding="async" draggable="false" />
+          <div class="tesla-hero-copy">
+            <p class="tesla-hero-kicker">${label}</p>
+            <h1 class="smait-text-effect">${s.title.replace(/\.$/,'')}</h1>
+            <p class="tesla-hero-lead">${firstSentence}</p>
+            <div class="tesla-hero-ctas">
+              <a class="public-button" href="#/services#service-${s.key}">Explore ${label} ${icon('arrow',15)}</a>
+              <button type="button" class="tesla-hero-btn-outline" data-hero-waitlist>Join Waitlist</button>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
     </div>
-
-    <div class="th-headline">
-      <h1>${thPerWordBlur([{text:'every'},{text:'persona'}])}<br>${thPerWordBlur([{text:'is'},{text:'unique',em:true}], {baseDelay:0.33})}</h1>
-      <p>Different voices.<br><strong>One purpose.</strong></p>
-    </div>
-
-    <div class="th-carousel" id="th-carousel">
-      ${TH_ITEMS.map((it,i) => `
-        <div class="th-item" data-idx="${i}">
-          <img class="th-item-base" src="${it.image}" alt="${it.name}" draggable="false" />
-          <img class="th-item-reveal" src="${it.image}" alt="${it.name} persona preview" draggable="false" />
-        </div>`).join('')}
-    </div>
-
-    <div class="th-action-bar">
-      <div class="th-bottom-left">
-        <p>Meet personas</p>
-        <div class="th-arrows">
-          <button id="th-prev" aria-label="Previous persona">${icon('back',24)}</button>
-          <button id="th-next" aria-label="Next persona">${icon('arrow',24)}</button>
-        </div>
-      </div>
-
+    <button type="button" class="tesla-hero-arrow tesla-hero-arrow--prev" id="tesla-hero-prev" aria-label="Previous slide">${icon('back',20)}</button>
+    <button type="button" class="tesla-hero-arrow tesla-hero-arrow--next" id="tesla-hero-next" aria-label="Next slide">${icon('arrow',20)}</button>
+    <div class="tesla-hero-dots" role="tablist" aria-label="Choose a service">
+      ${SERVICES.map((s,i) => `<button type="button" class="tesla-hero-dot${i===0?' is-active':''}" data-dot="${i}" role="tab" aria-selected="${i===0}" aria-label="${s.kicker.replace(/^0\d · /,'')}"></button>`).join('')}
     </div>
 
     <div class="th-dialog-overlay" id="th-dialog-overlay">
@@ -1060,96 +1016,39 @@ function scrambleText(el, newText, opts){
 
 function bindLanding(){
   const hero = document.getElementById('th-hero');
-  const carousel = document.getElementById('th-carousel');
-  const items = Array.from(carousel.querySelectorAll('.th-item'));
-  const ghostTextEl = document.getElementById('th-ghost-text');
-  const personaDescEl = document.getElementById('th-persona-desc');
-  const isMobile = () => window.innerWidth < 640;
+  const track = document.getElementById('tesla-hero-track');
+  const slides = Array.from(track.querySelectorAll('.tesla-hero-slide'));
+  const dots = Array.from(hero.querySelectorAll('[data-dot]'));
   let activeIndex = 0;
-  let isAnimating = false;
 
-  function applyRoles(){
-    const mobile = isMobile();
-    const n = TH_ITEMS.length;
-    items.forEach((el, i) => {
-      let role;
-      if(i === activeIndex) role = 'center';
-      else if(i === (activeIndex + 1) % n) role = 'right';
-      else role = 'left';
-      el.dataset.role = role;
-      if(role === 'center'){
-        el.style.left = '50%';
-        el.style.height = mobile ? '58%' : '88%';
-        el.style.bottom = mobile ? '20%' : '0%';
-        el.style.transform = `translateX(-50%) scale(${mobile ? 1.2 : 1.55})`;
-        el.style.filter = 'blur(0px)';
-        el.style.opacity = '1';
-        el.style.zIndex = '20';
-      } else if(role === 'left'){
-        el.style.left = mobile ? '14%' : '24%';
-        el.style.height = mobile ? '16%' : '30%';
-        el.style.bottom = mobile ? '28%' : '10%';
-        el.style.transform = 'translateX(-50%) scale(1)';
-        el.style.filter = 'blur(2px)';
-        el.style.opacity = '0.82';
-        el.style.zIndex = '10';
-      } else {
-        el.style.left = mobile ? '86%' : '76%';
-        el.style.height = mobile ? '16%' : '30%';
-        el.style.bottom = mobile ? '28%' : '10%';
-        el.style.transform = 'translateX(-50%) scale(1)';
-        el.style.filter = 'blur(2px)';
-        el.style.opacity = '0.82';
-        el.style.zIndex = '10';
-      }
+  function goToSlide(i){
+    activeIndex = (i + slides.length) % slides.length;
+    slides.forEach((el, idx) => {
+      const active = idx === activeIndex;
+      el.classList.toggle('is-active', active);
+      el.setAttribute('aria-hidden', active ? 'false' : 'true');
     });
-    hero.style.backgroundColor = TH_ITEMS[activeIndex].bg;
-
-    // mirror the active persona behind the testimonials heading, blurred under
-    // a soft whitish overlay, so scrolling down keeps their presence in view.
-    // testimonials keep the Thinker persona fixed in the background - it does
-    // not follow the active carousel persona.
-    // Personas at Work keeps the Witty One in the background regardless of the
-    // active carousel persona - intentionally not synced like the testimonials one.
-
-    // the persona's name takes over the giant ghost text, with its tagline
-    // sitting directly underneath - each swap re-triggers the per-char/
-    // crossfade reveal so it reads as a fresh entrance every time.
-    if(ghostTextEl){
-      ghostTextEl.innerHTML = thPerCharFade(TH_ITEMS[activeIndex].name.toUpperCase(), { stagger: 0.02, baseDelay: 0 });
-    }
-    if(personaDescEl){
-      personaDescEl.classList.add('th-subtext-out');
-      setTimeout(() => {
-        personaDescEl.innerHTML = thShimmerWave(TH_ITEMS[activeIndex].tagline);
-        personaDescEl.classList.remove('th-subtext-out');
-      }, 220);
-    }
+    dots.forEach((el, idx) => {
+      const active = idx === activeIndex;
+      el.classList.toggle('is-active', active);
+      el.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
   }
 
-  function navigate(dir){
-    if(isAnimating) return;
-    isAnimating = true;
-    const n = TH_ITEMS.length;
-    activeIndex = dir === 'next' ? (activeIndex + 1) % n : (activeIndex + n - 1) % n;
-    applyRoles();
-    setTimeout(() => { isAnimating = false; }, 650);
-  }
+  const prevBtn = document.getElementById('tesla-hero-prev');
+  const nextBtn = document.getElementById('tesla-hero-next');
+  if(prevBtn) prevBtn.addEventListener('click', () => { goToSlide(activeIndex - 1); restartAutoplay(); });
+  if(nextBtn) nextBtn.addEventListener('click', () => { goToSlide(activeIndex + 1); restartAutoplay(); });
+  dots.forEach((dot, idx) => dot.addEventListener('click', () => { goToSlide(idx); restartAutoplay(); }));
 
-  const prevBtn = document.getElementById('th-prev');
-  const nextBtn = document.getElementById('th-next');
-  if(prevBtn) prevBtn.addEventListener('click', () => { navigate('prev'); restartAutoplay(); });
-  if(nextBtn) nextBtn.addEventListener('click', () => { navigate('next'); restartAutoplay(); });
-  window.addEventListener('resize', applyRoles);
-
-  // auto-advance through personas every 3s until the user interacts, then
+  // auto-advance through services every 5s until the user interacts, then
   // resume from wherever they left off.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let autoplayTimer = null;
   function startAutoplay(){
     if(reduceMotion) return;
     stopAutoplay();
-    autoplayTimer = setInterval(() => navigate('next'), 3000);
+    autoplayTimer = setInterval(() => goToSlide(activeIndex + 1), 5000);
   }
   function stopAutoplay(){
     if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
@@ -1163,19 +1062,16 @@ function bindLanding(){
   hero.addEventListener('mouseleave', startAutoplay);
   startAutoplay();
   // without this, every visit to the home page left the previous visit's
-  // autoplay interval and window/document listeners running in the
-  // background forever, since a fresh bindLanding() call never stopped them.
+  // autoplay interval and document listener running in the background
+  // forever, since a fresh bindLanding() call never stopped them.
   window.__smaitLandingCleanup = () => {
     stopAutoplay();
-    window.removeEventListener('resize', applyRoles);
     document.removeEventListener('visibilitychange', onVisibilityChange);
     window.__smaitLandingCleanup = null;
   };
 
-  applyRoles();
   initTHDialog(hero);
   initTHTheme();
-  initTHSpotlight(items);
   initFalconSection();
   initDiaReveal();
   bindSmaitCtaFaqFooter();
@@ -1238,7 +1134,7 @@ function bindSmaitCtaFaqFooter(){
     prevBtn.addEventListener('click', () => goTo(activeIndex - 1, -1));
     nextBtn.addEventListener('click', () => {
       if(activeIndex === n - 1){
-        const discoverBtn = document.getElementById('th-discover-btn');
+        const discoverBtn = document.querySelector('[data-hero-waitlist]');
         if(discoverBtn) discoverBtn.click();
         return;
       }
@@ -1254,7 +1150,7 @@ function bindSmaitCtaFaqFooter(){
 
   if(ctaBtn){
     ctaBtn.addEventListener('click', () => {
-      const discoverBtn = document.getElementById('th-discover-btn');
+      const discoverBtn = document.querySelector('[data-hero-waitlist]');
       if(discoverBtn) discoverBtn.click();
     });
   }
@@ -1459,89 +1355,6 @@ function initFalconSection(){
   }
 }
 
-// canvas-driven spotlight reveal: touching/hovering a persona figure unmasks an
-// "energized" duplicate of that same artwork through a soft circular gradient
-// that follows the pointer, smoothed with a small lerp each frame.
-function initTHSpotlight(items){
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  const state = new Map(); // item -> {revealEl, active, curX, curY, tgtX, tgtY, w, h}
-  let raf = null;
-
-  items.forEach((item) => {
-    const revealEl = item.querySelector('.th-item-reveal');
-    if(!revealEl) return;
-    state.set(item, { revealEl, active: false, curX: -999, curY: -999, tgtX: -999, tgtY: -999, w: 0, h: 0 });
-
-    function pointFromEvent(e){
-      const rect = item.getBoundingClientRect();
-      const p = e.touches && e.touches[0] ? e.touches[0] : e;
-      return { x: p.clientX - rect.left, y: p.clientY - rect.top, w: rect.width, h: rect.height };
-    }
-    function activate(e){
-      const s = state.get(item);
-      const pt = pointFromEvent(e);
-      s.active = true; s.w = pt.w; s.h = pt.h;
-      s.curX = s.tgtX = pt.x; s.curY = s.tgtY = pt.y;
-      revealEl.classList.add('active');
-      if(!raf) loop();
-    }
-    function move(e){
-      const s = state.get(item);
-      if(!s.active) return;
-      const pt = pointFromEvent(e);
-      s.tgtX = pt.x; s.tgtY = pt.y; s.w = pt.w; s.h = pt.h;
-    }
-    function deactivate(){
-      const s = state.get(item);
-      s.active = false;
-      revealEl.classList.remove('active');
-    }
-
-    item.addEventListener('mouseenter', activate);
-    item.addEventListener('mousemove', move);
-    item.addEventListener('mouseleave', deactivate);
-    item.addEventListener('touchstart', activate, { passive: true });
-    item.addEventListener('touchmove', move, { passive: true });
-    item.addEventListener('touchend', deactivate);
-    item.addEventListener('touchcancel', deactivate);
-  });
-
-  function drawMask(s){
-    const w = Math.max(1, Math.round(s.w));
-    const h = Math.max(1, Math.round(s.h));
-    if(canvas.width !== w) canvas.width = w;
-    if(canvas.height !== h) canvas.height = h;
-    ctx.clearRect(0, 0, w, h);
-    const radius = Math.max(w, h) * 0.42;
-    const grad = ctx.createRadialGradient(s.curX, s.curY, 0, s.curX, s.curY, radius);
-    grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(0.55, 'rgba(255,255,255,0.85)');
-    grad.addColorStop(0.8, 'rgba(255,255,255,0.35)');
-    grad.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(s.curX, s.curY, radius, 0, Math.PI * 2);
-    ctx.fill();
-    const dataUrl = canvas.toDataURL();
-    s.revealEl.style.maskImage = `url(${dataUrl})`;
-    s.revealEl.style.webkitMaskImage = `url(${dataUrl})`;
-  }
-
-  function loop(){
-    let anyActive = false;
-    state.forEach((s) => {
-      if(!s.active) return;
-      anyActive = true;
-      const lerp = reduceMotion ? 1 : 0.18;
-      s.curX += (s.tgtX - s.curX) * lerp;
-      s.curY += (s.tgtY - s.curY) * lerp;
-      drawMask(s);
-    });
-    raf = anyActive ? requestAnimationFrame(loop) : null;
-  }
-}
 
 function initTHTheme(){
   const btn = document.getElementById('th-theme-toggle');
@@ -1561,7 +1374,7 @@ function initTHDialog(hero){
   const overlay = document.getElementById('th-dialog-overlay');
   if(!overlay) return;
   const dialog = overlay.querySelector('.th-dialog');
-  const openBtn = document.getElementById('th-discover-btn');
+  const openBtns = document.querySelectorAll('[data-hero-waitlist]');
   const closeBtn = document.getElementById('th-dialog-close');
   const form = document.getElementById('th-dialog-form');
   const nameInput = document.getElementById('th-dialog-name');
@@ -1742,7 +1555,7 @@ function initTHDialog(hero){
   }
 
   const cancelBtn = document.getElementById('th-dialog-cancel');
-  if(openBtn) openBtn.addEventListener('click', open);
+  openBtns.forEach((btn) => btn.addEventListener('click', open));
   if(closeBtn) closeBtn.addEventListener('click', close);
   if(cancelBtn) cancelBtn.addEventListener('click', close);
   overlay.addEventListener('mousedown', (e) => { if(e.target === overlay) close(); });

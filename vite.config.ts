@@ -161,6 +161,18 @@ function vitePluginStorageProxy(): Plugin {
           res.end("Missing storage key");
           return;
         }
+        // This proxy presigns whatever path it's given using a server-side
+        // key, with no per-asset authorization from the backend - so without
+        // this check it would happily mint signed URLs for arbitrary paths
+        // (e.g. "../" traversal or someone else's object key) to any caller
+        // who can reach the dev server. Restrict to this project's own known
+        // asset filename shape as defense in depth.
+        const safeKeyPattern = /^[a-zA-Z0-9][a-zA-Z0-9._-]*\.(png|jpe?g|webp|gif|svg|avif)$/;
+        if (!safeKeyPattern.test(decodeURIComponent(key))) {
+          res.writeHead(400, { "Content-Type": "text/plain" });
+          res.end("Invalid storage key");
+          return;
+        }
 
         const forgeBaseUrl = (process.env.BUILT_IN_FORGE_API_URL || "").replace(/\/+$/, "");
         const forgeKey = process.env.BUILT_IN_FORGE_API_KEY;

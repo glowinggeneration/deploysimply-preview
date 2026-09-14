@@ -1,6 +1,3 @@
-import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
@@ -216,22 +213,20 @@ function vitePluginStorageProxy(): Plugin {
 }
 
 export default defineConfig(({ command }) => {
-  // vitePluginManusRuntime, jsxLocPlugin, and the debug collector are Manus's
-  // own sandbox/live-edit tooling (source-location annotations, log capture,
-  // a runtime bridge script). They were previously unconditional, which
-  // injected ~367KB of inline JS into every production page load for real
-  // site visitors. They only need to run during `vite dev` (Manus's own
-  // editing environment); a production `vite build` doesn't need them.
-  const devOnlyPlugins = command === "serve" ? [jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()] : [];
-  const plugins = [react(), tailwindcss(), ...devOnlyPlugins, vitePluginStorageProxy()];
+  // vitePluginManusRuntime and the debug collector are Manus's own
+  // sandbox/live-edit tooling (log capture, a runtime bridge script). They
+  // were previously unconditional, which injected ~367KB of inline JS into
+  // every production page load for real site visitors. They only need to
+  // run during `vite dev` (Manus's own editing environment); a production
+  // `vite build` doesn't need them.
+  const devOnlyPlugins = command === "serve" ? [vitePluginManusRuntime(), vitePluginManusDebugCollector()] : [];
+  const plugins = [...devOnlyPlugins, vitePluginStorageProxy()];
 
   return {
     plugins,
     resolve: {
       alias: {
         "@": path.resolve(import.meta.dirname, "client", "src"),
-        "@shared": path.resolve(import.meta.dirname, "shared"),
-        "@assets": path.resolve(import.meta.dirname, "attached_assets"),
       },
     },
     envDir: path.resolve(import.meta.dirname),

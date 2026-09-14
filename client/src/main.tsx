@@ -4,7 +4,6 @@
  * so the first browser pass can focus on UI/UX review before any redesign work.
  */
 import "./smait.css";
-import "./index.css";
 
 const imageAssets = {
   expert: "/manus-storage/expert_e7109dda.png",
